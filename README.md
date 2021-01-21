@@ -1,9 +1,12 @@
 # extractiontool
-Tool to extract all human knowledge from PDFs to structured DB
+A Tool to extract all human knowledge from PDFs to structured DB
+Django app
 
 [Product backlog](https://github.com/orgs/IELuomus/projects/1)
 
 [Sprintti 1 backlog](https://github.com/orgs/IELuomus/projects/2)
+
+
 
 ### Definition of done
 

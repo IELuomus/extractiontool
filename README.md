@@ -1,6 +1,9 @@
 # extractiontool
 A Tool to extract all human knowledge from PDFs to structured DB
-Django app
+
+Django application 
+
+Ohjelmistotuotantoprojekti
 
 [Product backlog](https://github.com/orgs/IELuomus/projects/1)
 

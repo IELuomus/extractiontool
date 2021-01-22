@@ -22,7 +22,7 @@ def config():
         name = os.path.join(settings.BASE_DIR, 'db.sqlite3')
     
     'OPENSHIFT_POSTGRESQL_DB_URL' in os.environ:
-    url = urlparse.urlparse(os.environ.get('OPENSHIFT_POSTGRESQL_DB_URL'))
+        url = urlparse.urlparse(os.environ.get('OPENSHIFT_POSTGRESQL_DB_URL'))
     return {
         # 'ENGINE': engine,
         # 'NAME': name,

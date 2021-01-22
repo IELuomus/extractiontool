@@ -16,7 +16,7 @@ def config():
     #     engine = engines.get(os.getenv('DATABASE_ENGINE'), engines['postgresql'])
     # else:
     #     engine = engines['postgresql']
-    name = os.getenv('DATABASE_NAME','postgresql')
+    # name = os.getenv('DATABASE_NAME')
     # if not name and engine == engines['sqlite']:
     #     name = os.path.join(settings.BASE_DIR, 'db.sqlite3')
     
@@ -28,7 +28,7 @@ def config():
         # 'HOST': os.getenv('{}_SERVICE_HOST'.format(service_name)),
         # 'PORT': os.getenv('{}_SERVICE_PORT'.format(service_name)),
         'ENGINE' : 'django.db.backends.postgresql_psycopg2',
-        'NAME': name,
+        'NAME': 'default',
         'USER': os.getenv('DATABASE_USER'),
         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
         'HOST': os.getenv('{}_SERVICE_HOST'.format(service_name)),

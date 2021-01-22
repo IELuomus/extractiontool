@@ -21,7 +21,7 @@ def config():
     if not name and engine == engines['sqlite']:
         name = os.path.join(settings.BASE_DIR, 'db.sqlite3')
     
-    'OPENSHIFT_POSTGRESQL_DB_URL' in os.environ:
+    if 'OPENSHIFT_POSTGRESQL_DB_URL' in os.environ:
         url = urlparse.urlparse(os.environ.get('OPENSHIFT_POSTGRESQL_DB_URL'))
     return {
         # 'ENGINE': engine,

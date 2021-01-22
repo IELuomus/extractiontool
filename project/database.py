@@ -1,5 +1,4 @@
 import os
-from urllib.parse import urlparse
 
 from django.conf import settings
 
@@ -21,8 +20,6 @@ def config():
     if not name and engine == engines['sqlite']:
         name = os.path.join(settings.BASE_DIR, 'db.sqlite3')
     
-    if 'OPENSHIFT_POSTGRESQL_DB_URL' in os.environ:
-        url = urlparse.urlparse(os.environ.get('OPENSHIFT_POSTGRESQL_DB_URL'))
     return {
         # 'ENGINE': engine,
         # 'NAME': name,
@@ -31,9 +28,9 @@ def config():
         # 'HOST': os.getenv('{}_SERVICE_HOST'.format(service_name)),
         # 'PORT': os.getenv('{}_SERVICE_PORT'.format(service_name)),
         'ENGINE' : 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['OPENSHIFT_APP_NAME'],
-        'USER': url.username,
-        'PASSWORD': url.password,
-        'HOST': url.hostname,
-        'PORT': url.port,
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('{}_SERVICE_HOST'.format(service_name)),
+        'PORT': os.getenv('{}_SERVICE_PORT'.format(service_name)),
     }

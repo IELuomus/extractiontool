@@ -13,7 +13,7 @@ engines = {
 def config():
     service_name = os.getenv('DATABASE_SERVICE_NAME', '').upper().replace('-', '_')
     if service_name:
-        engine = engines.get(os.getenv('DATABASE_ENGINE'), engines['sqlite'])
+        engine = engines.get(os.getenv('DATABASE_ENGINE'), engines['postgresql'])
     else:
         engine = engines['sqlite']
     name = os.getenv('DATABASE_NAME')

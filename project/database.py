@@ -1,4 +1,5 @@
 import os
+import urlparse
 
 from django.conf import settings
 
@@ -16,15 +17,20 @@ def config():
         engine = engines.get(os.getenv('DATABASE_ENGINE'), engines['postgresql'])
     else:
         engine = engines['postgresql']
-    name = 'POSTGRESQL_DATABASE'
-    #name = os.getenv('DATABASE_NAME')
-    #if not name and engine == engines['sqlite']:
-     #   name = os.path.join(settings.BASE_DIR, 'db.sqlite3')
+    name = os.getenv('DATABASE_NAME')
+    if not name and engine == engines['sqlite']:
+        name = os.path.join(settings.BASE_DIR, 'db.sqlite3')
     return {
-        'ENGINE': engine,
-        'NAME': name,
-        'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-        'HOST': os.getenv('{}_SERVICE_HOST'.format(service_name)),
-        'PORT': os.getenv('{}_SERVICE_PORT'.format(service_name)),
+        # 'ENGINE': engine,
+        # 'NAME': name,
+        # 'USER': os.getenv('DATABASE_USER'),
+        # 'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        # 'HOST': os.getenv('{}_SERVICE_HOST'.format(service_name)),
+        # 'PORT': os.getenv('{}_SERVICE_PORT'.format(service_name)),
+        'ENGINE' : 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ['OPENSHIFT_APP_NAME'],
+        'USER': url.username,
+        'PASSWORD': url.password,
+        'HOST': url.hostname,
+        'PORT': url.port,
     }

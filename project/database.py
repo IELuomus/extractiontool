@@ -16,7 +16,7 @@ def config():
     #     engine = engines.get(os.getenv('DATABASE_ENGINE'), engines['postgresql'])
     # else:
     #     engine = engines['postgresql']
-    name = os.getenv('DATABASE_NAME','default')
+    name = os.getenv('DATABASE_NAME','postgresql')
     # if not name and engine == engines['sqlite']:
     #     name = os.path.join(settings.BASE_DIR, 'db.sqlite3')
     

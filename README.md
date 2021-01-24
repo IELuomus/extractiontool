@@ -22,3 +22,7 @@ Ohjelmistotuotantoprojekti
 - Dokumentoitu
 - Integroitu muuhun ohjelmistoon
 - Viety tuotantoympäristöön
+
+### Deployment
+ - deployment branch is for deployment only. Webhook snatches anything put into it to production.
+ - Only do pullrequests from Main to Deployment when Main is working properply

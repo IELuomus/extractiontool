@@ -1,0 +1,21 @@
+name: Merge main release branch to deployment
+
+# on:
+#   push:
+#     branches:
+#       - main
+#       - 'releases/*'
+
+# jobs:
+#   merge-branch:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@master
+
+#       - name: Merge main -> deployment
+#         uses: devmasx/merge-branch@v1.3.1
+#         with:
+#           type: now
+#           from_branch: main
+#           target_branch: deployment
+#           github_token: ${{ github.token }}

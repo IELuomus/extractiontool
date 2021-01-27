@@ -9,9 +9,9 @@ def info():
     elif 'mysql' in db_settings['ENGINE']:
         engine = 'MySQL'
         url = '{HOST}:{PORT}/{NAME}'.format(**db_settings)
-    elif 'sqlite' in db_settings['ENGINE']:
-        engine = 'SQLite'
-        url = '{NAME}'.format(**db_settings)
+    #elif 'sqlite' in db_settings['ENGINE']:
+    #    engine = 'SQLite'
+    #    url = '{NAME}'.format(**db_settings)
     else:
         engine = 'unknown'
         url = ''

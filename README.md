@@ -8,9 +8,8 @@ Ohjelmistotuotantoprojekti
 [Product backlog](https://github.com/orgs/IELuomus/projects/1)
 
 [Sprintti 1 backlog](https://github.com/orgs/IELuomus/projects/2)
+![Django CI](https://github.com/IELuomus/extractiontool/workflows/Django%20CI/badge.svg)
 
-
-![Github Actions](https://github.com/IELuomus/extractiontool/workflows/Github%20CI%20Actions/badge.svg)
 
 ### Definition of done
 

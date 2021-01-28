@@ -10,6 +10,7 @@ Ohjelmistotuotantoprojekti
 [Sprintti 1 backlog](https://github.com/orgs/IELuomus/projects/2)
 
 
+![Github Actions](https://github.com/IELuomus/extractiontool/workflows/Github%20CI%20Actions/badge.svg)
 
 ### Definition of done
 

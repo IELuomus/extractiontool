@@ -10,6 +10,7 @@ from .views import homePageView, catalogue
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homePageView, name='home'),
+    path('accounts/', include('allauth.urls')),
     path('catalogue/', catalogue, name='catalogue'),
 ]
 

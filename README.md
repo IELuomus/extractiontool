@@ -1,4 +1,4 @@
-# extractiontool
+# Ecological Trait Information Extractor (ETIE)
 A Tool to extract all human knowledge from PDFs to structured DB
 
 Django application 
@@ -25,3 +25,5 @@ Django application
 ### Deployment
  - deployment branch is for deployment only. Webhook snatches anything put into it to production.
  - Only do pullrequests from Main to Deployment when Main is working properply
+
+<!-- ... -->

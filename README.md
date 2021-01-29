@@ -1,4 +1,4 @@
-# extractiontool
+# Ecological Trait Information Extractor (ETIE)
 A Tool to extract all human knowledge from PDFs to structured DB
 
 Django application 

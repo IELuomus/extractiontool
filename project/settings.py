@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.orcid',
-    'project'
+    'project',
+    'behave_django'
 ]
 
 SITE_ID = 1

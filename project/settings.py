@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.orcid',
     'project',
     'behave_django',
-    'behave'
 
 ]
 INSTALLED_APPS += ['behave_django']

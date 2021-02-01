@@ -1,3 +1,5 @@
+import behave_django
+import behave
 from behave import given, when, then
 
 

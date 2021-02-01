@@ -8,7 +8,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  final-test-and-deploy:
 
     runs-on: ubuntu-latest
     strategy:
@@ -17,7 +17,7 @@ jobs:
         python-version: [3.8]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@master
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -29,16 +29,10 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
-        
-  merge-branch:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-
-      - name: Merge main -> deployment
-        uses: devmasx/merge-branch@v1.3.1
-        with:
-          type: now
-          from_branch: main
-          target_branch: deployment
-          github_token: ${{ github.token }}
+    - name: Merge main -> deployment
+      uses: devmasx/merge-branch@v1.3.1
+      with:
+        type: now
+        from_branch: main
+        target_branch: deployment
+        github_token: ${{ github.token }}

@@ -1,3 +1,3 @@
-web: gunicorn extraction_tool.project.wsgi
+web: gunicorn project.wsgi
 
 

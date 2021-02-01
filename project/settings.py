@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'project',
     'behave_django'
 ]
+INSTALLED_APPS += ['behave_django']
 
 SITE_ID = 1
 AUTHENTICATION_BACKENDS = [

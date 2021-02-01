@@ -7,4 +7,4 @@ sqlparse==0.3.1
 whitenoise==5.1.0
 django-allauth==0.44.0
 django-heroku==0.3.0
-behave
+behave_django

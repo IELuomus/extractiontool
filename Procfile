@@ -1,2 +1,3 @@
-web: gunicorn EXTRACTION_TOOL.wsgi:application --log-file -
+web: python manage.py runserver
+
 

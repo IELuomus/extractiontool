@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.orcid',
     'project',
+    'EXTRACTION_TOOL'
     'behave_django',
 ]
 

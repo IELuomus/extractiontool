@@ -5,7 +5,7 @@ on:
   push:
     branches-ignore: [ main, deployment ]
   pull_request:
-    branches: [ main, deployment ]
+    branches-ignore: [ main, deployment ]
 
 jobs:
   development-branches-tests:

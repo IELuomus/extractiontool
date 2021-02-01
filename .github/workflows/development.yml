@@ -1,14 +1,14 @@
-# This workflow runs tests on main and on successful testing deploys the changes to deployment branch
-name: Django CI
+# This workflow runs the tests on all other branches, except main and deployment
+name: Development testing
 
 on:
   push:
-    branches: [ main ]
+    branches-ignore: [ main, deployment ]
   pull_request:
-    branches: [ main ]
+    branches-ignore: [ main, deployment ]
 
 jobs:
-  final-test-and-deploy:
+  development-branches-tests:
 
     runs-on: ubuntu-latest
     strategy:
@@ -29,10 +29,3 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
-    - name: Merge main -> deployment
-      uses: devmasx/merge-branch@v1.3.1
-      with:
-        type: now
-        from_branch: main
-        target_branch: deployment
-        github_token: ${{ github.token }}

@@ -1,1 +1,1 @@
-web: gunicorn EXTRACTION_TOOL.wsgi --log-file -
+web: gunicorn apps.wsgi --log-file -

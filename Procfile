@@ -1,3 +1,3 @@
-web: python manage.py runserver
+web: gunicorn extraction_tool.project.wsgi
 
 

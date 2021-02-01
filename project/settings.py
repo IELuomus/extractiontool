@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres'
     'debug_toolbar',
     'welcome',
     'allauth',
@@ -51,9 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.orcid',
     'project',
     'behave_django',
-
 ]
-INSTALLED_APPS += ['behave_django']
 
 SITE_ID = 1
 AUTHENTICATION_BACKENDS = [

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import url
 from django.contrib import admin
 
-#from welcome.views import index, health
+from welcome.views import health
 
 from django.urls import path, include
 from .views import homePageView, catalogue
@@ -12,6 +12,7 @@ urlpatterns = [
     path('', homePageView, name='home'),
     path('accounts/', include('allauth.urls')),
     path('catalogue/', catalogue, name='catalogue'),
+    url(r'^health$', health)
 ]
 
 

@@ -139,7 +139,14 @@ WSGI_APPLICATION = 'wsgi.application'
 from . import database
 
 DATABASES = {
-    'default': database.config()
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'testidb',
+        'USER': 'django',
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': 'mariadb.ie-luomus.svc',
+        'PORT': '3306',
+    }
 }
 
 

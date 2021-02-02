@@ -17,11 +17,11 @@ class PageViewTest(TestCase):
         resp = self.client.get('/')
         self.assertEqual(resp.status_code, 200)
 
-class DbEngine(TestCase):
-    def setUp(self):
-        os.environ['ENGINE'] = 'SQLite'
-
-    def test_engine_setup(self):
-        settings = info()
-        self.assertEqual(settings['engine'], 'SQLite')
-        self.assertEqual(settings['is_sqlite'], True)
+#class DbEngine(TestCase):
+#    def setUp(self):
+#        os.environ['ENGINE'] = 'SQLite'
+#
+#    def test_engine_setup(self):
+#        settings = info()
+#        self.assertEqual(settings['engine'], 'SQLite')
+#        self.assertEqual(settings['is_sqlite'], True)

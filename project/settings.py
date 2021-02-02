@@ -141,7 +141,7 @@ from . import database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'testidb',
+        'NAME': 'ieluomus',
         'USER': 'django',
         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
         'HOST': 'mariadb.ie-luomus.svc',

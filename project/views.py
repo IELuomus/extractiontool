@@ -6,5 +6,5 @@ def homePageView(request):
     return render(request, "home.html")
 
 @login_required
-def indexrequest): 
+def index(request): 
     return render(request, '/index.html')

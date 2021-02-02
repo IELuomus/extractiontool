@@ -5,13 +5,13 @@ from django.contrib import admin
 #from welcome.views import index, health
 
 from django.urls import path, include
-from .views import homePageView, catalogue
+from .views import homePageView, index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homePageView, name='home'),
     path('accounts/', include('allauth.urls')),
-    path('catalogue/', catalogue, name='catalogue'),
+    path('index/', index, name='index')
 ]
 
 

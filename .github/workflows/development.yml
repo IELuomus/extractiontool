@@ -18,6 +18,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
+    - name: Shutdown Ubuntu MySQL (SUDO)
       run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
     - name: Set up MariaDB
       uses: getong/mariadb-action@v1.1

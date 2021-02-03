@@ -17,7 +17,7 @@ jobs:
         python-version: [3.8]
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: Shutdown Ubuntu MySQL (SUDO)
       run: sudo service mysql stop
     - name: Set up MariaDB

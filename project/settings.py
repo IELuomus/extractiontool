@@ -138,9 +138,9 @@ WSGI_APPLICATION = 'wsgi.application'
 
 from . import database
 
-DATABASES = {
-    'default': database.config()
-}
+    DATABASES = {
+        'default': database.config()
+    }
 
 
 # Password validation

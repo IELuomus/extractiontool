@@ -20,7 +20,7 @@ jobs:
       mariadb:
         image: mariadb:latest
         ports:
-          - 3307
+          - 3307:3307
         env:
           MYSQL_USER: user
           MYSQL_PASSWORD: password
@@ -31,13 +31,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Verify MariaDB connection
-        env:
-          PORT: ${{ job.services.mariadb.ports[3307] }}
-        run: |
-          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
-            sleep 1
-          done
+#      - name: Verify MariaDB connection
+#        env:
+#          PORT: ${{ job.services.mariadb.ports[3307] }}
+#        run: |
+#          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+#            sleep 1
+#          done
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2

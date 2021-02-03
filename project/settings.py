@@ -138,6 +138,8 @@ WSGI_APPLICATION = 'wsgi.application'
 
 from . import database
 
+print(os.getenv('DATABASE_PASSWORD'))
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

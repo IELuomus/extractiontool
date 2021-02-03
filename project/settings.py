@@ -138,7 +138,7 @@ WSGI_APPLICATION = 'wsgi.application'
 
 from . import database
 
-    DATABASES = {
+DATABASES = {
         'default': database.config()
     }
 

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'project',
     'EXTRACTION_TOOL',
     'behave_django',
+    "sslserver",
 ]
 
 SITE_ID = 2

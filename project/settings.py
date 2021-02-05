@@ -149,8 +149,8 @@ DATABASES = {
         'NAME': os.getenv('DATABASE_NAME'),
         'USER': 'django',
         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-        'HOST': 'mariadb.ie-luomus.svc',
-        'PORT': '3306',
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
     }
 }
 

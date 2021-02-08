@@ -22,7 +22,7 @@ jobs:
         ports:
           - 3307:3307
         env:
-          MYSQL_USER: user
+          MYSQL_USER: django
           MYSQL_PASSWORD: password
           MYSQL_DATABASE: test
           MYSQL_ROOT_PASSWORD: password

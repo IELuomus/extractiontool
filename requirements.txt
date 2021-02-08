@@ -10,3 +10,4 @@ behave_django
 mysqlclient==2.0.3
 fitz
 PyMySQL==1.0.2
+python-dotenv==0.15.0

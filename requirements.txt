@@ -9,3 +9,4 @@ django-allauth==0.44.0
 behave_django
 mysqlclient==2.0.3
 fitz
+PyMySQL==1.0.2

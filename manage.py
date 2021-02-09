@@ -3,8 +3,9 @@ import os
 import sys
 import pymysql
 
-# test
-#comment out this line and see what happens pymysql.install_as_MySQLdb()
+
+pymysql.install_as_MySQLdb()
+
 if __name__ == "__main__":
 
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")

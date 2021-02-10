@@ -8,6 +8,7 @@ from .views import homePageView, index, health
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^health$', health),
     path('', homePageView, name='home'),
     path('accounts/', include('allauth.urls')),
     path('', index, name='index'),

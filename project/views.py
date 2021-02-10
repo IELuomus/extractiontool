@@ -17,4 +17,4 @@ def index(request):
 
 def health(request):
     print('health check request')
-    return HttpResponse(PageView.objects.count())
+    return HttpResponse(status=202)

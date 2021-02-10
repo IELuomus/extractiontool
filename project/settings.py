@@ -131,7 +131,7 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
 
 LOGIN_URL = 'account_login'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'index'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = config.get('EMAIL_BACKEND')

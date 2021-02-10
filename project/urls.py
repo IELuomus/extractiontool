@@ -3,16 +3,20 @@ from django.conf.urls import url
 from django.contrib import admin
 
 
-
 from django.urls import path, include
-from .views import homePageView
+from .views import homePageView, index, health
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homePageView, name='home'),
     path('accounts/', include('allauth.urls')),
+    path('', index, name='index'),
+    # path('health/', health),
+    url(r'^health$', health),
+    # url(r'^ht/', include('health_check.urls')),
 
 ]
+
 
 
 #urlpatterns = [

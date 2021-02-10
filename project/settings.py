@@ -58,9 +58,11 @@ INSTALLED_APPS = [
     'project',
     'EXTRACTION_TOOL',
     'behave_django',
+    
 ]
 
 SITE_ID = 2
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -141,7 +143,6 @@ WSGI_APPLICATION = 'wsgi.application'
 
 from . import database
 
-print(os.getenv('DATABASE_PASSWORD'))
 
 DATABASES = {
     'default': {

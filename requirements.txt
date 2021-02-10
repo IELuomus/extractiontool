@@ -12,3 +12,4 @@ fitz
 PyMySQL==1.0.2
 python-dotenv==0.15.0
 django-sslserver==0.22
+django-admin==2.0.1

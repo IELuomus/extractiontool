@@ -2,19 +2,19 @@ from django.conf import settings
 from django.conf.urls import url
 from django.contrib import admin
 
-
-
 from django.urls import path, include
 from .views import homePageView
+from .views import health
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^health$', health),
     path('', homePageView, name='home'),
     path('accounts/', include('allauth.urls')),
-
+    
 ]
 
-
+#path('health/', health),
 #urlpatterns = [
     # Examples:
     # url(r'^$', 'project.views.home', name='home'),

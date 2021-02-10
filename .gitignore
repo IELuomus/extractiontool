@@ -3,6 +3,8 @@ db.sqlite3
 staticfiles/
 .idea
 .DS_Store
+.env
+local.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

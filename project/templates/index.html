@@ -1,0 +1,24 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Welcome to Etie</h1>
+{% if user.is_authenticated %}
+<p>you have logged in</p>
+	{% endif %}
+
+</body>
+</html>
+=======
+{% extends 'base.html' %} {% block content %}
+<h1>Welcome to ETIE!</h1>
+<p>Login successful!</p>
+
+<p>Hello {{ request.user.first_name }}!</p>
+
+{% endblock %}
+>>>>>>> main

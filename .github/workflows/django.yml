@@ -16,6 +16,18 @@ jobs:
       matrix:
         python-version: [3.8]
 
+    services:
+      mariadb:
+        image: mariadb:latest
+        ports:
+          - 3307:3307
+        env:
+          MYSQL_USER: django
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: password
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
     steps:
     - uses: actions/checkout@master
     - name: Set up Python ${{ matrix.python-version }}

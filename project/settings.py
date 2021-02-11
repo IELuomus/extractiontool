@@ -9,8 +9,14 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-import django_heroku
+
 import os
+import django.db.backends.mysql
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -44,17 +50,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
-    'welcome',
     'allauth',
     'allauth.account',
+    'sslserver',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.orcid',
     'project',
     'EXTRACTION_TOOL',
     'behave_django',
+    
 ]
 
 SITE_ID = 1
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -76,16 +84,10 @@ TEMPLATES = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-
-    'django.contrib.auth.backends.ModelBackend',
-
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
 SOCIALACCOUNT_PROVIDERS = {
     'orcid': {
         # Base domain of the API. Default value: 'orcid.org', for the production API
-        'BASE_DOMAIN':'sandbox.orcid.org',  # for the sandbox API
+        'BASE_DOMAIN':'orcid.org',  # for the sandbox API
         # Member API or Public API? Default: False (for the public API)
         'MEMBER_API': False,  # for the member API
     }
@@ -126,7 +128,10 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
+
 LOGIN_URL = 'account_login'
+LOGIN_REDIRECT_URL = 'index'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = config.get('EMAIL_BACKEND')
@@ -138,8 +143,19 @@ WSGI_APPLICATION = 'wsgi.application'
 
 from . import database
 
+
 DATABASES = {
-    'default': database.config()
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
+        'TEST': {
+            'NAME': 'test',
+        },
+    }
 }
 
 
@@ -186,9 +202,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 INTERNAL_IPS = ['127.0.0.1']
 
-if 'I_AM_HEROKU' in os.environ:
-    # Configure Django App for Heroku.
-    import django_heroku
-    django_heroku.settings(locals())
-# django_heroku.settings(locals())
 

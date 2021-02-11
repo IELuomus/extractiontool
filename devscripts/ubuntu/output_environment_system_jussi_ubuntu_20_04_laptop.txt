@@ -1,0 +1,24 @@
+cat /proc/version
+Linux version 5.4.0-62-generic (buildd@lgw01-amd64-045) (gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04)) #70-Ubuntu SMP Tue Jan 12 12:45:47 UTC 2021
+mariadb --version
+mariadb  Ver 15.1 Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64) using readline 5.2
+which mariadb
+/usr/bin/mariadb
+mariadb --version
+mariadb  Ver 15.1 Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64) using readline 5.2
+which mariadb
+/usr/bin/mariadb
+mysql --version
+mysql  Ver 15.1 Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64) using readline 5.2
+which mysql
+/usr/bin/mysql
+pip3 --version
+pip 20.0.2 from /usr/lib/python3/dist-packages/pip (python 3.8)
+which pip3
+/usr/bin/pip3
+python3 --version
+Python 3.8.5
+which python3
+/usr/bin/python3
+ls -l /usr/bin/python3
+lrwxrwxrwx 1 root root 9 kesä   26  2020 /usr/bin/python3 -> python3.8

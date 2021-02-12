@@ -1,14 +1,20 @@
 
 # IE Development Environment  
 
-* Ubuntu only. Tested only on 20.04.
+* Ubuntu only. Tested on Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04.
 
 ## Problems
 * Selain valitti jotain sertifikaatista: NET::ERR_CERT_AUTHORITY_INVALID
-* 
+* Tollasta virhettä etusivun linkeistä:
+```
+ProgrammingError at /accounts/login/
+
+(1146, "Table 'ieluomus.django_site' doesn't exist")
+```
 
 ## Commands to Install
 
+```
 1.  cd extractiontool/
 
 2.  cp devscripts/.env-file-example .env  
@@ -17,10 +23,13 @@
 
 3.  bash devscripts/setup_development.sh  
     * installs and sets up everything.
+```
 
 ## Running the App
 
+```
 python3 manage.py runsslserver
+```
 
 ## Ubuntu 20.04 Install Details
 

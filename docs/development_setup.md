@@ -5,12 +5,6 @@
 
 ## Problems
 * Selain valitti jotain sertifikaatista: NET::ERR_CERT_AUTHORITY_INVALID
-* Tollasta virhettä etusivun linkeistä:
-```
-ProgrammingError at /accounts/login/
-
-(1146, "Table 'ieluomus.django_site' doesn't exist")
-```
 
 ## Commands to Install
 
@@ -48,5 +42,8 @@ python3 manage.py runsslserver
     * 'ieluomus' -database will be created with $DATABASE_USER
 
 * Python Pip3
-    * requirements.txt list of packages will be installed.
+    * requirements.txt list of packages will be installed.  
 
+* Djanjo application
+    * Script to create models for our application is run.(does what?)
+    * Database tables from the models are created for our application in our database.(maybe probably?)

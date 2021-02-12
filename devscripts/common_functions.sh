@@ -24,3 +24,34 @@ function yellow {
 function magenta {
     echo -e "${magenta}$@${default}"
 }
+
+function get_systeemi {
+    unameSystem="$(uname -s)"
+    case "${unameSystem}" in
+        Linux*)     
+            # echo "@Linux*"
+            unameSystemFull="$(uname -a)"
+            if [ -z "${unameSystemFull##*Microsoft*}" ] ;then
+                # echo "@Linux-WSL"
+                systeemi="WSL"
+                # sudo /etc/init.d/mysql restart
+            else
+                # echo "@Linux-Real"          
+                systeemi="Linux"
+            fi        
+            ;;
+        MSYS*)     
+            # echo "@MSYS*"
+            systeemi="MSYS"
+            ;;
+        Darwin*)    
+            # echo "@MDarwin*"
+            systeemi="Darwin"
+            ;;
+        *)  
+            # echo "@Unknown"        
+            systeemi="unknown"
+            ;;
+    esac
+    echo "$systeemi"
+}

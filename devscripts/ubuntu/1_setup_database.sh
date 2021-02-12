@@ -5,6 +5,27 @@ source .env
 
 source devscripts/print_environment_variables.sh
 
+source devscripts/common_functions.sh
+
+# restarting MariaDB seems to needed at least with WSL/Ubuntu 20.04
+echo
+systeemi=$(get_systeemi)
+case "${systeemi}" in
+    Linux)     
+        echo "@Linux*"
+        ;;
+    WSL)
+        echo "@WSL"
+        sudo /etc/init.d/mysql restart    
+        ;;
+    Darwin)    
+        echo "@Darwin"
+        ;;
+    *)
+        echo "@Something"        
+        ;;
+esac
+
 komento="mysql" # /usr/bin/mysql
 
 root_komento="sudo $komento -u root "

@@ -8,6 +8,8 @@
 <body>
 <h1>Hello World!</h1>
 {% if user.is_authenticated %}
+<p> {{user}} logged in</p>
+<p> your user_id {{user.id}}</p>
 	<li><a href="{% url 'account_email' %}">Change E-mail</a></li>
 	<li><a href="{% url 'account_logout' %}">Sign Out</a></li>
 	{% else %}

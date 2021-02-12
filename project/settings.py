@@ -132,8 +132,8 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
 LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = 'index'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# 
 # EMAIL_BACKEND = config.get('EMAIL_BACKEND')
 WSGI_APPLICATION = 'wsgi.application'
 
@@ -202,4 +202,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 INTERNAL_IPS = ['127.0.0.1']
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST ='smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
 

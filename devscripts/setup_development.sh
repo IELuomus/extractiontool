@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e # fail and exit on error
 
-# testattu: Ubuntu 20.04
+# testattu: Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04
 
 source devscripts/ubuntu/0_install_packages.sh
 

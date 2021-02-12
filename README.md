@@ -1,15 +1,17 @@
 # Ecological Trait Information Extractor (ETIE)
-A Tool to extract all human knowledge from PDFs to structured DB
-
-Django application 
+A Tool to extract ecological trait information from PDFs to a structured DB 
 
 [Product backlog](https://github.com/orgs/IELuomus/projects/1)
 
-[Sprintti 1 backlog](https://github.com/orgs/IELuomus/projects/2)
+[Sprintti 2 backlog](https://github.com/orgs/IELuomus/projects/2)
 
 
 ![Django CI](https://github.com/IELuomus/extractiontool/workflows/Django%20CI/badge.svg)
 ![Development testing](https://github.com/IELuomus/extractiontool/workflows/Development%20testing/badge.svg)
+
+<!-- .... -->
+## ETIE Website
+<a href=https://django-psql-new-ie-luomus.rahtiapp.fi >ETIE</a>
 
 ### Definition of done
 
@@ -24,9 +26,7 @@ Django application
 - Viety tuotantoympäristöön
 
 ### Deployment
- - deployment branch is for deployment only. Webhook snatches anything put into it to production.
+ - Deployment branch is for deployment only. Webhook snatches anything put into it to production.
  - Only do pullrequests from Main to Deployment when Main is working properply
 
-<!-- .... -->
-## ETIE Website
-<a href=https://django-psql-new-ie-luomus.rahtiapp.fi >ETIE</a>
+

@@ -8,7 +8,7 @@ whitenoise==5.1.0
 django-allauth==0.44.0
 behave_django
 mysqlclient==2.0.3
-fitz
+fitz>=1.15
 PyMySQL==1.0.2
 python-dotenv==0.15.0
 django-sslserver==0.22

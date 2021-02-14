@@ -7,7 +7,7 @@ source devscripts/print_environment_variables.sh
 
 source devscripts/common_functions.sh
 
-# restarting MariaDB seems to needed at least with WSL/Ubuntu 20.04
+# restarting MariaDB seems to be needed sometimes
 echo
 systeemi=$(get_systeemi)
 case "${systeemi}" in
@@ -20,6 +20,7 @@ case "${systeemi}" in
         ;;
     Darwin)    
         echo "@Darwin"
+        sudo mysql.server start
         ;;
     *)
         echo "@Something"        
@@ -36,7 +37,8 @@ $root_komento<<LAUSE
 FLUSH TABLES;
 FLUSH PRIVILEGES;
 \! echo @updating root password to \'$DATABASE_ROOT_PASSWORD\'
-UPDATE mysql.user SET Password=PASSWORD('$DATABASE_ROOT_PASSWORD') WHERE User='root';
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$DATABASE_ROOT_PASSWORD');
+-- fails on mariadb 10.5.8 because now it's a view.. : UPDATE mysql.user SET Password=PASSWORD('$DATABASE_ROOT_PASSWORD') WHERE User='root';
 \! echo @creating new database user \'$USER@localhost\'
 CREATE USER IF NOT EXISTS '$USER'@'localhost';
 \! echo @creating new database user \'$DATABASE_USER@localhost\'

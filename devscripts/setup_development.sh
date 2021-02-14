@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e # fail and exit on error
 
-# testattu: Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04
+# tested: Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04, mac OS X 10.15.7
 
 source devscripts/common_functions.sh
 

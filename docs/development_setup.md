@@ -1,7 +1,9 @@
 
 # IE Development Environment  
 
-* Ubuntu only. Tested on Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04.
+* Tested on
+    * Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04.
+    * mac OS X 10.15.7
 
 ## Problems
 * Selain valitti jotain sertifikaatista: NET::ERR_CERT_AUTHORITY_INVALID

@@ -27,7 +27,7 @@
 python3 manage.py runsslserver
 ```
 
-## UInstall Details
+## Install Details
 
 * Ubuntu/Brew packages
     * Script will install MariaDB and Python3 and pip3 from package repository.

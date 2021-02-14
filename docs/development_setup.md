@@ -27,10 +27,10 @@
 python3 manage.py runsslserver
 ```
 
-## Ubuntu 20.04 Install Details
+## UInstall Details
 
-* Ubuntu packages  
-    * Script will install MariaDB and Python3 and pip3 from Ubuntu packages.
+* Ubuntu/Brew packages
+    * Script will install MariaDB and Python3 and pip3 from package repository.
 
 * MariaDB setup
     * Database root user password will be set with $DATABASE_ROOT_PASSWORD 

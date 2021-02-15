@@ -16,7 +16,7 @@
 ```
 
 * Tested on
-    * Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04.
+    * Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04., Windows 10 WSL2/Ubuntu20.04
     * Apple mac OS X 10.15.7
 
 ### Problems

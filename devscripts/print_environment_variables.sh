@@ -2,6 +2,13 @@
 
 printf "\neli environment variables\n\n"
 
+# note: this is used in other scripts
+# only useful in commandline if variables are set.
+# could load them, but what's the point?:
+#   set allexport -o
+#   source my_env_file_x.env
+#   set allexport +o
+
 function kerro {
     echo "$1: ${!1}"
 }

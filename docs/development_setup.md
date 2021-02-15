@@ -1,33 +1,28 @@
 
 # IE Development Environment  
 
-* Tested on
-    * Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04.
-    * mac OS X 10.15.7
 
-## Problems
-* Selain valitti jotain sertifikaatista: NET::ERR_CERT_AUTHORITY_INVALID
+## Setup Development Environment
 
-## Commands to Install
 
 ```
 1.  cd extractiontool/
 
 2.  cp devscripts/.env-file-example .env  
-
-    2.1 change passwords etc. as you like in .env -file.  
+    * change passwords etc. as you like in .env -file.  
 
 3.  bash devscripts/setup_development.sh  
     * installs and sets up everything.
 ```
 
-## Running the App
+* Tested on
+    * Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04.
+    * Apple mac OS X 10.15.7
 
-```
-python3 manage.py runsslserver
-```
+### Problems
+* Selain valitti jotain sertifikaatista: NET::ERR_CERT_AUTHORITY_INVALID
 
-## Install Details
+### Install Details
 
 * Ubuntu/Brew packages
     * Script will install MariaDB and Python3 and pip3 from package repository.
@@ -49,3 +44,29 @@ python3 manage.py runsslserver
 * Djanjo application
     * Script to create models for our application is run.(does what?)
     * Database tables from the models are created for our application in our database.(maybe probably?)
+
+
+## Running the App
+
+```
+python3 manage.py runsslserver
+```
+
+## Other Scripts
+```
+bash devscripts/print_environment_variadbes.sh
+```
+* prints current shell IE project environment variables.
+* used by other scripts to print variables.
+* not really useful locally if .env file is used.
+
+```
+bash devscripts/print_environment_system.sh
+```
+* prints mariadb, python versions.
+
+```
+bash devscripts/print_django_project_info.sh
+```
+* prints some django project info.
+    

@@ -4,7 +4,7 @@ set -e # fail and exit on error
 printf "\nupdate package-list and install MariaDB and Python3\n\n"
 
 printf "running brew update\n"
-brew update --verbose # yes? note: brew is slow and ugly script-hack-mess.
+brew update --verbose # yes?
  
 # install mariadb and stuff
 brew install mariadb

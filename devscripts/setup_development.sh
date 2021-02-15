@@ -12,7 +12,7 @@ case "$(get_systeemi)" in
         source devscripts/ubuntu/0_install_packages.sh
         ;;
     Darwin)    
-        # note: macOS UI design is crap
+        # note: macOS
         echo "@Darwin"
         source devscripts/darwin/0_install_packages.sh
         ;;

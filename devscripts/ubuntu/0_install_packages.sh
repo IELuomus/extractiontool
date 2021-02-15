@@ -7,6 +7,20 @@ sudo apt-get update # yes
  
 # install mariadb and stuff
 sudo apt install mariadb-server
+
+# new unteouched Ubuntu 20.04 install in WSL2 :
+# Reading state information... Done
+# The following additional packages will be installed:
+#   galera-3 libcgi-fast-perl libcgi-pm-perl libconfig-inifiles-perl libdbd-mysql-perl libdbi-perl libencode-locale-perl libfcgi-perl libhtml-parser-perl libhtml-tagset-perl libhtml-template-perl libhttp-date-perl libhttp-message-perl
+#   libio-html-perl liblwp-mediatypes-perl libmysqlclient21 libsnappy1v5 libterm-readkey-perl libtimedate-perl liburi-perl mariadb-client-10.3 mariadb-client-core-10.3 mariadb-common mariadb-server-10.3 mariadb-server-core-10.3
+#   mysql-common socat
+# Suggested packages:
+#   libclone-perl libmldbm-perl libnet-daemon-perl libsql-statement-perl libdata-dump-perl libipc-sharedcache-perl libwww-perl mailx mariadb-test tinyca
+# The following NEW packages will be installed:
+#   galera-3 libcgi-fast-perl libcgi-pm-perl libconfig-inifiles-perl libdbd-mysql-perl libdbi-perl libencode-locale-perl libfcgi-perl libhtml-parser-perl libhtml-tagset-perl libhtml-template-perl libhttp-date-perl libhttp-message-perl
+#   libio-html-perl liblwp-mediatypes-perl libmysqlclient21 libsnappy1v5 libterm-readkey-perl libtimedate-perl liburi-perl mariadb-client-10.3 mariadb-client-core-10.3 mariadb-common mariadb-server mariadb-server-10.3
+#   mariadb-server-core-10.3 mysql-common socat
+
 # needed for python mysqlclient 
 sudo apt-get install libmariadb3
 sudo apt-get install libmariadb-dev

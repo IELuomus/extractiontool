@@ -40,7 +40,8 @@ function get_systeemi {
         Linux*)     
             # echo "@Linux*"
             unameSystemFull="$(uname -a)"
-            if [ -z "${unameSystemFull##*Microsoft*}" ] ;then
+            # M = WSL , m = WSL2
+            if [ -z "${unameSystemFull##*icrosoft*}" ] ;then
                 # echo "@Linux-WSL"
                 systeemi="WSL"
             else

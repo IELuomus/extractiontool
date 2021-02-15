@@ -34,7 +34,8 @@ SECRET_KEY = os.getenv(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG')
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -131,6 +132,8 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
 
 LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = 'index'
+
+SOCIALACCOUNT_STORE_TOKENS=False
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # 

@@ -2,19 +2,20 @@ from django.conf import settings
 from django.conf.urls import url
 from django.contrib import admin
 
+from django.contrib.auth import logout
 
 from django.urls import path, include
-from .views import homePageView, index, health
+from .views import homePageView, index, health, myView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^health$', health),
     path('', homePageView, name='home'),
     path('accounts/', include('allauth.urls')),
-    path('', index, name='index'),
-    # path('health/', health),
-    url(r'^health$', health),
-    # url(r'^ht/', include('health_check.urls')),
+    path('index', myView, name='index'),
+    url(r'^logout/$', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout')
+
 
 ]
 

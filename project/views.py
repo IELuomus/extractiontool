@@ -13,6 +13,12 @@ def homePageView(request):
 def index(request):
     return render(request, 'index.html')
 
+def myView(request):
+    if request.user.is_authenticated:
+        return render(request, 'index.html')
+    else:
+        return render(request, 'logout.html')
+
 def health(request):
     print('health check request')
     return HttpResponse(status=202)

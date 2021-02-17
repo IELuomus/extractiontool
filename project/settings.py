@@ -90,6 +90,9 @@ SOCIALACCOUNT_PROVIDERS = {
         'BASE_DOMAIN':'orcid.org',  # for the sandbox API
         # Member API or Public API? Default: False (for the public API)
         'MEMBER_API': False,  # for the member API
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
     }
 }
 MIDDLEWARE = [
@@ -109,7 +112,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.normpath(os.path.join(BASE_DIR, 'templates')),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,6 +125,7 @@ TEMPLATES = [
     },
 ]
 
+SOCIALACCOUNT_AUTO_SIGNUP = True
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
@@ -129,7 +133,7 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
-
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = 'index'
 

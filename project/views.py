@@ -24,3 +24,6 @@ def email(request):
     recipient_list = ['receiver@gmail.com',]
     send_mail( subject, message, email_from, recipient_list )
     return redirect('redirect to a new page')
+
+def load_pdf(request):
+    return HttpResponse("Please load a pdf from below")

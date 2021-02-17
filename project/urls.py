@@ -4,7 +4,7 @@ from django.contrib import admin
 
 
 from django.urls import path, include
-from .views import homePageView, index, health
+from .views import homePageView, index, health, load_pdf
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,6 +15,7 @@ urlpatterns = [
     # path('health/', health),
     url(r'^health$', health),
     # url(r'^ht/', include('health_check.urls')),
+    path('load_pdf/', load_pdf, name='load_pdf'),
 
 ]
 

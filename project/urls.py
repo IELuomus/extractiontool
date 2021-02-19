@@ -4,7 +4,8 @@ from django.contrib import admin
 
 
 from django.urls import path, include
-from .views import homePageView, index, health, load_pdf
+from .views import homePageView, index, health, upload
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,7 +16,7 @@ urlpatterns = [
     # path('health/', health),
     url(r'^health$', health),
     # url(r'^ht/', include('health_check.urls')),
-    path('load_pdf/', load_pdf, name='load_pdf'),
+    path('upload/', upload, name='upload'),
 
 ]
 
@@ -37,3 +38,5 @@ if settings.DEBUG:
     urlpatterns = [
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
+
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

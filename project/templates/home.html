@@ -12,7 +12,7 @@
 <p> your user_id {{user.id}}</p>
 	<li><a href="{% url 'account_email' %}">Change E-mail</a></li>
 	<li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-	<li><a href="{% url 'load_pdf' %}">Load pdf</a></li>
+	<li><a href="{% url 'upload' %}">Load pdf</a></li>
 	{% else %}
 	<li><a href="{% url 'account_login' %}">Sign In</a></li>
 	<li><a href="{% url 'account_signup' %}">Sign Up</a></li>

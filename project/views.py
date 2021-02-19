@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .models import PageView
 from django.core.mail import send_mail
 from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 def homePageView(request):
     print('request')
@@ -25,5 +26,12 @@ def email(request):
     send_mail( subject, message, email_from, recipient_list )
     return redirect('redirect to a new page')
 
-def load_pdf(request):
-    return HttpResponse("Please load a pdf from below")
+def upload(request):
+    context = {}
+    if request.method == 'POST':
+        uploaded_file = request.FILES['document']
+        fs = FileSystemStorage()
+        name = fs.save(uploaded_file.name, uploaded_file)
+        url = fs.url(name)
+        context['url'] = fs.url(name)
+    return render(request, 'upload.html', context)

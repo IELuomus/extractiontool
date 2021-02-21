@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+  {% if user.is_data_admin %}
+    <h1>Hello {{ user.first_name }}!</h1>
+    <h4>You are a data admin!</h4>
+  {% elif user.is_editor %}
+    <h1>Hello {{ user.first_name }}!</h1>
+    <h4>You are an editor!</h4>
+  {% elif user.is_authenticated %}
+    <h1>Hello {{ user.username }}!</h1>
+    <h4>Welcome to ETIE -- our fantastic information extraction tool for scientific articles!</h4>
+  {% else %}
+    <h1>Welcome to ETIE &mdash; The information extraction tool for scientific articles!</h1>
+    <h4>Please <a href="{% url 'account_login' %}" >login</a> first.</h4>
+  {% endif %}
+
+  <!-- <img src="{% static 'images/example.jpeg' %}" alt="Example image"> -->
+
+{% endblock content %}

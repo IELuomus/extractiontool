@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h2>Sign up for the website.</h2>
+  <p>Select the type of account you would like to create:</p>
+  <a class="w3-btn w3-green w3-round-large" href="{% url 'normal_signup' %}">Normal</a>
+  <a class="w3-btn w3-indigo w3-round-large" href="{% url 'editor_signup' %}">Editor</a>
+  <a class="w3-btn w3-purple w3-round-large" href="{% url 'data_admin_signup' %}">Data Admin</a>
+
+{% endblock content %}
+

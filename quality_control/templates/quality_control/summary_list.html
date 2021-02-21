@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <form class="w3-margin" action="{% url 'summary-list' %}" method="GET">
+    <label for="text-query">Search for specific scan:</label>
+    <input name="query" id="text_query" type="text" placeholder="Search scan id...">
+    <button class="w3-btn w3-blue w3-round-large" type="submit">Search</button>
+  </form>
+
+  <table class="w3-margin w3-table-all w3-hoverable center">
+    <tr>
+      <th class="w3-center">Scan id</th>
+      {% for workflow in workflows %}
+        <th class="w3-center">{{ workflow.name }}</th>
+      {% endfor %}
+    </tr>
+    {% for scan in page_obj %}
+      <tr class="w3-center">
+        <td class="w3-center">
+          <a style="display: block; width: 100%; height: 100%; text-decoration: none;" href={% url 'summary-check' scan.id %}>{{ scan.id }}</a>
+        </td>
+        {% for workflow in workflows %}
+          <td class="w3-center">
+            <a style="display: block; width: 100%; height: 100%; text-decoration: none;" href={% url 'quality-control-check' workflow.id scan.id %}>
+              <span style="background:{{ statuses|get_item:scan|get_item:workflow|get_item:'color' }}; border-radius:0.5em; padding:2px 15px;">{{ statuses|get_item:scan|get_item:workflow|get_item:'status' }}</span>
+            </a>
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+
+  {% if page_obj.has_other_pages %}
+
+    <div class="w3-bar w3-center">
+      {% if page_obj.has_previous %}
+        <a class="w3-button" href="?page=1">First</a>
+        <a class="w3-button" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="w3-button w3-dark-grey w3-margin" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+          <a class="w3-button" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor%}
+
+      {% if page_obj.has_next %}
+        <a class="w3-button" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="w3-button" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+    </div>
+
+  {% endif %}
+
+{% endblock content%}
+

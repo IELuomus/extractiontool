@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <h2>Import source data</h2>
+    <form class="w3-container w3-padding" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button class="w3-btn w3-blue w3-round-large" type="submit">Import!</button>
+    </form>
+
+{% endblock content%}

@@ -3,7 +3,7 @@ A tool to extract ecological trait information from PDFs into a structured datab
 
 [Product backlog](https://github.com/orgs/IELuomus/projects/1)
 
-[Sprintti 2 backlog](https://github.com/orgs/IELuomus/projects/2)
+[Sprintti 3 backlog](https://github.com/orgs/IELuomus/projects/2)
 
 
 ![Django CI](https://github.com/IELuomus/extractiontool/workflows/Django%20CI/badge.svg)

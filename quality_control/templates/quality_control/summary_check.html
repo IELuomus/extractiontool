@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% if prev_scan %}
+  <a href="{% url 'summary-check' prev_scan.id %}" class="w3-btn w3-blue w3-round-large">Previous</a>
+{% endif %}
+{% for w in workflows %}
+  {% if w.1 is None %}
+    <button class="w3-btn w3-grey w3-round-large" disabled>{{ w.0.name }}</button>
+  {% elif w.1 == 'checked' %}
+    <a href="{% url 'quality-control-check' w.0.id scan.id %}" class="w3-btn w3-green w3-round-large">{{ w.0.name }}</a>
+  {% elif w.1 == 'waiting' %}
+    <a href="{% url 'quality-control-check' w.0.id scan.id %}" class="w3-btn w3-yellow w3-round-large">{{ w.0.name }}</a>
+  {% else %}
+    <a href="{% url 'quality-control-check' w.0.id scan.id %}" class="w3-btn w3-red w3-round-large">{{ w.0.name }}</a>
+  {% endif %}
+{% endfor %}
+{% if all_checked and scan.status == "FINISHED" %}
+  <a href="{% url 'summary-check' scan.id %}" class="w3-btn w3-green w3-round-large">Summary</a>
+{% elif all_checked %}
+  <a href="{% url 'summary-check' scan.id %}" class="w3-btn w3-yellow w3-round-large">Summary</a>
+{% else %}
+  <a href="{% url 'summary-check' scan.id %}" class="w3-btn w3-red w3-round-large">Summary</a>
+{% endif %}
+{% if next_scan %}
+  <a href="{% url 'summary-check' next_scan.id %}" class="w3-btn w3-blue w3-round-large">Next</a>
+{% endif %}
+
+
+<div class="flex-container">
+  {% if scan.image %}
+    <a class="w3-margin scan-image" href="{{ scan.image.url }}" style="max-width: {{ scan.image.width }}px">
+      <img src="{{ scan.image.url }}">
+    </a>
+  {% endif %}
+  <div class="w3-margin scan-table">
+    <table class="w3-margin w3-table-all">
+      <tr class="w3-dark-grey">
+        <th>Field</th>
+        <th>Content</th>
+      {% for annotation in annotations %}
+        <tr>
+          <td>{{ annotation.question }}:</td>
+          <td>{{ annotation.answer }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    {% if all_checked and scan.status != "FINISHED" or user.is_data_admin %}
+      <form class="w3-margin scan-table" method="POST">
+        {% csrf_token %}
+        <label for="field-select">Update or add a new field:</label>
+        {% if user.is_data_admin %}
+          <i class="fas fa-plus" style="font-size:20px;color:green;float:right;cursor:pointer"
+            onClick="showHideAddNewFieldElement()"></i><br>
+        {% endif %}
+        <select name="field" id="field-select">
+          {% for field in fields %}
+            <option value="{{ field.name }}">{{ field.name }}</option>
+          {% endfor %}
+        </select>
+        <div style="display:flex;">
+          <input name="field-content" type="text" placeholder="Write contents for the field" style="flex:1;">
+          <button name="add-content-btn" class="w3-btn w3-dark-grey w3-round" type="submit" style="margin:8px 0px;">Update</button>
+        </div>
+        <div id="add-field" style="display: None;">
+          <input name="field-name" type="text" placeholder="Add a new field to dropdown" style="flex: 1;">
+          <button name="add-field-btn" class="w3-btn w3-dark-grey w3-round" type="submit" style="margin: 8px 0px;">Add</button>
+        </div>
+      </form>
+      {% if scan.status != "FINISHED" %}
+      <form class="w3-margin scan-table" method="POST">
+        {% csrf_token %}
+        <button name="confirm-scan" class="w3-btn w3-blue w3-round" type="submit" style="margin:8px 0px;">Confirm data as final</button>
+      </form>
+      {% endif %}
+    {% else %}
+      <form class="w3-margin scan-table" method="POST">
+        {% csrf_token %}
+        <label for="field-select">Update or add a new field:</label>
+        <select name="field" id="field-select" disabled>
+          {% for field in fields %}
+            <option value="{{ field.name }}">{{ field.name }}</option>
+          {% endfor %}
+        </select>
+        <div style="display:flex;">
+          <input name="field-content" type="text" placeholder="Write contents for the field" style="flex:1;" disabled>
+          <button name="add-content-btn" class="w3-btn w3-dark-grey w3-round" type="submit" style="margin:8px 0px;" disabled>Update</button>
+        </div>
+        <div id="add-field" style="display: None;">
+          <input name="field-name" type="text" placeholder="Add a new field to dropdown" style="flex: 1;">
+          <button name="add-field-btn" class="w3-btn w3-dark-grey w3-round" type="submit" style="margin: 8px 0px;" disabled>Add</button>
+        </div>
+      </form>
+    {% endif %}
+  </div
+</div>
+
+{% endblock content %}

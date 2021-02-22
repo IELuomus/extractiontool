@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
 </head>
 <body>
 <h2>Please upload pdf file from below</h2>
@@ -18,7 +17,4 @@
      <p>Uploaded file: <a href="{{ url}}">{{url}}</a></p>
 	{% endif %}
     {% endif %}
-
-
-</body>
-</html>
+{% endblock content %}

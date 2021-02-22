@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+  <form class="w3-margin" action="{% url 'quality-control-list' %}" method="GET">
+    <label for="text-query">Search for specific scan:</label>
+    <input name="query" id="text_query" type="text" placeholder="Search scan id...">
+    <label for="workflow-query">Workflow:</label>
+    <select name="workflow" id="workflow-query">
+      {% for workflow in workflows %}
+        <option value="{{ workflow.id}}">{{workflow.name}}</option>
+      {% endfor %}
+    </select>
+    <label for="status-query">Status:</label>
+    <select name="status" id="status-query">
+      <option value="to be checked">to be checked</option>
+      <option value="waiting">waiting</option>
+      <option value="checked">checked</option>
+    </select>
+    <button class="w3-btn w3-blue w3-round-large" type="submit">Search</button>
+  </form>
+
+  <table class="w3-margin w3-table-all w3-hoverable center">
+    <tr>
+      <th class="w3-center">Scan id</th>
+      <th class="w3-center">Status</th>
+      {% for number, name in tasks.items %}
+        <th class="w3-center">{{ name }}</th>
+      {% endfor %}
+    </tr>
+    {% for retirement in page_obj %}
+        <tr class="w3-center">
+          <td class="w3-center"><a style="display: block; width: 100%; height: 100%; text-decoration: none;" href={% url 'quality-control-check' retirement.workflow.id retirement.subject.scan.id  %}>{{ retirement.subject.scan.id }}</a></td>
+          <td class="w3-center"><a style="display: block; width: 100%; height: 100%; text-decoration: none;" href={% url 'quality-control-check' retirement.workflow.id retirement.subject.scan.id  %}>{{ retirement.status }}</a></td>
+          {% for color in colors|get_item:retirement %}
+            <td class="w3-center">
+              <a style="display: block; width: 100%; height: 100%; text-decoration: none;" href={% url 'quality-control-check' retirement.workflow.id retirement.subject.scan.id  %}>
+                <span style="background: {{ color }}; border-radius: 0.5em; padding: 2px 15px">{{values|get_item:retirement}}</span>
+              </a>
+            </td>
+          {% endfor %}
+        </tr>
+      </a>
+    {% endfor %}
+  </table>
+
+  {% if page_obj.has_other_pages %}
+
+    <div class="w3-bar w3-center">
+      {% if page_obj.has_previous %}
+        <a class="w3-button" href="{{ whole_query }}&page=1">First</a>
+        <a class="w3-button" href="{{ whole_query }}&page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="w3-button w3-dark-grey w3-margin" href="{{ whole_query }}&page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+          <a class="w3-button" href="{{ whole_query }}&page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor%}
+
+      {% if page_obj.has_next %}
+        <a class="w3-button" href="{{ whole_query }}&page={{ page_obj.next_page_number }}">Next</a>
+        <a class="w3-button" href="{{ whole_query }}&page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+    </div>
+
+  {% endif %}
+
+  <script>var status = "{{ status }}";</script>
+  <script>var currentWorkflowId = "{{ current_workflow.id }}";</script>
+  <script type="text/javascript" src="{% static 'quality_control_list.js' %}"></script>
+
+{% endblock content%}

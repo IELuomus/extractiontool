@@ -33,11 +33,18 @@ root_komento="sudo $komento -u root "
 
 printf "\nMariaDB\n\n"
 
+# TODO: miten lisätä molemmat metodit ALTER USER-komennolla
+# ei toimi
+# ALTER USER root@localhost IDENTIFIED VIA unix_socket OR mysql_native_password USING PASSWORD("hiiohoi")
+# toimii
+# ALTER USER root@localhost IDENTIFIED VIA unix_socket;
+
 $root_komento<<LAUSE
 FLUSH TABLES;
 FLUSH PRIVILEGES;
 \! echo @updating root password to \'$DATABASE_ROOT_PASSWORD\'
-SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$DATABASE_ROOT_PASSWORD');
+-- DISABLED FOR NOW. 
+-- SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$DATABASE_ROOT_PASSWORD');
 -- fails on mariadb 10.5.8 because now it's a view.. : UPDATE mysql.user SET Password=PASSWORD('$DATABASE_ROOT_PASSWORD') WHERE User='root';
 \! echo @creating new database user \'$USER@localhost\'
 CREATE USER IF NOT EXISTS '$USER'@'localhost';

@@ -14,7 +14,7 @@ import os
 import json
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()   
 
 from pathlib import Path
 
@@ -110,6 +110,8 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
 
 WSGI_APPLICATION = 'project.wsgi.application'
 

@@ -54,8 +54,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.orcid',
-    'crispy_forms',
     'debug_toolbar',
+    'crispy_forms',
     'simple_history',
     "sslserver",
     'project',
@@ -74,6 +74,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
     'django_userforeignkey.middleware.UserForeignKeyMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'

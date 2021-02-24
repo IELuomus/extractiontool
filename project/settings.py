@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.orcid',
     'crispy_forms',
+    'debug_toolbar',
     'simple_history',
     "sslserver",
     'project',

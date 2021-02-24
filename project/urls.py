@@ -31,7 +31,7 @@ urlpatterns = [
     path('', index, name='index'),
     url(r'^health$', health),
     path('upload/', upload, name='upload'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

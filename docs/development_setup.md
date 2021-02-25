@@ -80,6 +80,6 @@ bash devscripts/print_django_project_info.sh
 ```
 bash devscripts/fancy_django_database_tables_print.sh
 ```
-* prints django-specific database tables contents  
+* prints $DATABASE_NAME.* tables contents  
 
 

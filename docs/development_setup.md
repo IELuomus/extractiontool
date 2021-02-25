@@ -77,3 +77,9 @@ bash devscripts/print_django_project_info.sh
 ```
 * prints some django project info.
     
+```
+bash devscripts/fancy_django_database_tables_print.sh
+```
+* prints django-specific database tables contents  
+
+

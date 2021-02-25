@@ -42,7 +42,7 @@ printf "\nMariaDB\n\n"
 $root_komento<<LAUSE
 FLUSH TABLES;
 FLUSH PRIVILEGES;
-\! echo @updating root password to \'$DATABASE_ROOT_PASSWORD\'
+-- \! echo @updating root password to \'$DATABASE_ROOT_PASSWORD\'
 -- DISABLED FOR NOW. 
 -- SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$DATABASE_ROOT_PASSWORD');
 -- fails on mariadb 10.5.8 because now it's a view.. : UPDATE mysql.user SET Password=PASSWORD('$DATABASE_ROOT_PASSWORD') WHERE User='root';
@@ -64,5 +64,6 @@ LAUSE
 
 $komento -u $DATABASE_USER -p"$DATABASE_PASSWORD"<<LAUSE
 \! echo @creating database \'ieluomus\' with user \'$DATABASE_USER\'
+DROP DATABASE IF EXISTS ieluomus;
 CREATE DATABASE IF NOT EXISTS ieluomus;
 LAUSE

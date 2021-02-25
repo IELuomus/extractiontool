@@ -4,7 +4,6 @@
 
 ## Setup Development Environment
 
-
 ```
 1.  cd extractiontool/
 
@@ -28,7 +27,8 @@
     * Script will install MariaDB and Python3 and pip3 from package repository.
 
 * MariaDB setup
-    * Database root user password will be set with $DATABASE_ROOT_PASSWORD 
+    * ~~Database root user password will be set with $DATABASE_ROOT_PASSWORD~~  
+        * disabled for now.
 
     * Database $DATABASE_USER user will be created with $DATABASE_PASSWORD and all privileges.
 
@@ -42,9 +42,16 @@
     * requirements.txt list of packages will be installed.  
 
 * Djanjo application
-    * Script to create models for our application is run.(does what?)
-    * Database tables from the models are created for our application in our database.(maybe probably?)
-
+    * Script to create models for our application is run.
+    * Database tables from the models are created for our application in our database.
+    * Various migration commands and collectstatic command is run.
+    * django SuperUser is created with $DJANGO_SUPERUSER_PASSWORD, $DJANGO_SUPERUSER_USERNAME, $DJANGO_SUPERUSER_EMAIL.
+    * Some database tables are updated to skip creating social media site manually.
+        * UPDATE django_site SET domain="$SITE_DOMAIN", name="$SITE_NAME" WHERE id=1;
+        * INSERT INTO socialaccount_socialapp(id, provider, name, client_id, secret, \`key\`) values(1,"$SOCIAL_PROVIDER", "$SITE_NAME", "$SOCIAL_CLIENT_ID","$SOCIAL_SECRET","");  
+        * INSERT INTO socialaccount_socialapp_sites(id, socialapp_id, site_id) values(1,1,1);
+    * Database is updated to skip verification email for superuser.
+        * INSERT INTO account_emailaddress(id, email, verified, \`primary\`, user_id) values(1,"$DJANGO_SUPERUSER_EMAIL",1,1,1);
 
 ## Running the App
 

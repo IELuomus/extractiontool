@@ -25,7 +25,7 @@ function green {
     printf "${green}$@${default}\n"
 }
 function blue {
-    printf "${light_blue}$@${default}\n" # light is better
+    printf "${blue}$@${default}\n"
 }
 function yellow {
     printf "${yellow}$@${default}\n"

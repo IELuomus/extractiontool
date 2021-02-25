@@ -27,6 +27,18 @@ source devscripts/2_setup_django.sh
 
 source devscripts/3_setup_django_ie_application.sh
 
-green "\nAll DONE. $(blue 'to run django:\n')"
-magenta "python3 manage.py runsslserver" # runs the webserver
+echo
+green "\nAll DONE.\n"
+
+echo
+echo "to run django:"
+echo "  python3 manage.py runsslserver" # runs the webserver
+
+echo
+echo "ADMIN SITE:"
+blue "  https://127.0.0.1:8000/admin/"
+
+echo
+echo "NORMAL SITE:"
+blue "  https://127.0.0.1:8000/"
 echo

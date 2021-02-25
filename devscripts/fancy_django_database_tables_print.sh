@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# to save output to file with fancy formatting:
+# unbuffer -p bash devscripts/fancy_django_database_tables_print.sh > tty_fancy_tables_output.txt
+
 set -e
 
 source .env

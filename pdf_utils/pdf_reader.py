@@ -28,16 +28,31 @@ def get_title(path_to_file: Path):
     title = doc.metadata["title"]
     return title
 
+def get_metadata(path_to_file: Path):
+    doc = fitz.open(path_to_file)
+    metadata = doc.metadata
+    return metadata
+
 # Main for testing
 if __name__ == "__main__":
-    data_directory = Path("../test_data/Books")
+    test_data_path = "../test_data/"
+    source_directory = "Other"
+    source = test_data_path + source_directory
+    data_directory = Path(source)
 
     files = []
 
     for file in os.listdir(data_directory):
-        if path_to_file_has_file(data_directory / file):
-            path_to_file = data_directory / file
+        path_to_file = data_directory / file
+        
+        if path_to_file_has_file(path_to_file):
             files.append(path_to_file)
 
+    out = open("../test_data/results/" + source_directory + ".csv", "wb")
+    text = f"Filename; author; title; keywords; subject\n".encode("utf8")
+    out.write(text)
     for file in files:
-        print(f"Filename: {file.name}, author: {get_author(file)}, title: {get_title(file)}")
+        metadata = get_metadata(file)
+        text = f'{file.name}; {metadata["author"]}; {metadata["title"]}; {metadata["keywords"]}; {metadata["subject"]}\n'.encode("utf8")
+        out.write(text)
+    out.close()

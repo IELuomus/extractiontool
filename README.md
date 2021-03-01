@@ -1,9 +1,7 @@
 # Ecological Trait Information Extractor (ETIE)
 A tool to extract ecological trait information from PDFs into a structured database 
 
-[Product backlog](https://github.com/orgs/IELuomus/projects/1)
-
-[Sprintti 3 backlog](https://github.com/orgs/IELuomus/projects/2)
+[Product and sprint backlogs](https://github.com/orgs/IELuomus/projects/2)
 
 
 ![Django CI](https://github.com/IELuomus/extractiontool/workflows/Django%20CI/badge.svg)

@@ -13,6 +13,7 @@
     <h1>Hello {{ user.username }}!</h1>
     <h4>Welcome to ETIE -- our fantastic information extraction tool for scientific articles!</h4>
     <li><a href="{% url 'upload' %}">Load pdf</a></li>
+    <li><a href="{% url 'parse' %}">Parse a sample text</a></li>
   {% else %}
     <h1>Welcome to ETIE &mdash; The information extraction tool for scientific articles!</h1>
     <h4>Please <a href="{% url 'account_login' %}" >login</a> first.</h4>

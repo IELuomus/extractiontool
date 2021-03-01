@@ -36,5 +36,6 @@ sqlparse==0.4.1
 toml==0.10.2
 urllib3==1.26.2
 whitenoise==5.1.0
+spacy==3.0.0
 
 

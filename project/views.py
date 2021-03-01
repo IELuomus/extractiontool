@@ -22,3 +22,7 @@ def upload(request):
         url = fs.url(name)
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
+
+def parse(request):
+    return render(request, 'parse.html')
+    

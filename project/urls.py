@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.urls import path
 from django.urls.conf import include
 from users.views import index
-from .views import health, upload
+from .views import health, upload, parse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +31,7 @@ urlpatterns = [
     path('', index, name='index'),
     url(r'^health$', health),
     path('upload/', upload, name='upload'),
+    path('parse/', parse, name='parse'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

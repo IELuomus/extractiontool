@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+<link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+{% if user.is_authenticated %}
+{{table}}
+{{table_to_dataframe}}
+{% endif %}
+{% endblock content %}

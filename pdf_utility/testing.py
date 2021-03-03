@@ -4,7 +4,7 @@ import os
 import csv
 from pathlib import Path
 
-from pdf_reader import pdf_to_words
+from .pdf_reader import pdf_to_words
 
 # Main for testing
 if __name__ == "__main__":

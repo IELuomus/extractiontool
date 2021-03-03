@@ -71,7 +71,42 @@ input[type=submit] {
 input[type=submit]:hover {
   background-color: #45a049;
 }
-
 ul.socialaccount_providers {
-  list-style-type: none !important;
+  list-style-type: none;
+  padding: 0;
+}
+
+.socialaccount_provider {
+  padding: 5px;
+  border-radius: 2px;
+  border: 1px solid grey;
+  text-decoration: none;
+  background-color: #f3f3f3;
+}
+
+.socialaccount_provider:hover {
+  box-shadow: 0px 0px 5px grey;
+}
+
+.socialaccount_provider::before {
+  content: "";
+  background-image:url('orcicon.png');
+  background-size: 100% 100%;
+  display: inline-block;
+  height: 20px;
+  width:20px;
+  position:relative;
+  top:5px;
+  margin-right: 5px;
+}
+
+.middle {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+  border: 2px solid grey;
+  padding: 15px;
+  padding-top: 0;
+  border-radius: 4px;
 }

@@ -9,6 +9,7 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 import spacy
 from spacy.symbols import nsubj, VERB
+import en_core_web_trf
 
 def health(request):
     print('health check request')

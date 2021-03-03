@@ -16,7 +16,7 @@ import pandas as pd
 from django.http import HttpResponse
 import os
 
-uploaded_file=""
+
 def health(request):
     print('health check request')
     return HttpResponse(status=202)
@@ -33,20 +33,21 @@ def upload(request):
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 
-def table_to_dataframe(request, template_name="table.html"):
-        file_path = "templates_static/pdfs/PURS_pdf.pdf"
+# def table_to_dataframe(request, template_name="table.html"):
 
-        files = []
-        for root, dirs, files in os.walk("media/"):
-            for file in files:
-                files.append(file)
-        print("files[0]: ", str(files))
+def table_to_dataframe(request):
+        file_path = "templates_static/pdfs/PURS_pdf.pdf"
+        # files = []
+        # for root, dirs, files in os.walk("media/"):
+        #     for file in files:
+        #         files.append(file)
+        # print("files[0]: ", str(files))
         # uploaded_file = "media/%s"%(files[0])
         # print("path:", uploaded_file)
-        if uploaded_file:
-            table = tabula.read_pdf(uploaded_file, pages="8", stream=True,  multiple_tables=True)
-        else:
-             table = tabula.read_pdf(file_path, pages="8", stream=True,  multiple_tables=True)
+        # if uploaded_file:
+        #     table = tabula.read_pdf(uploaded_file, pages="8", stream=True,  multiple_tables=True)
+        # else:
+        table = tabula.read_pdf(file_path, pages="8", stream=True,  multiple_tables=True)
         table = table[0].to_html() 
         return HttpResponse(table)
 

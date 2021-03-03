@@ -9,6 +9,7 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 import spacy
 from spacy.symbols import nsubj, VERB
+import en_core_web_trf
 
 def health(request):
     print('health check request')
@@ -28,7 +29,8 @@ def upload(request):
 def parse(request):
     parse_result = {}
     if request.method == 'POST':
-        nlp = spacy.load("en_core_web_trf")
+        nlp = en_core_web_trf.load()
+        #nlp = spacy.load("en_core_web_trf")
 
         text=("Body size of Mustela africana averages larger than that "
         "of the other South American weasels, M. felipei (Colombian "

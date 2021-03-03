@@ -17,6 +17,16 @@ def pdf_to_txt(pdf_name: str, path_to_file: Path):
         out.write(bytes((12,)))
     out.close()
 
+# read the text from the given pdf at the given path and output as 
+def pdf_to_xml(pdf_name: str, path_to_file: Path):
+    doc = fitz.open(path_to_file)
+    out = open(pdf_name + ".xml", "wb")
+    for page in doc:
+        text = page.getText("xml").encode("utf8")
+        out.write(text)
+        out.write(bytes((12,)))
+    out.close()
+    
 # Metadata getters
 def get_author(path_to_file: Path):
     doc = fitz.open(path_to_file)
@@ -40,19 +50,24 @@ if __name__ == "__main__":
     source = test_data_path + source_directory
     data_directory = Path(source)
 
-    files = []
+    file_name = "mammalshb1.pdf"
+    
+    path_to_file = data_directory / file_name
 
-    for file in os.listdir(data_directory):
-        path_to_file = data_directory / file
+    pdf_to_xml(file_name, path_to_file)
+    # files = []
+
+    # for file in os.listdir(data_directory):
+    #     path_to_file = data_directory / file
         
-        if path_to_file_has_file(path_to_file):
-            files.append(path_to_file)
+    #     if path_to_file_has_file(path_to_file):
+    #         files.append(path_to_file)
 
-    out = open("../test_data/results/" + source_directory + ".csv", "wb")
-    text = f"Filename; author; title; keywords; subject\n".encode("utf8")
-    out.write(text)
-    for file in files:
-        metadata = get_metadata(file)
-        text = f'{file.name}; {metadata["author"]}; {metadata["title"]}; {metadata["keywords"]}; {metadata["subject"]}\n'.encode("utf8")
-        out.write(text)
-    out.close()
+    # out = open("../test_data/results/" + source_directory + ".csv", "wb")
+    # text = f"Filename; author; title; keywords; subject\n".encode("utf8")
+    # out.write(text)
+    # for file in files:
+    #     metadata = get_metadata(file)
+    #     text = f'{file.name}; {metadata["author"]}; {metadata["title"]}; {metadata["keywords"]}; {metadata["subject"]}\n'.encode("utf8")
+    #     out.write(text)
+    # out.close()

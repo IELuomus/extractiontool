@@ -71,3 +71,7 @@ input[type=submit] {
 input[type=submit]:hover {
   background-color: #45a049;
 }
+
+ul.socialaccount_providers {
+  list-style-type: none !important;
+}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+</head>
+<body>
+<h2>Please upload pdf file from below</h2>
+{% if user.is_authenticated %}
+<p> {{user}} logged in</p>
+<p> your user_id {{user.id}}</p>
+	<form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="document">
+        <button type="submit">Upload file</button>
+    </form>
+    {% if url %}
+     <p>Uploaded file: <a href="{{ url}}">{{url}}</a></p>
+	{% endif %}
+    {% endif %}
+{% endblock content %}

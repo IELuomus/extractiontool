@@ -1,38 +1,45 @@
+"""cradle_of_mankind URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
 from django.conf import settings
 from django.conf.urls import url
-from django.contrib import admin
-
-
-from django.urls import path, include
-from .views import homePageView, index, health
+from django.conf.urls.static import static
+from django.urls import path
+from django.urls.conf import include
+from users.views import index
+from .views import health, upload, parse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^health$', health),
-    path('', homePageView, name='home'),
+    path('users/', include('users.urls')),
     path('accounts/', include('allauth.urls')),
+    path('quality_control/', include('quality_control.urls')),
+    path('masterdata/', include('masterdata.urls')),
     path('', index, name='index'),
-    # path('health/', health),
     url(r'^health$', health),
-    # url(r'^ht/', include('health_check.urls')),
-
-]
-
-
-
-#urlpatterns = [
-    # Examples:
-    # url(r'^$', 'project.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
-    #url(r'^$', index),
-    #url(r'^health$', health),
-    #path('admin/', include('admin.site.urls'))
-    #url(r'^admin/', admin.site.urls),
-#]
+    path('upload/', upload, name='upload'),
+    path('parse/', parse, name='parse'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar
-    urlpatterns = [
+
+    urlpatterns += [
         url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+    ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

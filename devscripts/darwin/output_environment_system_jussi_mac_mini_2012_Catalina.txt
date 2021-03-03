@@ -1,0 +1,23 @@
+@Darwin
+sw_vers
+ProductName:	Mac OS X
+ProductVersion:	10.15.7
+BuildVersion:	19H524
+mariadb --version
+mariadb  Ver 15.1 Distrib 10.5.8-MariaDB, for osx10.15 (x86_64) using readline 5.1
+which mariadb
+/usr/local/bin/mariadb
+mysql --version
+mysql  Ver 15.1 Distrib 10.5.8-MariaDB, for osx10.15 (x86_64) using readline 5.1
+which mysql
+/usr/local/bin/mysql
+pip3 --version
+pip 21.0.1 from /usr/local/lib/python3.9/site-packages/pip (python 3.9)
+which pip3
+/usr/local/bin/pip3
+python3 --version
+Python 3.9.1
+which python3
+/usr/local/bin/python3
+ls -l /usr/local/bin/python3
+lrwxr-xr-x  1 jussi  admin  40 Feb 13 09:07 /usr/local/bin/python3 -> ../Cellar/python@3.9/3.9.1_8/bin/python3

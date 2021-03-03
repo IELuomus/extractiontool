@@ -2,12 +2,9 @@
 
 {% block content %}
 {% load static %}
-</head>
-<body>
 <h2>Parse a sample text</h2>
 {% if user.is_authenticated %}
 <p> {{user}} logged in</p>
-<p> your user_id {{user.id}}</p>
 Sample text (Héctor E. Ramírez-Chaves, Heidi Liliana Arango-Guerra, Bruce D. Patterson, <i>Mustela africana</i>, <i>Mammalian Species</i> 46(917): 11)
 <br><br>
 Body size of Mustela africana averages larger than that
@@ -51,6 +48,7 @@ M. africana (Izor and de la Torre 1978).
       {{ent}};&nbsp;
     {% endfor %}
     {% endif %}
+    <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
 {% else %} 
 <p>Please login first</p>
 {% endif %}

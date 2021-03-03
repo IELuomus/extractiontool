@@ -5,7 +5,12 @@
 
 <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
 {% if user.is_authenticated %}
-{{table}}
-{{table_to_dataframe}}
+<!-- <scritp>
+    window.setTimeout(function () {
+        location.href = "http://myurl.com";
+    }, 5000); // refresh/redirect after 5 seconds.
+</scritp> -->
+<p>{% autoescape off %}{{args }}{% endautoescape %}</p>
+{{args}}
 {% endif %}
 {% endblock content %}

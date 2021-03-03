@@ -7,10 +7,12 @@
     <h1>Hello {{ user.first_name }}!</h1>
     <h4>You are a data admin!</h4>
    <li><a href="{% url 'upload' %}">Load pdf</a></li>
+   <li><a href="{% url 'parse' %}">Parse a sample text</a></li>
   {% elif user.is_editor %}
     <h1>Hello {{ user.first_name }}!</h1>
     <h4>You are an editor!</h4>
    <li><a href="{% url 'upload' %}">Load pdf</a></li>
+   <li><a href="{% url 'parse' %}">Parse a sample text</a></li>
   {% elif user.is_authenticated %}
     <h1>Hello {{ user.first_name }}!</h1>
     <h4>Welcome to ETIE -- our fantastic information extraction tool for scientific articles!</h4>

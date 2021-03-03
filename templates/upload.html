@@ -14,5 +14,7 @@
     {% if url %}
      <p>Uploaded file: <a href="{{ url}}">{{url}}</a></p>
 	{% endif %}
+
+    <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
     {% endif %}
 {% endblock content %}

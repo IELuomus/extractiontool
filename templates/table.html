@@ -12,6 +12,8 @@
     }, 5000); // refresh/redirect after 5 seconds.
 </scritp> -->
 <p>{% autoescape off %}{{args }}{% endautoescape %}</p>
-{{args}}
+{{table}}
+
+<input type=button value="Previous Page" onClick="javascript:history.go(-1);">
 {% endif %}
 {% endblock content %}

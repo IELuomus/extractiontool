@@ -16,40 +16,40 @@ import pandas as pd
 from django.http import HttpResponse
 import os
 
-
+current_file = []
 def health(request):
     print('health check request')
     return HttpResponse(status=202)
 
+# def get_file_paths():
+#     fname = []
+#     for root,d_names,f_names in os.walk("media/*.pdf"):
+#     	for f in f_names:
+# 		    fname.append(os.path.join(root, f))
+
+#     print("fname = %s" %fname)
 
 def upload(request):
+    
     context = {}
     if request.method == 'POST':
         uploaded_file = request.FILES['document']
         fs = FileSystemStorage()
         name = fs.save(uploaded_file.name, uploaded_file)
-        fs.save('templates_static/pdfs', uploaded_file)
+        current_file.append(name)
         url = fs.url(name)
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 
-# def table_to_dataframe(request, template_name="table.html"):
 
 def table_to_dataframe(request):
-        file_path = "templates_static/pdfs/PURS_pdf.pdf"
-        # files = []
-        # for root, dirs, files in os.walk("media/"):
-        #     for file in files:
-        #         files.append(file)
-        # print("files[0]: ", str(files))
-        # uploaded_file = "media/%s"%(files[0])
-        # print("path:", uploaded_file)
-        # if uploaded_file:
-        #     table = tabula.read_pdf(uploaded_file, pages="8", stream=True,  multiple_tables=True)
-        # else:
-        table = tabula.read_pdf(file_path, pages="8", stream=True,  multiple_tables=True)
-        table = table[0].to_html() 
-        return HttpResponse(table)
+    print("current file= ", current_file)
+    file_path = ""
+    file_path = "media/{}".format(current_file[0]) 
+    table = tabula.read_pdf(file_path, pages="5", stream=True,  multiple_tables=True)
+    table = table[0].to_html() 
+    
+    return HttpResponse(table)
 
 def parse(request):
     parse_result = {}

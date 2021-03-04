@@ -15,21 +15,24 @@ import numpy as np
 import pandas as pd
 from django.http import HttpResponse
 import os
+from tabula import convert_into
+import csv
+import json
 
 current_file = []
 def health(request):
     print('health check request')
     return HttpResponse(status=202)
 
-def get_file_paths():
-    fname = []
-    for root,d_names,f_names in os.walk("media/*.pdf"):
-    	for f in f_names:
-		    fname.append(os.path.join(root, f))
+# def get_file_paths():
+#     fname = []
+#     for root,d_names,f_names in os.walk("media/*.pdf"):
+#     	for f in f_names:
+# 		    fname.append(os.path.join(root, f))
 
-    print("fname = %s" %fname)
-    print(fname)
-    print(fname[fname.len()-1])
+#     print("fname = %s" %fname)
+#     print(fname)
+
 def upload(request):
     
     context = {}
@@ -38,22 +41,32 @@ def upload(request):
         fs = FileSystemStorage()
         name = fs.save(uploaded_file.name, uploaded_file)
         current_file.append(name)
+        # get_file_paths()
         url = fs.url(name)
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 
 
 def table_to_dataframe(request):
+    contest ={}
     print("current file= ", current_file)
     file_path = ""
-    file_path = "media/{}".format(current_file[0]) 
-    table = tabula.read_pdf(file_path, pages="5", stream=True,  multiple_tables=True)
-    # table = pd.DataFrame(table)
     fs = FileSystemStorage()
-  
-    # name = fs.save( table_csv.name , table_csv)
-    table = table[0].to_html() 
-    return HttpResponse(table)
+    if not not current_file:
+        file_path = "media/{}".format(current_file[0]) 
+        table = tabula.read_pdf(file_path, pages="5", stream=True,  multiple_tables=True)
+        # table = pd.DataFrame(table)
+        ready = table[0]
+        # table = table[0].to_html()
+        json_records = table[0].reset_index().to_json(orient='records')
+        data =[]
+        data =json.loads(json_records)
+        context= {'table': data}
+        return render(request, 'table.html', context)
+    else:
+            return HttpResponse("no pdf provided") 
+
+   
 
 def parse(request):
     parse_result = {}

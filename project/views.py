@@ -29,7 +29,7 @@ def upload(request):
 def parse(request):
     parse_result = {}
     if request.method == 'POST':
-        nlp = spacy.load("en_core_web_sm")
+        nlp = spacy.load("en_core_web_trf")
 
         text=("Body size of Mustela africana averages larger than that "
         "of the other South American weasels, M. felipei (Colombian "
@@ -50,6 +50,11 @@ def parse(request):
         "in contrast with M. felipei and M. frenata in which the "
         "lateral margins are subparallel anteriorly. The p2 is absent in "
         "M. africana (Izor and de la Torre 1978).")
+
+        nlp.add_pipe("merge_entities")
+        nlp.add_pipe("merge_noun_chunks")
+
+        ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk("./patterns.jsonl")
 
         doc = nlp(text)
 

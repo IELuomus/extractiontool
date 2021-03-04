@@ -21,14 +21,15 @@ def health(request):
     print('health check request')
     return HttpResponse(status=202)
 
-# def get_file_paths():
-#     fname = []
-#     for root,d_names,f_names in os.walk("media/*.pdf"):
-#     	for f in f_names:
-# 		    fname.append(os.path.join(root, f))
+def get_file_paths():
+    fname = []
+    for root,d_names,f_names in os.walk("media/*.pdf"):
+    	for f in f_names:
+		    fname.append(os.path.join(root, f))
 
-#     print("fname = %s" %fname)
-
+    print("fname = %s" %fname)
+    print(fname)
+    print(fname[fname.len()-1])
 def upload(request):
     
     context = {}
@@ -47,8 +48,11 @@ def table_to_dataframe(request):
     file_path = ""
     file_path = "media/{}".format(current_file[0]) 
     table = tabula.read_pdf(file_path, pages="5", stream=True,  multiple_tables=True)
+    # table = pd.DataFrame(table)
+    fs = FileSystemStorage()
+  
+    # name = fs.save( table_csv.name , table_csv)
     table = table[0].to_html() 
-    
     return HttpResponse(table)
 
 def parse(request):

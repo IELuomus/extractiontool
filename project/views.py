@@ -29,7 +29,7 @@ def upload(request):
 def parse(request):
     parse_result = {}
     if request.method == 'POST':
-        nlp = spacy.load("en_core_web_trf")
+        nlp = spacy.load("en_core_web_sm")
 
         text=("Body size of Mustela africana averages larger than that "
         "of the other South American weasels, M. felipei (Colombian "

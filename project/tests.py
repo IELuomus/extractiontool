@@ -1,6 +1,6 @@
 from django.test import TestCase
-from django.urls import reverse
-from django.core.files.uploadedfile import SimpleUploadedFile
+# from django.urls import reverse
+# from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 # class uploadPdfTests(TestCase):

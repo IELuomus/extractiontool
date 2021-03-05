@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     "sslserver",
     'project',
     'django_userforeignkey',
-    'django_tables2',
     'spacy_parse',]
 
 SITE_ID = 1

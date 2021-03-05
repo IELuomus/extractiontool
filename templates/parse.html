@@ -31,22 +31,17 @@ M. africana (Izor and de la Torre 1978).
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <button type="submit">Parse!</button>
-</form>
-    <br>
-    {% if noun_phrases %}
-    Noun phrases in sample text:
-    <br>
-    {% for np in noun_phrases %}
-      {{np}};&nbsp;
-    {% endfor %}
-    {% endif %}
+</form>  
     <br><br>
     {% if entities %}
-    Named entities in sample text:
+    <h3>Named entities and their types in sample text:</h3>
     <br>
+    <table>
+      <tr><td><b>entity</b></td><td><b>type</b></td></tr>
     {% for ent in entities %}
-      {{ent}};&nbsp;
+    <tr><td>{{ent.text}}</td><td>{{ent.label_}}</td></tr>
     {% endfor %}
+  </table>
     {% endif %}
     <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
 {% else %} 

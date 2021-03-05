@@ -6,7 +6,6 @@ from django.urls import path
 from django.urls.conf import include
 from users.views import index
 from .views import health, upload, table_to_dataframe
-# from .extract_table import table_to_dataframe
 
 urlpatterns = [
     path('admin/', admin.site.urls),

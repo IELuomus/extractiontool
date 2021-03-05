@@ -21,8 +21,6 @@ from django.urls import path
 from django.urls.conf import include
 from users.views import index
 from .views import health, upload
-from .extract_table import table_to_dataframe
-from .views import health, upload, parse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,11 +28,11 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('quality_control/', include('quality_control.urls')),
     path('masterdata/', include('masterdata.urls')),
+    path('parse/', include('spacy_parse.urls')),
     path('', index, name='index'),
     path('table/', table_to_dataframe, name="table"),
     url(r'^health$', health),
     path('upload/', upload, name='upload'),
-    path('parse/', parse, name='parse'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

@@ -7,7 +7,7 @@ import en_core_web_sm
 def parse(request):
     parse_result = {}
     if request.method == 'POST':
-        nlp = spacy.load("en_core_web_sm")
+        nlp = spacy.load("en_core_web_trf")
 
         text=("Body size of Mustela africana averages larger than that "
         "of the other South American weasels, M. felipei (Colombian "

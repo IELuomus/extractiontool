@@ -18,6 +18,7 @@ Pipfile
 env/
 venv/
 build/
+media/
 develop-eggs/
 dist/
 downloads/

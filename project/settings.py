@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'simple_history',
     "sslserver",
     'project',
+    'pdf_utility',
     'django_userforeignkey',
     'spacy_parse',
 ]

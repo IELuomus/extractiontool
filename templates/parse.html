@@ -1,11 +1,9 @@
 {% extends "base.html" %}
-
 {% block content %}
 {% load static %}
 <h2>Parse a sample text</h2>
 {% if user.is_authenticated %}
 <p> {{user}} logged in</p>
-<p> your user_id {{user.id}}</p>
 Sample text (Héctor E. Ramírez-Chaves, Heidi Liliana Arango-Guerra, Bruce D. Patterson, <i>Mustela africana</i>, <i>Mammalian Species</i> 46(917): 11)
 <br><br>
 Body size of Mustela africana averages larger than that
@@ -29,27 +27,21 @@ in contrast with M. felipei and M. frenata in which the
 lateral margins are subparallel anteriorly. The p2 is absent in
 M. africana (Izor and de la Torre 1978).
 <br><br>
-<form method="post" >
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <button type="submit">Parse!</button>
-</form>
-    <br>
-    {% if noun_phrases %}
-    Noun phrases in sample text:
-    <br>
-    {% for np in noun_phrases %}
-      {{np}};&nbsp;
-    {% endfor %}
-    {% endif %}
+</form>  
     <br><br>
     {% if entities %}
-    Named entities in sample text:
+    <h3>Named entities and their types in sample text:</h3>
     <br>
+    <table>
+      <tr><td><b>entity</b></td><td><b>type</b></td></tr>
     {% for ent in entities %}
-      {{ent}};&nbsp;
+    <tr><td>{{ent.text}}</td><td>{{ent.label_}}</td></tr>
     {% endfor %}
+  </table>
     {% endif %}
-
     <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
 {% else %} 
 <p>Please login first</p>

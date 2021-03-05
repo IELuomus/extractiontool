@@ -5,22 +5,22 @@
 
 <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
 {% if user.is_authenticated %}
-
-
-{% if table %}   
-{% for i in table %} 
-  <tr> 
-    <td>{{i}}</td> 
-    <!-- <td>{{i.Administration}}</td> 
-    <td>{{i.Marketing_Spend}}</td> 
-    <td>{{i.State}}</td> 
-    <td>{{i.Profit}}</td>  -->
-  </tr> 
-{% endfor %} 
-{% endif %} 
-
+<h1>Dataframe</h1> 
+<table border="1px"> 
+    <tr> 
+        {% for data in table %} 
+            <th>{{ data }}</th> 
+        {% endfor %} 
+        {% for _, record in table.iterrows %} 
+            <tr> 
+                {% for value in data %} 
+                    <td>{{ value }}</td> 
+                {% endfor %} 
+            </tr> 
+        {% endfor %} 
+    </tr> 
+</table> 
 </div> 
-
 <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
 {% endif %}
-{% endblock content %}
+{% endblock content %} 

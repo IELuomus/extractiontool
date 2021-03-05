@@ -1,7 +1,6 @@
 from django.shortcuts import render
 import spacy
 from spacy.symbols import nsubj, VERB
-import en_core_web_sm
 
 
 def parse(request):

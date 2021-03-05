@@ -33,7 +33,7 @@ requests==2.25.1
 requests-oauthlib==1.3.0
 six==1.15.0
 sqlparse==0.4.1
-tabula-py=2.2.0
+tabula-py==2.2.0
 toml==0.10.2
 urllib3==1.26.2
 whitenoise==5.1.0

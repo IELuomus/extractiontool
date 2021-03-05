@@ -3,12 +3,10 @@ from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 
-class uploadPdfTests(TestCase):
+# class uploadPdfTests(TestCase):
 
-    def test_no_pdf_uploaded(self):
-        """
-        If no pdf exist, uploaded file is not displayed.
-        """
+#     def test_no_pdf_uploaded(self):
+
         # response = self.client.get(reverse('upload'))
         # self.assertEqual(response.status_code, 200)
 

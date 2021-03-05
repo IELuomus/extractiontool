@@ -5,8 +5,7 @@ from django.conf.urls.static import static
 from django.urls import path
 from django.urls.conf import include
 from users.views import index
-from .views import health, upload, table_to_dataframe
-# from .extract_table import table_to_dataframe
+from .views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,6 +13,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('quality_control/', include('quality_control.urls')),
     path('masterdata/', include('masterdata.urls')),
+    path('parse/', include('spacy_parse.urls')),
     path('', index, name='index'),
     path ('form/', table_to_dataframe, name="form"),
     path('table/', table_to_dataframe, name="table"),

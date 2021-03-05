@@ -48,4 +48,3 @@ def parse(request):
     
 
     return render(request, 'parse.html', parse_result)
-

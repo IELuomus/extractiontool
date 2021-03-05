@@ -112,7 +112,7 @@ def get_metadata(path_to_file: Path):
 
 # Main for testing
 if __name__ == "__main__":
-    test_data_path = "../test_data/"
+    test_data_path = "../media/"
     source_directory = "Other"
     source = test_data_path + source_directory
     data_directory = Path(source)

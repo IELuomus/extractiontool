@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import *
 from django.core.files.storage import default_storage
 from .forms import PageNumberForm
-
+import pandas as pd
 
 
 current_file = []
@@ -50,6 +50,10 @@ def table_to_dataframe(request):
     if request.method == 'GET':
         page_number = request.GET.get('page_number')
         table = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=False)
+        data = pd.DataFrame(table[0])
+        data = data.dropna()
+        data.to_excel('media/data.xlsx')
+        # data.to_excel('templates_static/data.xlsx')
         if table:
            table = table[0].to_html()
         

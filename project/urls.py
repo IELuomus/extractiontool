@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from django.urls import path
 from django.urls.conf import include
 from users.views import index
-from .views import health, upload, table_to_dataframe
+from .views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,7 +14,7 @@ urlpatterns = [
     path('quality_control/', include('quality_control.urls')),
     path('masterdata/', include('masterdata.urls')),
     path('', index, name='index'),
-    path ('form/', table_to_dataframe, name="form"),
+    path ('page_number/', table_to_dataframe, name="page_number"),
     path('table/', table_to_dataframe, name="table"),
     url(r'^health$', health),
     path('upload/', upload, name='upload'),

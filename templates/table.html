@@ -5,6 +5,12 @@
 
 <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
 {% if user.is_authenticated %}
+<!-- <form action = "/page_number/" method = "get"> 
+    {% csrf_token %}  
+    <label for="page_number">Enter the page number for the table: </label> 
+    <input id="page_number" type="number" name="page_number"> 
+    <input type="submit" value="OK"> 
+</form>  -->
 <h1>Dataframe</h1> 
 <table border="1px"> 
     <tr> 

@@ -11,6 +11,7 @@ from django.core.files.storage import FileSystemStorage
 import tabula
 from django.http import HttpResponse
 import os
+import csv
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import *
 from django.core.files.storage import default_storage
@@ -47,7 +48,7 @@ def table_to_dataframe(request):
     file_path = "media/{}".format(current_file[0]) 
     if request.method == 'GET':
         page_number = request.GET.get('page_number', 1)
-        table = tabula.read_pdf(file_path, pages=page_number, stream=True,  multiple_tables=True)
+        table = tabula.read_pdf(file_path, pages=page_number, stream=True,  multiple_tables=False)
         table = table[0].to_html()
         return HttpResponse(table)
     else:

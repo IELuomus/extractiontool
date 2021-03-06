@@ -13,6 +13,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('quality_control/', include('quality_control.urls')),
     path('masterdata/', include('masterdata.urls')),
+    path('parse/', include('spacy_parse.urls')),
     path('', index, name='index'),
     path ('page_number/', table_to_dataframe, name="page_number"),
     path('table/', table_to_dataframe, name="table"),

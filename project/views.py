@@ -49,7 +49,7 @@ def table_to_dataframe(request):
             page_number = request.GET.get('page_number')
     if request.method == 'GET':
         page_number = request.GET.get('page_number')
-        table = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
+        table = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=False)
         if table:
            table = table[0].to_html()
         

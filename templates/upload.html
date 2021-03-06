@@ -1,21 +1,26 @@
 {% extends "base.html" %}
-
 {% block content %}
 {% load static %}
-
 <h2>Please upload pdf file from below</h2>
 {% if user.is_authenticated %}
 <p> {{user}} logged in</p>
-<p> your user_id {{user.id}}</p>
 	<form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="document">
         <button type="submit">Upload file</button>
     </form>
     {% if url %}
-     <p>Uploaded file: <a href="{{ url}}">{{url}}</a></p>
-	{% endif %}
+     <p>Uploaded file: <a href="{{ url}}">{{url}} target="_blank"</a></p>
+     <form action="/page_number/" method="get">
+        {% csrf_token %}
+        <label for="element_id">Enter the page number for a table: </label>
+        <input id="element_id" type="number" name="page_number" value="required">
+        <input type="submit" value="OK">
+    </form>
+     <!-- <a class="btn btn-primary" href="/table">Table</a> -->
 
+	{% endif %}
+    <br>
     <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
     {% endif %}
 {% endblock content %}

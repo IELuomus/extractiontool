@@ -46,9 +46,9 @@ def table_to_dataframe(request):
         return HttpResponse("no pdf provided")
     file_path = "media/{}".format(current_file[0]) 
     if request.method == 'POST':
-            page_number = request.GET.get('page_number', 1)
+            page_number = request.GET.get('page_number')
     if request.method == 'GET':
-        page_number = request.GET.get('page_number', 1)
+        page_number = request.GET.get('page_number')
         table = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
         if table:
            table = table[0].to_html()

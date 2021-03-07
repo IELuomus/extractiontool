@@ -28,6 +28,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'tesserakti',
+    'pdf',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

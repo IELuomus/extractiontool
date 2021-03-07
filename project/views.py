@@ -10,13 +10,14 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 import tabula
 from django.http import HttpResponse
+from django.template.response import TemplateResponse
 import os
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import *
 from django.core.files.storage import default_storage
 from .forms import PageNumberForm
 import pandas as pd
-
+import json
 
 current_file = []
 
@@ -45,18 +46,14 @@ def table_to_dataframe(request):
     if not current_file:
         return HttpResponse("no pdf provided")
     file_path = "media/{}".format(current_file[0]) 
-    if request.method == 'POST':
-            page_number = request.GET.get('page_number')
-    if request.method == 'GET':
-        page_number = request.GET.get('page_number')
-        table = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=False)
-        data = pd.DataFrame(table[0])
-        data = data.dropna()
-        data.to_excel('media/data.xlsx')
-        # data.to_excel('templates_static/data.xlsx')
-        if table:
-           table = table[0].to_html()
-        
-           return HttpResponse(table)
+    # if request.method == 'GET':
+    page_number = request.GET.get('page_number')
+    table = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
+
+    if table:
+        table = table[0].to_html()
+        text_file = open("templates/data.html", "w") 
+        text_file.write(table) 
+        return TemplateResponse(request, 'table.html', {})
     else:
         return HttpResponse("no page number provided") 

@@ -16,6 +16,7 @@ urlpatterns = [
     path('', index, name='index'),
     path ('page_number/', table_to_dataframe, name="page_number"),
     path('table/', table_to_dataframe, name="table"),
+    path('data/', table_to_dataframe, name="data"),
     url(r'^health$', health),
     path('upload/', upload, name='upload'),
     path('parse/', include('spacy_parse.urls')),

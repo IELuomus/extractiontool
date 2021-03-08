@@ -16,10 +16,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import *
 from django.core.files.storage import default_storage
 from .forms import PageNumberForm
+from pdf_utility.pdf_reader import pdf_to_txt
 import pandas as pd
 import json
 
 current_file = []
+
 
 
 def health(request):
@@ -35,7 +37,12 @@ def upload(request):
         uploaded_file = request.FILES['document']
         fs = FileSystemStorage()
         name = fs.save(uploaded_file.name, uploaded_file)
+        
+        file_path = "media/{}".format(name)
+        pdf_to_txt(name, file_path)
         current_file.append(name)
+
+        file_path = "media/{}".format(current_file[0])
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 
@@ -49,9 +56,11 @@ def table_to_dataframe(request):
     # if request.method == 'GET':
     page_number = request.GET.get('page_number')
     table = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
-
     if table:
         table = table[0].to_html()
+        if table[1]:
+            print("table[1]", str(table[1]))
+            
         text_file = open("templates/data.html", "w") 
         text_file.write(table) 
         return TemplateResponse(request, 'table.html', {})

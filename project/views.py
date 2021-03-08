@@ -19,6 +19,7 @@ from .forms import PageNumberForm
 from pdf_utility.pdf_reader import pdf_to_txt
 import pandas as pd
 import json
+from pdf_utility.pdf_reader import pdf_to_txt
 
 current_file = []
 
@@ -45,6 +46,9 @@ def upload(request):
         file_path = "media/{}".format(current_file[0])
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
+
+def name_of_the_file(request):
+    return HttpResponse(current_file)
 
 
 @login_required

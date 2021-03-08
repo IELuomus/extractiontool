@@ -12,7 +12,7 @@ def path_to_file_has_file(path_to_file: Path):
 def pdf_to_txt(pdf_name: str, path_to_file: Path):
     if path_to_file_has_file(path_to_file): 
         doc = fitz.open(path_to_file)
-        out = open(pdf_name + ".txt", "wb")
+        out = open("media/" + pdf_name + ".txt", "wb")
         for page in doc:
             text = page.getText().encode("utf8")
             out.write(text)

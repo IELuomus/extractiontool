@@ -11,7 +11,7 @@ def parse(request):
 
         file_name = "testi2.pdf.txt"
 
-        with open('media/' + file_name, 'r') as file:
+        with open("media/{}".format(file_name), 'r') as file:
             text = file.read().replace('\n', '')
 
         nlp.add_pipe("merge_entities")

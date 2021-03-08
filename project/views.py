@@ -18,6 +18,7 @@ from django.core.files.storage import default_storage
 from .forms import PageNumberForm
 import pandas as pd
 import json
+from pdf_utility.pdf_reader import pdf_to_txt
 
 current_file = []
 
@@ -35,9 +36,18 @@ def upload(request):
         uploaded_file = request.FILES['document']
         fs = FileSystemStorage()
         name = fs.save(uploaded_file.name, uploaded_file)
+
+        file_path = "media/{}".format(name)
+        pdf_to_txt(name, file_path)
+        current_file.append(name)
+        file_path = "media/{}".format(current_file[0])
+
         current_file.append(name)
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
+
+def name_of_the_file(request):
+    return HttpResponse(current_file)
 
 
 @login_required

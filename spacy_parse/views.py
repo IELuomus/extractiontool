@@ -9,25 +9,10 @@ def parse(request):
     if request.method == 'POST':
         nlp = spacy.load("en_core_web_sm")
 
-        text=("Body size of Mustela africana averages larger than that "
-        "of the other South American weasels, M. felipei (Colombian "
-        "weasel) and M. frenata (long-tailed weasel—Hall 1951; Izor "
-        "and de la Torre 1978), reaching about 500 mm in total "
-        "length, versus 350 mm and 420 mm, respectively. M. "
-        "africana exhibits a ventral stripe that is the same color as "
-        "the dorsum (Fig. 1). M. felipei has a similar ventral marking "
-        "but it is reduced to a spot on the chest or neck (Ram´ırezChaves et al. 2012) and M. frenata has no ventral markings. "
-        "The tail is fairly long for a weasel ( 50% head-and-body "
-        "length) and uniform in color. The soles of the feet lack fur "
-        "and a thenar pad is present on forefoot (Hall 1951). The "
-        "skull of M. africana (Fig. 2) has a mesopterygoid fossa "
-        "reduced in comparison with M. felipei, and the auditory "
-        "bullae are narrow, widely spaced, elongated, and less "
-        "inflated than in M. frenata (Hall 1951; Izor and de la Torre "
-        "1978; Abramow 2000). The nasals form an isosceles triangle, "
-        "in contrast with M. felipei and M. frenata in which the "
-        "lateral margins are subparallel anteriorly. The p2 is absent in "
-        "M. africana (Izor and de la Torre 1978).")
+        file_name = "testi2.pdf.txt"
+
+        with open('media/' + file_name, 'r') as file:
+            text = file.read().replace('\n', '')
 
         nlp.add_pipe("merge_entities")
         nlp.add_pipe("merge_noun_chunks")

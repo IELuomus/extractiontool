@@ -16,11 +16,16 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import *
 from django.core.files.storage import default_storage
 from .forms import PageNumberForm
+from pdf_utility.pdf_reader import pdf_to_txt
 import pandas as pd
 import json
 from pdf_utility.pdf_reader import pdf_to_txt
+import spacy
+from spacy.symbols import nsubj, VERB
+import en_core_web_sm
 
 current_file = []
+
 
 
 def health(request):
@@ -36,18 +41,17 @@ def upload(request):
         uploaded_file = request.FILES['document']
         fs = FileSystemStorage()
         name = fs.save(uploaded_file.name, uploaded_file)
-
+        
         file_path = "media/{}".format(name)
         pdf_to_txt(name, file_path)
         current_file.append(name)
-        file_path = "media/{}".format(current_file[0])
 
-        current_file.append(name)
+        file_path = "media/{}".format(current_file[0])
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 
 def name_of_the_file(request):
-    return HttpResponse(current_file)
+    return HttpResponse(current_file[0])
 
 
 @login_required
@@ -59,11 +63,47 @@ def table_to_dataframe(request):
     # if request.method == 'GET':
     page_number = request.GET.get('page_number')
     table = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
-
     if table:
         table = table[0].to_html()
+        if table[1]:
+            print("table[1]", str(table[1]))
+            
         text_file = open("templates/data.html", "w") 
         text_file.write(table) 
         return TemplateResponse(request, 'table.html', {})
     else:
         return HttpResponse("no page number provided") 
+
+
+
+def parse(request):
+    parse_result = {}
+    if request.method == 'POST':
+        nlp = spacy.load("en_core_web_sm")
+
+        # file_name = "testi2.pdf.txt"
+
+        file_name = current_file[0]+".txt"
+        with open("media/{}".format(file_name), 'r') as file:
+            text = file.read().replace('\n', '')
+
+        nlp.add_pipe("merge_entities")
+        nlp.add_pipe("merge_noun_chunks")
+
+        ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk("./patterns.jsonl")
+
+        doc = nlp(text)
+
+        noun_phrases=[chunk.text for chunk in doc.noun_chunks]
+        verbs=[token.lemma_ for token in doc if token.pos_ == "VERB"]
+
+        entities=[]
+
+        for entity in doc.ents:
+            entities.append(entity)
+    
+        parse_result = {'noun_phrases':noun_phrases, 'verbs':verbs, 'entities':entities}
+    
+
+    return render(request, 'parse.html', parse_result)
+

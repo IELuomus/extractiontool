@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'project',
     'pdf_utility',
     'django_userforeignkey',
-    'spacy_parse',]
+    'spacy_parse']
 
 SITE_ID = 1
 
@@ -73,7 +73,9 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        # 'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [ os.path.join(os.path.dirname(__file__) ,'../templates').replace('\\','/')],
+       
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

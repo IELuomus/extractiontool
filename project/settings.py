@@ -51,8 +51,7 @@ INSTALLED_APPS = [
     'project',
     'pdf_utility',
     'django_userforeignkey',
-    'spacy_parse',
-    'django_unused_media']
+    'spacy_parse']
 
 SITE_ID = 1
 

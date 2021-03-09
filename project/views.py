@@ -82,7 +82,8 @@ def parse(request):
         nlp = spacy.load("en_core_web_sm")
 
         # file_name = "testi2.pdf.txt"
-
+        if not current_file:
+            return HttpResponse("no pdf provided")
         file_name = current_file[0]+".txt"
         with open("media/{}".format(file_name), 'r') as file:
             text = file.read().replace('\n', '')

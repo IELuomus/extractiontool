@@ -43,10 +43,10 @@ def upload(request):
         name = fs.save(uploaded_file.name, uploaded_file)
         
         file_path = "media/{}".format(name)
-        pdf_to_txt(name, file_path)
         current_file.append(name)
-
-        file_path = "media/{}".format(current_file[0])
+        pdf_to_txt(name, file_path)
+        #
+        # file_path = "media/{}".format(current_file[0])
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 
@@ -65,15 +65,11 @@ def table_to_dataframe(request):
     table = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
     if table:
         table = table[0].to_html()
-        if table[1]:
-            print("table[1]", str(table[1]))
-            
         text_file = open("templates/data.html", "w") 
         text_file.write(table) 
         return TemplateResponse(request, 'table.html', {})
     else:
         return HttpResponse("no page number provided") 
-
 
 
 def parse(request):

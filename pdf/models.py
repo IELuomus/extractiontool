@@ -8,6 +8,8 @@
 from django.db import models
 from django.utils import timezone
 import pytz
+from django.db.models import CASCADE
+from users.models import User
 
 
 class Document(models.Model):
@@ -23,11 +25,14 @@ class Document(models.Model):
 
 
 class DocumentOwner(models.Model):
-    document_id = models.IntegerField()
-    owner_id = models.IntegerField()
+    document = models.ForeignKey(Document, on_delete=CASCADE)
+    # document_id = models.IntegerField()
+    owner = models.ForeignKey(User, on_delete=CASCADE)
+    # owner_id = models.IntegerField()
     upload_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         managed = True
         
-        unique_together = (('document_id', 'owner_id'),)
+        unique_together = (('document', 'owner'),)
+        # unique_together = (('document_id', 'owner_id'),)

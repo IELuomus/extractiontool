@@ -31,8 +31,7 @@ function create_diagram {
     cd "$alku"
 }
 
-# foreign keys disabled in django-database because djano-orm performance. no much use drawing diagram without references drawn.
-# create_diagram "tesseract_tables" "${DATABASE_NAME}.pdf_document|${DATABASE_NAME}.tes_.*" "Tesseract taulut"
+create_diagram "tesseract_tables" "${DATABASE_NAME}.pdf_document|${DATABASE_NAME}.tes_.*" "Tesseract taulut"
 create_diagram "pdf_tables" "${DATABASE_NAME}.pdf_.*|${DATABASE_NAME}.users_user" "Pdf taulut"
 create_diagram "masterdata_tables" "${DATABASE_NAME}.masterdata_.*" "Mestaridata taulut"
 

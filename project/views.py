@@ -82,7 +82,7 @@ def parse(request):
         if not current_file:
             return HttpResponse("no pdf provided")
         file_name = current_file[0]+".txt"
-        with open("media/{}".format(file_name), 'r') as file:
+        with open("media/{}".format(file_name), 'r', encoding="utf-8") as file:
             text = file.read().replace('\n', '')
 
         nlp.add_pipe("merge_entities")

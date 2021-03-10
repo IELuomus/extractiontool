@@ -43,6 +43,7 @@ def upload(request):
         name = fs.save(uploaded_file.name, uploaded_file)
         
         file_path = "media/{}".format(name)
+        current_file.clear()
         current_file.append(name)
         pdf_to_txt(name, file_path)
         #
@@ -62,12 +63,29 @@ def table_to_dataframe(request):
     file_path = "media/{}".format(current_file[0]) 
     # if request.method == 'GET':
     page_number = request.GET.get('page_number')
-    table = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
-    if table:
-        table = table[0].to_html()
+    tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
+    if tables:
+        tables = tables[0].to_html()
         text_file = open("templates/data.html", "w") 
-        text_file.write(table) 
-        return TemplateResponse(request, 'table.html', {})
+        text_file.write(tables) 
+        tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True, encoding='utf-8')
+
+        i=1
+        for table in tables:
+            table.columns = table.iloc[0]
+            table = table.reindex(table.index.drop(0)).reset_index(drop=True)
+            table.columns.name = None
+
+             #To write Excel
+            table.to_excel("media/dataframe"+str(i)+'.xlsx',header=True,index=False)
+            #To write CSV
+            table.to_csv("media/dataframe"+str(i)+'.csv',sep=',',header=True,index=False)
+            table = table.to_html()
+            text_file = open("templates/data" +str(i)+ ".html", "w") 
+            text_file.write(table) 
+            i=i+1
+           
+        return TemplateResponse(request, 'table.html', {'tables: ' : tables})
     else:
         return HttpResponse("no page number provided") 
 

@@ -43,6 +43,7 @@ def upload(request):
         name = fs.save(uploaded_file.name, uploaded_file)
         
         file_path = "media/{}".format(name)
+        current_file.clear()
         current_file.append(name)
         pdf_to_txt(name, file_path)
         #

@@ -60,10 +60,10 @@ def table_to_dataframe(request):
     page_number = request.GET.get('page_number')
     tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
     if tables:
-        tables = tables[0].to_html()
-        text_file = open("templates/data.html", "w") 
-        text_file.write(tables) 
-        tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True, encoding='utf-8')
+        # tables = tables[0].to_html()
+        # text_file = open("templates/data.html", "w") 
+        # text_file.write(tables) 
+        # tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True, encoding='utf-8')
 
         i=1
         for table in tables:
@@ -71,10 +71,10 @@ def table_to_dataframe(request):
             table = table.reindex(table.index.drop(0)).reset_index(drop=True)
             table.columns.name = None
              #To write Excel
-            table.to_excel("media/" + current_file[0] + str(i)+'.xlsx', header=True, index=False)
+            # table.to_excel("media/" + current_file[0] + str(i)+'.xlsx', header=True, index=False)
             #To write CSV
-            table.to_csv("media/" + current_file[0] + str(i)+ '.csv', sep=',',header=True, 
-            index=False)
+            # table.to_csv("media/" + current_file[0] + str(i)+ '.csv', sep=',',header=True, 
+            # index=False)
 
             table.to_json("media/" + current_file[0] + str(i)+ '.json', orient='table', index=False)
             table = table.to_html()

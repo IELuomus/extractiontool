@@ -3,16 +3,20 @@
 {% load static %} 
 
 {% if user.is_authenticated %}
-<!-- {% include "data.html" %}
-<br><br> -->
-{% if "data1.html" is None %} 
-{% else %}
+{% if "data1.html" %}
     {% include "data1.html" %}
-{% endif %}
-<br><br>
-{% if "data2.html" is None %}
 {% else %}
+no table
+{% endif %}
+<p></p>
+{% if "data2.html" %}
     {% include "data2.html" %}
+{% else %}
+{% endif %}
+<p></p>
+{% if "data3.html" %}
+    {% include "data3.html" %}
+{% else %}
 {% endif %}
 <br>
 <br>

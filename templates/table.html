@@ -3,7 +3,22 @@
 {% load static %} 
 
 {% if user.is_authenticated %}
-{% include "data.html" %}
+{% if "data1.html" %}
+    {% include "data1.html" %}
+{% else %}
+no table
+{% endif %}
+<p></p>
+{% if "data2.html" %}
+    {% include "data2.html" %}
+{% else %}
+{% endif %}
+<p></p>
+{% if "data3.html" %}
+    {% include "data3.html" %}
+{% else %}
+{% endif %}
+<br>
 <br>
 <a href="{% url 'index' %}">Home</a>
 <br>

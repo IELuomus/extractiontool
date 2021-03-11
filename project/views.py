@@ -19,13 +19,11 @@ from .forms import PageNumberForm
 from pdf_utility.pdf_reader import pdf_to_txt
 import pandas as pd
 import json
-from pdf_utility.pdf_reader import pdf_to_txt
 import spacy
 from spacy.symbols import nsubj, VERB
 import en_core_web_sm
 
 current_file = []
-
 
 
 def health(request):
@@ -41,13 +39,10 @@ def upload(request):
         uploaded_file = request.FILES['document']
         fs = FileSystemStorage()
         name = fs.save(uploaded_file.name, uploaded_file)
-        
         file_path = "media/{}".format(name)
         current_file.clear()
         current_file.append(name)
         pdf_to_txt(name, file_path)
-        #
-        # file_path = "media/{}".format(current_file[0])
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 
@@ -63,12 +58,31 @@ def table_to_dataframe(request):
     file_path = "media/{}".format(current_file[0]) 
     # if request.method == 'GET':
     page_number = request.GET.get('page_number')
-    table = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
-    if table:
-        table = table[0].to_html()
-        text_file = open("templates/data.html", "w") 
-        text_file.write(table) 
-        return TemplateResponse(request, 'table.html', {})
+    tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
+    if tables:
+        # tables = tables[0].to_html()
+        # text_file = open("templates/data.html", "w") 
+        # text_file.write(tables) 
+        # tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True, encoding='utf-8')
+
+        i=1
+        for table in tables:
+            table.columns = table.iloc[0]
+            table = table.reindex(table.index.drop(0)).reset_index(drop=True)
+            table.columns.name = None
+             #To write Excel
+            # table.to_excel("media/" + current_file[0] + str(i)+'.xlsx', header=True, index=False)
+            #To write CSV
+            # table.to_csv("media/" + current_file[0] + str(i)+ '.csv', sep=',',header=True, 
+            # index=False)
+
+            table.to_json("media/" + current_file[0] + str(i)+ '.json', orient='table', index=False)
+            table = table.to_html()
+            text_file = open("templates/data" +str(i)+ ".html", "w") 
+            text_file.write(table) 
+            i=i+1
+           
+        return TemplateResponse(request, 'table.html', {'tables: ' : tables})
     else:
         return HttpResponse("no page number provided") 
 

@@ -109,19 +109,18 @@ def get_metadata(path_to_file: Path):
         doc = fitz.open(path_to_file)
         metadata = doc.metadata
         return metadata
+        
+def path_to_file(data_directory: str, file_name: str):
+    path = Path(data_directory)
+    return path / file_name
 
 # Main for testing
 if __name__ == "__main__":
-    test_data_path = "../media/"
-    source_directory = "Other"
-    source = test_data_path + source_directory
-    data_directory = Path(source)
-
+    data_directory = "media/"
+    
     file_name = "mammalshb1.pdf"
     
-    path_to_file = data_directory / file_name
-
-    pages = pdf_to_words(file_name, path_to_file)
+    pages = pdf_to_words(path_to_file(data_directory, file_name))
 
     for page in pages:
         for word in page:

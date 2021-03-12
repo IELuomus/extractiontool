@@ -17,6 +17,7 @@ from django.core.exceptions import *
 from django.core.files.storage import default_storage
 from .forms import PageNumberForm
 from pdf_utility.pdf_reader import pdf_to_txt
+from pdf_utility.pdf_sorter import is_text_pdf
 import pandas as pd
 import json
 import spacy
@@ -42,7 +43,10 @@ def upload(request):
         file_path = "media/{}".format(name)
         current_file.clear()
         current_file.append(name)
-        pdf_to_txt(name, file_path)
+        if is_text_pdf(name, file_path):
+            pdf_to_txt(name, file_path) # run pdf_to_txt only on pdf's that contain text
+        else:
+            pass # edit this to run OCR here on image-only pdf's if that is what's wanted
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 

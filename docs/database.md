@@ -30,7 +30,7 @@ The application main tables which contain pre-existing information needed for do
 tesserakti
 =====
 
-Tables here map almost one-to-one from Tesseract tab-separated-file output.  
+Tables here map almost one-to-one from Tesseract tab-separated-values (data) output.  
 
 Recognized regions are part of each other in the logical groups as well as coordinates.  
 

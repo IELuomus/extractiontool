@@ -31,7 +31,7 @@ function create_diagram {
     cd "$alku"
 }
 
-create_diagram "tesseract_tables" "${DATABASE_NAME}.pdf_document|${DATABASE_NAME}.tes_.*" "Tesseract taulut"
+create_diagram "tesserakti_tables" "${DATABASE_NAME}.pdf_document|${DATABASE_NAME}.tes_.*" "Tesserakti taulut"
 create_diagram "pdf_tables" "${DATABASE_NAME}.pdf_.*|${DATABASE_NAME}.users_user" "Pdf taulut"
 create_diagram "masterdata_tables" "${DATABASE_NAME}.masterdata_.*" "Mestaridata taulut"
 

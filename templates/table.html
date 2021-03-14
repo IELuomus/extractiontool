@@ -3,16 +3,25 @@
 {% load static %} 
 
 {% if user.is_authenticated %}
-{% if "data1.html" %}
-    {% include "data1.html" %}
-{% else %}
-no table
-{% endif %}
+
+{% if jobs == '1' %}
+{% include "data1.html" %}
+{% endif%}
+{% if jobs == '2' %}
+{% include "data1.html" %}
 <p></p>
-{% if "data2.html" %}
-    {% include "data2.html" %}
-{% else %}
-{% endif %}
+<p></p>
+{% include "data2.html" %}
+{% endif%}
+{% if jobs == '3' %}
+{% include "data1.html" %}
+<p></p>
+<p></p>
+{% include "data2.html" %}
+<p></p>
+<p></p>
+{% include "data3.html" %}
+{% endif%}
 <p></p>
 <br>
 <a href="{% url 'index' %}">Home</a>
@@ -25,4 +34,3 @@ no table
 {% endif %}
     
 {% endblock content %} 
-

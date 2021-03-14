@@ -52,6 +52,7 @@ def name_of_the_file(request):
 
 @login_required
 def table_to_dataframe(request):
+    context = {}
     file_path = ""
     if not current_file:
         return HttpResponse("no pdf provided")
@@ -81,8 +82,9 @@ def table_to_dataframe(request):
             text_file = open("templates/data" +str(i)+ ".html", "w") 
             text_file.write(table) 
             i=i+1
-           
-        return TemplateResponse(request, 'table.html', {'tables: ' : tables})
+        jobs = len(tables)   
+        context['jobs'] = str(jobs)
+        return TemplateResponse(request, 'table.html', context)
     else:
         return HttpResponse("no page number provided") 
 

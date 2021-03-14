@@ -115,7 +115,6 @@ def parse(request):
             entities.append(entity)
     
         parse_result = {'noun_phrases':noun_phrases, 'verbs':verbs, 'entities':entities}
-    
 
     return render(request, 'parse.html', parse_result)
 

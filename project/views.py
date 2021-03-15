@@ -21,7 +21,7 @@ import pandas as pd
 import json
 import spacy
 from spacy.symbols import nsubj, VERB
-import en_core_web_sm
+import en_core_web_lg
 
 current_file = []
 
@@ -92,7 +92,7 @@ def table_to_dataframe(request):
 def parse(request):
     parse_result = {}
     if request.method == 'POST':
-        nlp = spacy.load("en_core_web_sm")
+        nlp = spacy.load("en_core_web_lg")
 
         # file_name = "testi2.pdf.txt"
         if not current_file:

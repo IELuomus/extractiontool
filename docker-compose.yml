@@ -1,0 +1,32 @@
+version: "3.9"
+   
+services:
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: salasana
+      MYSQL_DATABASE: ieluomus
+      MYSQL_USER: root
+      MYSQL_PASSWORD: salasana
+    ports:
+      - "3306:3306"
+  web:
+    build: 
+      context: .
+      args:
+        DATABASE_NAME: ${DATABASE_NAME}
+        DATABASE_PASSWORD: ${DATABASE_PASSWORD}  
+        DATABASE_HOST: db
+        DATABASE_PORT: ${DATABASE_PORT}  
+        DATABASE_USER: ${DATABASE_USER}  
+        EMAIL_USER: ${EMAIL_USER}  
+        EMAIL_PASS: ${EMAIL_PASS}  
+        DEBUG: ${DEBUG}  
+    volumes:
+      - .:/code
+    command: /bin/sh -c "./docker-entrypoint.sh"
+    ports:
+      - "8000:8000"
+    links:
+      - db

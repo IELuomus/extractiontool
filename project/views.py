@@ -104,7 +104,7 @@ def parse(request):
         nlp.add_pipe("merge_entities")
         nlp.add_pipe("merge_noun_chunks")
 
-        ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk("./patterns.jsonl")
+        ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk("./patterns_scientificNames.jsonl")
 
         doc = nlp(text)
 
@@ -117,7 +117,6 @@ def parse(request):
             entities.append(entity)
     
         parse_result = {'noun_phrases':noun_phrases, 'verbs':verbs, 'entities':entities}
-    
 
     return render(request, 'parse.html', parse_result)
 

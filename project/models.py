@@ -5,7 +5,7 @@ from django.db import models
 class Pdf(models.Model):
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
-    pdf = models.FileField(upload_to='media/pdfs/')
+    pdf = models.FileField(upload_to='pdfs/')
 
     def _str_(self):
         return self.title

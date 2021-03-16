@@ -9,6 +9,7 @@ from .views import *
 
 urlpatterns = [
     path('pdfs/', pdf_list, name='pdf_list'),
+    path('pdfs/<int:pk>/', delete_pdf, name='delete_pdf'),
     path('pdfs/upload/', upload_pdf, name='upload_pdf'),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),

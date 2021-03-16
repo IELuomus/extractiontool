@@ -4,22 +4,28 @@
 {% load static %}
 
   {% if user.is_data_admin %}
-    <h1>Hello {{ user.first_name }}!</h1>
-    <h4>You are a data admin!</h4>
-   <li><a href="{% url 'upload' %}">Load pdf</a></li>
-    <li><a href="{% url 'parse' %}">Parse a sample text</a></li>
+  <h1>Hello {{ user.first_name }}!</h1>
+  <h1>Accurately extract data from PDFs</h1>
+  <h4>No more time consuming and error prone copying and pasting. Try our fantastic information extraction tool for scientific articles!</h4>
+  <p>
+    <a href="{% url 'upload_pdf' %}" class="w3-btn w3-black">Upload pdf</a>
+  </p>
   {% elif user.is_editor %}
-    <h1>Hello {{ user.first_name }}!</h1>
-    <h4>You are an editor!</h4>
-    <li><a href="{% url 'parse' %}">Parse a sample text</a></li>
-   <li><a href="{% url 'upload' %}">Load pdf</a></li>
+  <h1>Hello {{ user.first_name }}!</h1>
+  <h1>Accurately extract data from PDFs</h1>
+  <h4>No more time consuming and error prone copying and pasting. Try our fantastic information extraction tool for scientific articles!</h4>
+  <p>
+    <a href="{% url 'upload_pdf' %}" class="w3-btn w3-black">Upload pdf</a>
+  </p>
   {% elif user.is_authenticated %}
     <h1>Hello {{ user.first_name }}!</h1>
-    <h4>Welcome to ETIE -- our fantastic information extraction tool for scientific articles!</h4>
-    <li><a href="{% url 'upload' %}">Load pdf</a></li>
-    <li><a href="{% url 'parse' %}">Parse a sample text</a></li>
+    <h1>Accurately extract data from PDFs</h1>
+    <h4>No more time consuming and error prone copying and pasting. Try our fantastic information extraction tool for scientific articles!</h4>
+    <p>
+      <a href="{% url 'upload_pdf' %}" class="w3-btn w3-black">Upload pdf</a>
+    </p>
   {% else %}
-    <h1>Welcome to ETIE &mdash; The information extraction tool for scientific articles!</h1>
+    <h1>Welcome to ETIE! The information extraction tool for scientific articles!</h1>
     <h4>Please <a href="{% url 'account_login' %}" >login</a> first.</h4>
   {% endif %}
 

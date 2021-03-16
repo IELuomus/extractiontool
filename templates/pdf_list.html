@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% if user.is_authenticated %}
+<h2>Pdfs</h2>
+
+<p>
+    <a href="{% url 'upload_pdf'}" class="w3-btn w3-black">Upload pdf</a>
+</p>
+
+<table class="w3-table w3-striped w3-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Download</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pdf in pdfs %}
+        <tr>
+            <td>{{ pdf.title }}</td>
+            <td>{{ pdf.author }}</td>
+            <td>
+                <a href="{{ pdf.pdf.url }}" class="w3-btn w3-black" target="_blank">Download PDF</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock content %}

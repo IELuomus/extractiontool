@@ -8,6 +8,8 @@ from users.views import index
 from .views import *
 
 urlpatterns = [
+    path('pdfs/', pdf_list, name='pdf_list'),
+    path('pdfs/upload/', upload_pdf, name='upload_pdf'),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('accounts/', include('allauth.urls')),

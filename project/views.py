@@ -1,9 +1,8 @@
 
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from .models import PageView
+from .models import Pdf
 from django.core.files import File
 from django.core.mail import send_mail
 from django.conf import settings
@@ -15,7 +14,7 @@ import os
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import *
 from django.core.files.storage import default_storage
-from .forms import PageNumberForm
+from .forms import PageNumberForm, PdfForm
 from pdf_utility.pdf_reader import pdf_to_txt
 import pandas as pd
 import json
@@ -45,6 +44,25 @@ def upload(request):
         pdf_to_txt(name, file_path)
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
+
+def pdf_list(request):
+    pdfs = Pdf.objects.all()
+    return render(request, 'pdf_list.html', {
+        'pdfs': pdfs
+    })
+
+def upload_pdf(request):
+    if request.method == 'POST':
+        form = PdfForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('pdf_list')
+    else: 
+        form = PdfForm()
+
+    return render(request, 'upload_pdf.html', {
+        'form': form
+    })
 
 def name_of_the_file(request):
     return HttpResponse(current_file[0])

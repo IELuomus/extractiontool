@@ -1,9 +1,8 @@
 
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from .models import PageView
+from .models import Pdf
 from django.core.files import File
 from django.core.mail import send_mail
 from django.conf import settings
@@ -15,7 +14,7 @@ import os
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import *
 from django.core.files.storage import default_storage
-from .forms import PageNumberForm
+from .forms import PageNumberForm, PdfForm
 from pdf_utility.pdf_reader import pdf_to_txt
 import pandas as pd
 import json
@@ -46,9 +45,27 @@ def upload(request):
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 
+def pdf_list(request):
+    pdfs = Pdf.objects.all()
+    return render(request, 'pdf_list.html', {
+        'pdfs': pdfs
+    })
+
+def upload_pdf(request):
+    if request.method == 'POST':
+        form = PdfForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('pdf_list')
+    else: 
+        form = PdfForm()
+
+    return render(request, 'upload_pdf.html', {
+        'form': form
+    })
+
 def name_of_the_file(request):
     return HttpResponse(current_file[0])
-
 
 @login_required
 def table_to_dataframe(request):
@@ -57,15 +74,11 @@ def table_to_dataframe(request):
     if not current_file:
         return HttpResponse("no pdf provided")
     file_path = "media/{}".format(current_file[0]) 
-    # if request.method == 'GET':
-    page_number = request.GET.get('page_number')
-    tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
-    if tables:
-        # tables = tables[0].to_html()
-        # text_file = open("templates/data.html", "w") 
-        # text_file.write(tables) 
-        # tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True, encoding='utf-8')
 
+    page_number = request.GET.get('page_number')
+    tables = tabula.read_pdf(file_path, pages=page_number, pandas_options={'header': None}, stream=True, multiple_tables=True)
+    if tables:
+ 
         i=1
         for table in tables:
             table.columns = table.iloc[0]

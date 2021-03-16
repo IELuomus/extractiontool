@@ -4,7 +4,6 @@
 <h2>Parse a sample text</h2>
 {% if user.is_authenticated %}
 <p> {{user}} logged in</p>
-Sample text (Héctor E. Ramírez-Chaves, Heidi Liliana Arango-Guerra, Bruce D. Patterson, <i>Mustela africana</i>, <i>Mammalian Species</i> 46(917): 11)
 <br><br>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -12,7 +11,7 @@ Sample text (Héctor E. Ramírez-Chaves, Heidi Liliana Arango-Guerra, Bruce D. P
 </form>  
     <br><br>
     {% if sentences %}
-    <h3>Named entities and their types in sample text:</h3>
+    <h3>Sentences with potential trait data:</h3>
     <br>
     <table>
       <tr><td><b>entity</b></td><td><b>type</b></td></tr>

@@ -48,18 +48,20 @@ def upload(request):
 
 def name_of_the_file(request):
     return HttpResponse(current_file[0])
-
-
+import pdfplumber
 @login_required
 def table_to_dataframe(request):
+
+   
     context = {}
     file_path = ""
     if not current_file:
         return HttpResponse("no pdf provided")
     file_path = "media/{}".format(current_file[0]) 
     # if request.method == 'GET':
+
     page_number = request.GET.get('page_number')
-    tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
+    tables = tabula.read_pdf(file_path, pages=page_number, pandas_options={'header': None}, stream=True, multiple_tables=True)
     if tables:
         # tables = tables[0].to_html()
         # text_file = open("templates/data.html", "w") 

@@ -45,12 +45,14 @@ def upload(request):
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 
+@login_required
 def pdf_list(request):
     pdfs = Pdf.objects.all()
     return render(request, 'pdf_list.html', {
         'pdfs': pdfs
     })
 
+@login_required
 def upload_pdf(request):
     if request.method == 'POST':
         form = PdfForm(request.POST, request.FILES)
@@ -63,6 +65,12 @@ def upload_pdf(request):
     return render(request, 'upload_pdf.html', {
         'form': form
     })
+
+def delete_pdf(request, pk):
+    if request.method == 'POST':
+        pdf = Pdf.objects.get(pk=pk)
+        pdf.delete()
+    return redirect('pdf_list')
 
 def name_of_the_file(request):
     return HttpResponse(current_file[0])
@@ -108,10 +116,11 @@ def parse(request):
         nlp = spacy.load("en_core_web_lg")
 
         #file_name = "testi2.pdf.txt"
-        if not current_file:
-            return HttpResponse("no pdf provided")
-        file_name = current_file[0]+".txt"
-        with open("media/{}".format(file_name), 'r', encoding="utf-8") as file:
+        # if not current_file:
+        #     return HttpResponse("no pdf provided")
+        # file_name = current_file[0]+".txt"
+        file_name_new = Pdf.objects.get(title="uusi")
+        with open("media/{}".format(file_name_new), 'r', encoding="utf-8") as file:
             text = file.read().replace('\n', '')
 
 

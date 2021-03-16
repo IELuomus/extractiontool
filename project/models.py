@@ -9,3 +9,7 @@ class Pdf(models.Model):
 
     def _str_(self):
         return self.title
+    
+    def delete(self, *args, **kwargs):
+        self.pdf.delete()
+        super().delete(*args, **kwargs)

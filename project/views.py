@@ -49,7 +49,6 @@ def upload(request):
 def name_of_the_file(request):
     return HttpResponse(current_file[0])
 
-
 @login_required
 def table_to_dataframe(request):
     context = {}
@@ -57,15 +56,11 @@ def table_to_dataframe(request):
     if not current_file:
         return HttpResponse("no pdf provided")
     file_path = "media/{}".format(current_file[0]) 
-    # if request.method == 'GET':
-    page_number = request.GET.get('page_number')
-    tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True)
-    if tables:
-        # tables = tables[0].to_html()
-        # text_file = open("templates/data.html", "w") 
-        # text_file.write(tables) 
-        # tables = tabula.read_pdf(file_path, pages=page_number, stream=True, multiple_tables=True, encoding='utf-8')
 
+    page_number = request.GET.get('page_number')
+    tables = tabula.read_pdf(file_path, pages=page_number, pandas_options={'header': None}, stream=True, multiple_tables=True)
+    if tables:
+ 
         i=1
         for table in tables:
             table.columns = table.iloc[0]

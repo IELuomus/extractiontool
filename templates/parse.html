@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-<h2>Parse a sample text</h2>
+<h2>Parse the uploaded text</h2>
 {% if user.is_authenticated %}
 <p> {{user}} logged in</p>
 <br><br>
@@ -14,9 +14,8 @@
     <h3>Sentences with potential trait data:</h3>
     <br>
     <table>
-      <tr><td><b>entity</b></td><td><b>type</b></td></tr>
     {% for sent in sentences %}
-    <tr><td>{{sent.text}}</td></tr>>
+    <tr><td>{{sent.text}}</td></tr>
     {% endfor %}
   </table>
     {% endif %}

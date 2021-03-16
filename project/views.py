@@ -21,7 +21,7 @@ import pandas as pd
 import json
 import spacy
 from spacy.symbols import nsubj, VERB
-import en_core_web_sm
+import en_core_web_lg
 
 current_file = []
 
@@ -94,14 +94,15 @@ def table_to_dataframe(request):
 def parse(request):
     parse_result = {}
     if request.method == 'POST':
-        nlp = spacy.load("en_core_web_sm")
+        nlp = spacy.load("en_core_web_lg")
 
-        # file_name = "testi2.pdf.txt"
+        #file_name = "testi2.pdf.txt"
         if not current_file:
             return HttpResponse("no pdf provided")
         file_name = current_file[0]+".txt"
         with open("media/{}".format(file_name), 'r', encoding="utf-8") as file:
             text = file.read().replace('\n', '')
+
 
         nlp.add_pipe("merge_entities")
         nlp.add_pipe("merge_noun_chunks")
@@ -110,15 +111,47 @@ def parse(request):
 
         doc = nlp(text)
 
-        noun_phrases=[chunk.text for chunk in doc.noun_chunks]
-        verbs=[token.lemma_ for token in doc if token.pos_ == "VERB"]
+        sentences_with_traits = []
+        trait_words = ["weight", 
+        "height",
+        "width",
+        "breadth",
+        "length",
+        "mass",
+        "body",
+        "tail",
+        "area",
+        "thickness",
+        "constriction", 
+        "count",
+        "number",
+        "ratio",
+        "head-body",
+        "longevity",
+        "litter",
+        "size",
+        "range",
+        "index",
+        "ear",
+        "forearm"
+        ]
+
+        for sentence in doc.sents:
+            for trait in trait_words:
+                if trait in sentence.text:
+                    sentences_with_traits.append(sentence)
+                    break
+        
+        #print("YHTEENSÄ", len(sentences_with_traits))
+        # noun_phrases=[chunk.text for chunk in doc.noun_chunks]
+        # verbs=[token.lemma_ for token in doc if token.pos_ == "VERB"]
 
         entities=[]
 
         for entity in doc.ents:
             entities.append(entity)
-    
-        parse_result = {'noun_phrases':noun_phrases, 'verbs':verbs, 'entities':entities}
+        #'noun_phrases':noun_phrases, 'verbs':verbs,
+        parse_result = {'sentences': sentences_with_traits, 'entities':entities}
 
     return render(request, 'parse.html', parse_result)
 

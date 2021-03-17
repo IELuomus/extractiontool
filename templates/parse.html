@@ -10,6 +10,15 @@
     <button type="submit">Parse!</button>
 </form>  
     <br><br>
+    {% if entities %}
+    <h3>Named entities and their types:</h3>
+    <table>
+      {% for ent in entities %}
+      <tr><td>{{ent.text}}</td><td>{{ent.label_}}</td></tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+    <br>
     {% if sentences %}
     <h3>Sentences with potential trait data:</h3>
     <br>

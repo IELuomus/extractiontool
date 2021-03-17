@@ -117,7 +117,6 @@ def parse(request, pk):
     if request.method == 'POST':
         nlp = spacy.load("en_core_web_lg")
 
-        #file_name = "testi2.pdf.txt"
         # if not current_file:
         #     return HttpResponse("no pdf provided")
         pdf = Pdf.objects.get(pk=pk)
@@ -168,15 +167,20 @@ def parse(request, pk):
                     sentences_with_traits.append(sentence)
                     break
         
-        #print("YHTEENSÄ", len(sentences_with_traits))
         # noun_phrases=[chunk.text for chunk in doc.noun_chunks]
         # verbs=[token.lemma_ for token in doc if token.pos_ == "VERB"]
 
-        entities=[]
+        trait_text = ""
+        for sent in sentences_with_traits:
+            trait_text += sent.text
 
-        for entity in doc.ents:
+        trait_doc = nlp(trait_text)
+        
+        entities=[]
+        
+        for entity in trait_doc.ents:
             entities.append(entity)
-        #'noun_phrases':noun_phrases, 'verbs':verbs,
+
         parse_result = {'sentences': sentences_with_traits, 'entities':entities}
 
     return render(request, 'parse.html', parse_result)

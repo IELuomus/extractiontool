@@ -76,14 +76,16 @@ def name_of_the_file(request):
     return HttpResponse(current_file[0])
 
 @login_required
-def table_to_dataframe(request):
+def table_to_dataframe(request, pk):
     context = {}
-    file_path = ""
-    if not current_file:
-        return HttpResponse("no pdf provided")
-    file_path = "media/{}".format(current_file[0]) 
+    # file_path = ""
+    # if not current_file:
+    #     return HttpResponse("no pdf provided")
+    # file_path = "media/{}".format(current_file[0]) 
+    pdf = Pdf.objects.get(pk=pk)
+    file_path = pdf.pdf.path
 
-    page_number = request.GET.get('page_number')
+    page_number = 8 #request.GET.get('page_number')
     tables = tabula.read_pdf(file_path, pages=page_number, pandas_options={'header': None}, stream=True, multiple_tables=True)
     if tables:
  
@@ -98,7 +100,7 @@ def table_to_dataframe(request):
             # table.to_csv("media/" + current_file[0] + str(i)+ '.csv', sep=',',header=True, 
             # index=False)
 
-            table.to_json("media/" + current_file[0] + str(i)+ '.json', orient='table', index=False)
+            table.to_json(file_path + str(i)+ '.json', orient='table', index=False)
             table = table.to_html()
             text_file = open("templates/data" +str(i)+ ".html", "w") 
             text_file.write(table) 
@@ -110,18 +112,21 @@ def table_to_dataframe(request):
         return HttpResponse("no page number provided") 
 
 
-def parse(request):
+def parse(request, pk):
     parse_result = {}
     if request.method == 'POST':
         nlp = spacy.load("en_core_web_lg")
 
-        #file_name = "testi2.pdf.txt"
         # if not current_file:
         #     return HttpResponse("no pdf provided")
+        pdf = Pdf.objects.get(pk=pk)
+        file_path = pdf.pdf.path
+
+        pdf_to_txt(pdf.pdf.name, file_path)
         # file_name = current_file[0]+".txt"
-        file_name_new = Pdf.objects.get(title="uusi")
-        with open("media/{}".format(file_name_new), 'r', encoding="utf-8") as file:
-            text = file.read().replace('\n', '')
+        # file_name_new = Pdf.objects.get(title="uusi")
+        with open(file_path+".txt", 'r', encoding="utf-8") as file:
+            text = file.read().replace('\n', ' ')
 
 
         nlp.add_pipe("merge_entities")
@@ -162,15 +167,20 @@ def parse(request):
                     sentences_with_traits.append(sentence)
                     break
         
-        #print("YHTEENSÄ", len(sentences_with_traits))
         # noun_phrases=[chunk.text for chunk in doc.noun_chunks]
         # verbs=[token.lemma_ for token in doc if token.pos_ == "VERB"]
 
-        entities=[]
+        trait_text = ""
+        for sent in sentences_with_traits:
+            trait_text += sent.text
 
-        for entity in doc.ents:
+        trait_doc = nlp(trait_text)
+        
+        entities=[]
+        
+        for entity in trait_doc.ents:
             entities.append(entity)
-        #'noun_phrases':noun_phrases, 'verbs':verbs,
+
         parse_result = {'sentences': sentences_with_traits, 'entities':entities}
 
     return render(request, 'parse.html', parse_result)

@@ -76,14 +76,16 @@ def name_of_the_file(request):
     return HttpResponse(current_file[0])
 
 @login_required
-def table_to_dataframe(request):
+def table_to_dataframe(request, pk):
     context = {}
-    file_path = ""
-    if not current_file:
-        return HttpResponse("no pdf provided")
-    file_path = "media/{}".format(current_file[0]) 
+    # file_path = ""
+    # if not current_file:
+    #     return HttpResponse("no pdf provided")
+    # file_path = "media/{}".format(current_file[0]) 
+    pdf = Pdf.objects.get(pk=pk)
+    file_path = pdf.pdf.path
 
-    page_number = request.GET.get('page_number')
+    page_number = 8 #request.GET.get('page_number')
     tables = tabula.read_pdf(file_path, pages=page_number, pandas_options={'header': None}, stream=True, multiple_tables=True)
     if tables:
  
@@ -98,7 +100,7 @@ def table_to_dataframe(request):
             # table.to_csv("media/" + current_file[0] + str(i)+ '.csv', sep=',',header=True, 
             # index=False)
 
-            table.to_json("media/" + current_file[0] + str(i)+ '.json', orient='table', index=False)
+            table.to_json(file_path + str(i)+ '.json', orient='table', index=False)
             table = table.to_html()
             text_file = open("templates/data" +str(i)+ ".html", "w") 
             text_file.write(table) 

@@ -121,7 +121,7 @@ def parse(request):
         # file_name = current_file[0]+".txt"
         file_name_new = Pdf.objects.get(title="uusi")
         with open("media/{}".format(file_name_new), 'r', encoding="utf-8") as file:
-            text = file.read().replace('\n', '')
+            text = file.read().replace('\n', ' ')
 
 
         nlp.add_pipe("merge_entities")

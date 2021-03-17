@@ -12,5 +12,6 @@ class PdfTestCase(TestCase):
 
         message="HELLOU"
         print(f'{message}!!!')
+        # no comment
 
         self.assertTrue(message == "HELLOU", f'Message is {message}.')

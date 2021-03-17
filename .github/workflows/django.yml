@@ -47,7 +47,6 @@ jobs:
         DATABASE_PORT: 3307
       run: |
         python manage.py test
-#        python manage.py test --tag olematon_tagi      
     - name: Merge main -> deployment
       uses: devmasx/merge-branch@v1.3.1
       with:

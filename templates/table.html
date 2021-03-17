@@ -24,11 +24,8 @@
 {% endif%}
 <p></p>
 <br>
-<a href="{% url 'index' %}">Home</a>
+<a href="{% url 'pdf_list' %}" class="w3-btn w3-black">Back to pdf list</a>
 <br>
-<a href="{% url 'upload' %}">Upload a pdf</a>
-<br>
-<a href="{% url 'parse' %}">Parse a sample text</a>
 {% else %} 
 <p>Please log in first</p>
 {% endif %}

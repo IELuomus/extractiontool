@@ -166,6 +166,8 @@ def parse(request):
         # noun_phrases=[chunk.text for chunk in doc.noun_chunks]
         # verbs=[token.lemma_ for token in doc if token.pos_ == "VERB"]
 
+        #', '.join(mylist)
+
         entities=[]
 
         for entity in doc.ents:

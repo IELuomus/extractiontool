@@ -22,7 +22,7 @@ urlpatterns = [
     path('data/', table_to_dataframe, name="data"),
     url(r'^health$', health),
     path('upload/', upload, name='upload'),
-    path('parse/', parse, name='parse'),
+    path('parse/<int:pk>/', parse, name='parse'),
     # path('parse/', include('spacy_parse.urls')),
     path('', index, name='index'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

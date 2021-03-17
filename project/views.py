@@ -110,7 +110,7 @@ def table_to_dataframe(request):
         return HttpResponse("no page number provided") 
 
 
-def parse(request):
+def parse(request, pk):
     parse_result = {}
     if request.method == 'POST':
         nlp = spacy.load("en_core_web_lg")
@@ -118,10 +118,14 @@ def parse(request):
         #file_name = "testi2.pdf.txt"
         # if not current_file:
         #     return HttpResponse("no pdf provided")
+        pdf = Pdf.objects.get(pk=pk)
+        file_path = pdf.pdf.path
+
+        pdf_to_txt(pdf.pdf.name, file_path)
         # file_name = current_file[0]+".txt"
-        file_name_new = Pdf.objects.get(title="uusi")
-        with open("media/{}".format(file_name_new), 'r', encoding="utf-8") as file:
-            text = file.read().replace('\n', ' ')
+        # file_name_new = Pdf.objects.get(title="uusi")
+        with open(file_path+".txt", 'r', encoding="utf-8") as file:
+            text = file.read().replace('\n', '')
 
 
         nlp.add_pipe("merge_entities")
@@ -165,8 +169,6 @@ def parse(request):
         #print("YHTEENSÄ", len(sentences_with_traits))
         # noun_phrases=[chunk.text for chunk in doc.noun_chunks]
         # verbs=[token.lemma_ for token in doc if token.pos_ == "VERB"]
-
-        #', '.join(mylist)
 
         entities=[]
 

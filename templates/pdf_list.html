@@ -32,9 +32,17 @@
             <td>
                 <a href="{% url 'table' %}" class="w3-btn w3-black">Extract data from tables</a>
             </td>
+            <td>
+                <form method="post" action="{% url 'delete_pdf' pdf.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="w3-btn w3-black">Delete</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 {% endif %}
 {% endblock content %}
+
+

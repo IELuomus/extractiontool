@@ -11,18 +11,19 @@ import pytz
 from django.db.models import CASCADE
 from users.models import User
 
-
 class Document(models.Model):
     filename = models.CharField(max_length=1000)
     size = models.IntegerField()
     sha1sum = models.CharField(max_length=40)
+    pagecount = models.IntegerField()
     created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(default=timezone.now)
 
+    def get_full_filepath(self):
+        return f'media_files/pdf/{self.sha1sum}/{self.filename}'
+
     class Meta:
         managed = True
-        
-
 
 class DocumentOwner(models.Model):
     document = models.ForeignKey(Document, on_delete=CASCADE)

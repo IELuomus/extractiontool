@@ -51,4 +51,5 @@ jobs:
 
       - name: Run Tests
         run: |
-          python manage.py test
+          python manage.py test --tag olematon_tagi
+#          python manage.py test

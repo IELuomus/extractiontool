@@ -40,7 +40,8 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test
+        python manage.py test --tag olematon_tagi
+#        python manage.py test
     - name: Merge main -> deployment
       uses: devmasx/merge-branch@v1.3.1
       with:

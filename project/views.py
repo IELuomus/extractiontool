@@ -21,7 +21,7 @@ import json
 import spacy
 from spacy.symbols import nsubj, VERB
 import en_core_web_lg
-
+import camelot
 
 current_file = []
 
@@ -76,41 +76,44 @@ def delete_pdf(request, pk):
 def name_of_the_file(request):
     return HttpResponse(current_file[0])
 
-@login_required
-def table_to_dataframe(request, pk):
-    context = {}
-    # file_path = ""
-    # if not current_file:
-    #     return HttpResponse("no pdf provided")
-    # file_path = "media/{}".format(current_file[0]) 
-    pdf = Pdf.objects.get(pk=pk)
-    file_path = pdf.pdf.path
+# @login_required
+# def table_to_dataframe(request, pk):
+#     context = {}
+#     # file_path = ""
+#     # if not current_file:
+#     #     return HttpResponse("no pdf provided")
+#     # file_path = "media/{}".format(current_file[0]) 
+#     pdf = Pdf.objects.get(pk=pk)
+#     file_path = pdf.pdf.path
 
-    page_number = 8 #request.GET.get('page_number')
-    tables = tabula.read_pdf(file_path, pages='all', pandas_options={'header': None}, stream=True, multiple_tables=True)
-    if tables:
+#     page_number = 8 #request.GET.get('page_number')
+   
+#     camelot_tables = camelot.read_pdf(file_path, flavor='stream', pages='all')
+#     camelot_tables.export(file_path + '.json', f='json')
+#     tables = tabula.read_pdf(file_path, pages='all', pandas_options={'header': None}, stream=True, multiple_tables=True)
+#     if tables:
  
-        i=1
-        for table in tables:
-            table.columns = table.iloc[0]
-            table = table.reindex(table.index.drop(0)).reset_index(drop=True)
-            table.columns.name = None
-             #To write Excel
-            # table.to_excel("media/" + current_file[0] + str(i)+'.xlsx', header=True, index=False)
-            #To write CSV
-            # table.to_csv("media/" + current_file[0] + str(i)+ '.csv', sep=',',header=True, 
-            # index=False)
+#         i=1
+#         for table in tables:
+#             table.columns = table.iloc[0]
+#             table = table.reindex(table.index.drop(0)).reset_index(drop=True)
+#             table.columns.name = None
+#              #To write Excel
+#             # table.to_excel("media/" + current_file[0] + str(i)+'.xlsx', header=True, index=False)
+#             #To write CSV
+#             # table.to_csv("media/" + current_file[0] + str(i)+ '.csv', sep=',',header=True, 
+#             # index=False)
 
-            table.to_json(file_path + str(i)+ '.json', orient='table', index=False)
-            table = table.to_html()
-            text_file = open("templates/data" +str(i)+ ".html", "w") 
-            text_file.write(table) 
-            i=i+1
-        jobs = len(tables)   
-        context['jobs'] = str(jobs)
-        return TemplateResponse(request, 'table.html', context)
-    else:
-        return HttpResponse("no page number provided") 
+#             table.to_json(file_path + str(i)+ '.json', orient='table', index=False)
+#             table = table.to_html()
+#             text_file = open("templates/data" +str(i)+ ".html", "w") 
+#             text_file.write(table) 
+#             i=i+1
+#         jobs = len(tables)   
+#         context['jobs'] = str(jobs)
+#         return TemplateResponse(request, 'table.html', context)
+#     else:
+#         return HttpResponse("no page number provided") 
 
 
 # def parse(request, pk):

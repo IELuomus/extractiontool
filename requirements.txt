@@ -40,3 +40,4 @@ whitenoise==5.1.0
 spacy==3.0.0
 https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.0.0/en_core_web_lg-3.0.0.tar.gz#egg=en_core_web_lg
 Wand>=0.6.6
+pytesseract>=0.3.7

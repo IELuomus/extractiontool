@@ -20,13 +20,13 @@ jobs:
       mariadb:
         image: mariadb:latest
         ports:
-          - 3307:3307
+          - 3306:3306
         env:
           MYSQL_USER: django
           MYSQL_PASSWORD: password
           MYSQL_DATABASE: test
           MYSQL_ROOT_PASSWORD: password
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=10
 
     steps:
     - uses: actions/checkout@master
@@ -39,9 +39,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
+      env:       
+        DATABASE_NAME: test
+        DATABASE_USER: django
+        DATABASE_PASSWORD: password
+        DATABASE_HOST: 127.0.0.1
+        DATABASE_PORT: 3306
       run: |
-        python manage.py test --tag olematon_tagi
-#        python manage.py test
+        python manage.py test --noinput --exclude-tag slow
     - name: Merge main -> deployment
       uses: devmasx/merge-branch@v1.3.1
       with:

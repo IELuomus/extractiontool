@@ -5,6 +5,7 @@ import os
 import requests
 from tesserakti.task_imagemagic import TaskImageMagick # ok
 from tesserakti.test_base import BaseTestCase
+from django.test import tag
 
 # python3 manage.py test tesserakti.test_imagemagick
 
@@ -12,6 +13,7 @@ class ImageMagickTestCase(BaseTestCase, TestCase):
 
     # def setUp(self): # defined in baseclass
 
+    @tag('slow')
     def test_task_imagemajick(self):
         """Imagemagick task executes correctly"""
 

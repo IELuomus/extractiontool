@@ -5,6 +5,7 @@ import os
 import requests
 from tesserakti.test_base import BaseTestCase
 from tesserakti.task_tesseract import TaskTesseract
+from django.test import tag
 
 # python3 manage.py test tesserakti.test_tesseract
 
@@ -13,6 +14,7 @@ class TesseractTestCase(BaseTestCase, TestCase):
         super().setUp()
         super().base_task_imagemajick()
 
+    @tag('slow')
     def test_task_tesseract(self):
         """Tesseract task executes correctly"""
 

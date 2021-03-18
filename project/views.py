@@ -86,7 +86,7 @@ def table_to_dataframe(request, pk):
     file_path = pdf.pdf.path
 
     page_number = 8 #request.GET.get('page_number')
-    tables = tabula.read_pdf(file_path, pages=page_number, pandas_options={'header': None}, stream=True, multiple_tables=True)
+    tables = tabula.read_pdf(file_path, pages='all', pandas_options={'header': None}, stream=True, multiple_tables=True)
     if tables:
  
         i=1

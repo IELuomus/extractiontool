@@ -14,4 +14,4 @@ class PdfTestCase(TestCase):
         print(f'{message}.')
         # no comment
 
-        self.assertTrue(message == "HELLO", f'Message is {message}.')
+        self.assertTrue(message != "incomprehensible", f'Message is {message}.')

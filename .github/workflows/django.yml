@@ -26,7 +26,7 @@ jobs:
           MYSQL_PASSWORD: password
           MYSQL_DATABASE: test
           MYSQL_ROOT_PASSWORD: password
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=10
 
     steps:
     - uses: actions/checkout@master
@@ -39,15 +39,16 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
-      env: 
+# sql-yhteys timeouttaa
+      env:       
         DATABASE_NAME: test
         DATABASE_USER: django
         DATABASE_PASSWORD: password
         DATABASE_HOST: localhost
         DATABASE_PORT: 3307
       run: |
-#        python manage.py test --tag olematon_tagi
-       python manage.py test
+        python manage.py test --tag olematon_tagi
+#        python manage.py test
     - name: Merge main -> deployment
       uses: devmasx/merge-branch@v1.3.1
       with:

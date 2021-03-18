@@ -7,7 +7,8 @@ from spacy_parse.views import (
 )
 
 urlpatterns = [
-  # path('parse/', parse, name='parse'),
+  path('<int:pk>/', parse, name='parse'),
+  #path('parse/<int:pk>/', parse, name='parse'),
   # url(r'^health$', health),
   # path('upload/', include('project.urls')),
     

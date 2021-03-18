@@ -50,7 +50,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Tests
-# sql-yhteys timeouttaa
         env: 
           DATABASE_NAME: test
           DATABASE_USER: django
@@ -59,4 +58,3 @@ jobs:
           DATABASE_PORT: 3306
         run: |
            python manage.py test --noinput --exclude-tag slow
-#          python manage.py test --tag olematon_tagi

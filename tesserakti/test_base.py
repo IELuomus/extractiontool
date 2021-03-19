@@ -15,7 +15,7 @@ class BaseTestCase(object):
     temp_root_dir = ''
 
     def setUp(self):
-        self.temp_root_dir = f'temp_tesserakti_tests_{round(time.time() * 1000)}'
+        self.temp_root_dir = f'temp_tesserakti_tests_{round(time.time() * 1000)}/'
         # download and write to temp-dir
         os.makedirs(self.temp_root_dir, exist_ok=True)
         

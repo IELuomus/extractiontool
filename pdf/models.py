@@ -14,7 +14,7 @@ from users.models import User
 class Document(models.Model):
     filename = models.CharField(max_length=1000)
     size = models.IntegerField()
-    sha1sum = models.CharField(max_length=40)
+    sha1sum = models.CharField(max_length=40, unique=True)
     pagecount = models.IntegerField()
     created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(default=timezone.now)

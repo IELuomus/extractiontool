@@ -15,7 +15,7 @@ class TaskImageMagick:
         # test_path_prefix used only in test
         self.taskname = type(self).__qualname__
         self.document = Document.objects.get(id=document_id)
-        self.full_filepath = f'{test_path_prefix}/{self.document.get_full_filepath()}'
+        self.full_filepath = f'{test_path_prefix}{self.document.get_full_filepath()}'
         self.basename = os.path.basename(self.full_filepath)
         self.dirname = os.path.dirname(self.full_filepath)
         print(f'\nINIT {self.taskname}, document.id {self.document.id}, filename: {self.basename}, pagecount: {self.document.pagecount}')

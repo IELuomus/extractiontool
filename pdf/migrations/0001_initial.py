@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('filename', models.CharField(max_length=1000)),
                 ('size', models.IntegerField()),
                 ('pagecount', models.IntegerField()),
-                ('sha1sum', models.CharField(max_length=40)),
+                ('sha1sum', models.CharField(max_length=40, unique=True)),
                 ('created', models.DateTimeField(default=django.utils.timezone.now)),
                 ('updated', models.DateTimeField(default=django.utils.timezone.now)),
             ],

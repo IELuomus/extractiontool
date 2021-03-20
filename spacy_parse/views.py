@@ -1,50 +1,78 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from project.models import Pdf
+from pdf_utility.pdf_reader import pdf_to_txt
 import spacy
 from spacy.symbols import nsubj, VERB
-import en_core_web_sm
+import en_core_web_lg
 
 
-def parse(request):
+def parse(request, pk):
     parse_result = {}
     if request.method == 'POST':
-        nlp = spacy.load("en_core_web_sm")
+        nlp = spacy.load("en_core_web_lg")
 
-        text=("Body size of Mustela africana averages larger than that "
-        "of the other South American weasels, M. felipei (Colombian "
-        "weasel) and M. frenata (long-tailed weasel—Hall 1951; Izor "
-        "and de la Torre 1978), reaching about 500 mm in total "
-        "length, versus 350 mm and 420 mm, respectively. M. "
-        "africana exhibits a ventral stripe that is the same color as "
-        "the dorsum (Fig. 1). M. felipei has a similar ventral marking "
-        "but it is reduced to a spot on the chest or neck (Ram´ırezChaves et al. 2012) and M. frenata has no ventral markings. "
-        "The tail is fairly long for a weasel ( 50% head-and-body "
-        "length) and uniform in color. The soles of the feet lack fur "
-        "and a thenar pad is present on forefoot (Hall 1951). The "
-        "skull of M. africana (Fig. 2) has a mesopterygoid fossa "
-        "reduced in comparison with M. felipei, and the auditory "
-        "bullae are narrow, widely spaced, elongated, and less "
-        "inflated than in M. frenata (Hall 1951; Izor and de la Torre "
-        "1978; Abramow 2000). The nasals form an isosceles triangle, "
-        "in contrast with M. felipei and M. frenata in which the "
-        "lateral margins are subparallel anteriorly. The p2 is absent in "
-        "M. africana (Izor and de la Torre 1978).")
+        pdf = Pdf.objects.get(pk=pk)
+        file_path = pdf.pdf.path
+
+        pdf_to_txt(pdf.pdf.name, file_path)
+       
+        with open(file_path+".txt", 'r', encoding="utf-8") as file:
+            text = file.read().replace('\n', ' ')
+
 
         nlp.add_pipe("merge_entities")
         nlp.add_pipe("merge_noun_chunks")
 
-        ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk("./patterns.jsonl")
+        ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk("./patterns_scientificNames.jsonl")
 
         doc = nlp(text)
 
-        noun_phrases=[chunk.text for chunk in doc.noun_chunks]
-        verbs=[token.lemma_ for token in doc if token.pos_ == "VERB"]
+        sentences_with_traits = []
+        trait_words = ["weight", 
+        "height",
+        "width",
+        "breadth",
+        "length",
+        "mass",
+        "body",
+        "tail",
+        "area",
+        "thickness",
+        "constriction", 
+        "count",
+        "number",
+        "ratio",
+        "head-body",
+        "longevity",
+        "litter",
+        "size",
+        "range",
+        "index",
+        "ear",
+        "forearm"
+        ]
 
+        for sentence in doc.sents:
+            for trait in trait_words:
+                if trait in sentence.text:
+                    sentences_with_traits.append(sentence)
+                    break
+        
+        # noun_phrases=[chunk.text for chunk in doc.noun_chunks]
+        # verbs=[token.lemma_ for token in doc if token.pos_ == "VERB"]
+
+        trait_text = ""
+        for sent in sentences_with_traits:
+            trait_text += sent.text
+
+        trait_doc = nlp(trait_text)
+        
         entities=[]
 
-        for entity in doc.ents:
+        for entity in trait_doc.ents:
             entities.append(entity)
-    
-        parse_result = {'noun_phrases':noun_phrases, 'verbs':verbs, 'entities':entities}
-    
+
+        parse_result = {'sentences': sentences_with_traits, 'entities':entities}
 
     return render(request, 'parse.html', parse_result)

@@ -2,6 +2,14 @@ from django.db import models
 
 # Create your models here.
 
-class PageView(models.Model):
-    hostname = models.CharField(max_length=32)
-    timestamp = models.DateTimeField(auto_now_add=True)
+class Pdf(models.Model):
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=100)
+    pdf = models.FileField(upload_to='pdfs/')
+
+    def _str_(self):
+        return self.title
+    
+    def delete(self, *args, **kwargs):
+        self.pdf.delete()
+        super().delete(*args, **kwargs)

@@ -10,15 +10,20 @@
         <button type="submit">Upload file</button>
     </form>
     {% if url %}
-     <p>Uploaded file: <a href="{{ url}}" target ="_blank" rel="noopener noreferrer">{{url}} </a></p>
+     <p>Uploaded file: <a href="{{ url}}" target="_blank" rel="noopener noreferrer" >{{url}}" </a></p>
      <form action="/page_number/" method="get">
         {% csrf_token %}
         <label for="element_id">Enter the page number for a table: </label>
         <input id="element_id" type="number" name="page_number" value="required">
         <input type="submit" value="OK">
     </form>
+<<<<<<< HEAD
      <!-- <a class="btn btn-primary" href="/table">Table</a> -->
 
+=======
+ 
+    <a href="{% url 'parse' %}">Parse the uploaded text</a>
+>>>>>>> main
 	{% endif %}
     <br>
     <input type=button value="Previous Page" onClick="javascript:history.go(-1);">

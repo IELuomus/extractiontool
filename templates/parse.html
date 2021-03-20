@@ -1,31 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-<h2>Parse a sample text</h2>
+<h2>Parse the uploaded text</h2>
 {% if user.is_authenticated %}
 <p> {{user}} logged in</p>
-Sample text (Héctor E. Ramírez-Chaves, Heidi Liliana Arango-Guerra, Bruce D. Patterson, <i>Mustela africana</i>, <i>Mammalian Species</i> 46(917): 11)
-<br><br>
-Body size of Mustela africana averages larger than that
-of the other South American weasels, M. felipei (Colombian
-weasel) and M. frenata (long-tailed weasel—Hall 1951; Izor
-and de la Torre 1978), reaching about 500 mm in total
-length, versus 350 mm and 420 mm, respectively. M.
-africana exhibits a ventral stripe that is the same color as
-the dorsum (Fig. 1). M. felipei has a similar ventral marking
-but it is reduced to a spot on the chest or neck (RamírezChaves et al. 2012) 
-and M. frenata has no ventral markings.
-The tail is fairly long for a weasel ( 50% head-and-body
-length) and uniform in color. The soles of the feet lack fur
-and a thenar pad is present on forefoot (Hall 1951). The
-skull of M. africana (Fig. 2) has a mesopterygoid fossa
-reduced in comparison with M. felipei, and the auditory
-bullae are narrow, widely spaced, elongated, and less
-inflated than in M. frenata (Hall 1951; Izor and de la Torre
-1978; Abramow 2000). The nasals form an isosceles triangle,
-in contrast with M. felipei and M. frenata in which the
-lateral margins are subparallel anteriorly. The p2 is absent in
-M. africana (Izor and de la Torre 1978).
 <br><br>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -33,12 +11,20 @@ M. africana (Izor and de la Torre 1978).
 </form>  
     <br><br>
     {% if entities %}
-    <h3>Named entities and their types in sample text:</h3>
+    <h3>Named entities and their types:</h3>
+    <table>
+      {% for ent in entities %}
+      <tr><td>{{ent.text}}</td><td>{{ent.label_}}</td></tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+    <br>
+    {% if sentences %}
+    <h3>Sentences with potential trait data:</h3>
     <br>
     <table>
-      <tr><td><b>entity</b></td><td><b>type</b></td></tr>
-    {% for ent in entities %}
-    <tr><td>{{ent.text}}</td><td>{{ent.label_}}</td></tr>
+    {% for sent in sentences %}
+    <tr><td>{{sent.text}}</td></tr>
     {% endfor %}
   </table>
     {% endif %}

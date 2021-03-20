@@ -1,32 +1,188 @@
 {% extends "base.html" %}
-
 {% block content %}
-{% load static %}
+{% load static %} 
 
-<link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
 {% if user.is_authenticated %}
-<!-- <form action = "/page_number/" method = "get"> 
-    {% csrf_token %}  
-    <label for="page_number">Enter the page number for the table: </label> 
-    <input id="page_number" type="number" name="page_number"> 
-    <input type="submit" value="OK"> 
-</form>  -->
-<h1>Dataframe</h1> 
-<table border="1px"> 
-    <tr> 
-        {% for data in table %} 
-            <th>{{ data }}</th> 
-        {% endfor %} 
-        {% for _, record in table.iterrows %} 
-            <tr> 
-                {% for value in data %} 
-                    <td>{{ value }}</td> 
-                {% endfor %} 
-            </tr> 
-        {% endfor %} 
-    </tr> 
-</table> 
-</div> 
-<input type=button value="Previous Page" onClick="javascript:history.go(-1);">
+
+{% if jobs == '1' %}
+{% include "data1.html" %}
+{% endif%}
+{% if jobs == '2' %}
+{% include "data1.html" %}
+<p></p>
+<p></p>
+{% include "data2.html" %}
+{% endif%}
+{% if jobs == '3' %}
+{% include "data1.html" %}
+<p></p>
+<p></p>
+{% include "data2.html" %}
+<p></p>
+<p></p>
+{% include "data3.html" %}
+{% endif%}
+<p></p>
+<p></p>
+{% if jobs == '4' %}
+{% include "data1.html" %}
+<p></p>
+<p></p>
+{% include "data2.html" %}
+<p></p>
+<p></p>
+{% include "data3.html" %}
+<p></p>
+<p></p>
+{% include "data4.html" %}
+{% endif%}
+<p></p>
+<p></p>
+{% if jobs == '5' %}
+{% include "data1.html" %}
+<p></p>
+<p></p>
+{% include "data2.html" %}
+<p></p>
+<p></p>
+{% include "data3.html" %}
+<p></p>
+<p></p>
+{% include "data4.html" %}
+<p></p>
+<p></p>
+{% include "data5.html" %}
 {% endif %}
+{% if jobs == '6' %}
+{% include "data1.html" %}
+<p></p>
+<p></p>
+{% include "data2.html" %}
+<p></p>
+<p></p>
+{% include "data3.html" %}
+<p></p>
+<p></p>
+{% include "data4.html" %}
+<p></p>
+<p></p>
+{% include "data5.html" %}
+<p></p>
+<p></p>
+{% include "data6.html" %}
+{% endif%}
+<p></p>
+<p></p>
+{% if jobs == '7' %}
+{% include "data1.html" %}
+<p></p>
+<p></p>
+{% include "data2.html" %}
+<p></p>
+<p></p>
+{% include "data3.html" %}
+<p></p>
+<p></p>
+{% include "data4.html" %}
+<p></p>
+<p></p>
+{% include "data5.html" %}
+<p></p>
+<p></p>
+{% include "data6.html" %}
+<p></p>
+<p></p>
+{% include "data7.html" %}
+{% endif%}
+<p></p>
+<p></p>
+{% if jobs == '8' %}
+{% include "data1.html" %}
+<p></p>
+<p></p>
+{% include "data2.html" %}
+<p></p>
+<p></p>
+{% include "data3.html" %}
+<p></p>
+<p></p>
+{% include "data4.html" %}
+<p></p>
+<p></p>
+{% include "data5.html" %}
+<p></p>
+<p></p>
+{% include "data6.html" %}
+<p></p>
+<p></p>
+{% include "data7.html" %}
+<p></p>
+<p></p>
+{% include "data8.html" %}
+{% endif %}
+{% if jobs == '9' %}
+{% include "data1.html" %}
+<p></p>
+<p></p>
+{% include "data2.html" %}
+<p></p>
+<p></p>
+{% include "data3.html" %}
+<p></p>
+<p></p>
+{% include "data4.html" %}
+<p></p>
+<p></p>
+{% include "data5.html" %}
+<p></p>
+<p></p>
+{% include "data6.html" %}
+<p></p>
+<p></p>
+{% include "data7.html" %}
+<p></p>
+<p></p>
+{% include "data8.html" %}
+<p></p>
+<p></p>
+{% include "data9.html" %}
+{% endif %}
+{% if jobs == '10' %}
+{% include "data1.html" %}
+<p></p>
+<p></p>
+{% include "data2.html" %}
+<p></p>
+<p></p>
+{% include "data3.html" %}
+<p></p>
+<p></p>
+{% include "data4.html" %}
+<p></p>
+<p></p>
+{% include "data5.html" %}
+<p></p>
+<p></p>
+{% include "data6.html" %}
+<p></p>
+<p></p>
+{% include "data7.html" %}
+<p></p>
+<p></p>
+{% include "data8.html" %}
+<p></p>
+<p></p>
+{% include "data9.html" %}
+<p></p>
+<p></p>
+{% include "data9.html" %}
+{% endif %}
+
+<br>
+<a href="{% url 'pdf_list' %}" class="w3-btn w3-black">Back to pdf list</a>
+<br>
+{% else %} 
+<p>Please log in first</p>
+{% endif %}
+    
 {% endblock content %} 

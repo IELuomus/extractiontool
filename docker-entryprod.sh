@@ -12,8 +12,5 @@ python manage.py migrate masterdata
 python manage.py makemigrations
 python manage.py migrate
 
-echo "collect static"
-python manage.py collectstatic --no-input --clear
-
 echo "start"
-python manage.py runsslserver 0.0.0.0:8000
+exec "$@"

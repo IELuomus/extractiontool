@@ -189,19 +189,3 @@ def name_of_the_file(request):
 
 #     return render(request, 'parse.html', parse_result)
 
-<<<<<<< HEAD
-@login_required
-def table_to_dataframe(request):
-    file_path = ""
-    if not current_file:
-        return HttpResponse("no pdf provided")
-    file_path = "media/{}".format(current_file[0]) 
-    if request.method == 'GET':
-        page_number = request.GET.get('page_number', 1)
-        table = tabula.read_pdf(file_path, pages=page_number, stream=True,  multiple_tables=False)
-        table = table[0].to_html()
-        return HttpResponse(table)
-    else:
-        return HttpResponse("no page number provided") 
-=======
->>>>>>> main

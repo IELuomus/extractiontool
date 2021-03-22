@@ -31,20 +31,20 @@ def health(request):
     return HttpResponse(status=202)
 
 
-@login_required
-def upload(request):
+# @login_required
+# def upload(request):
     
-    context = {}
-    if request.method == 'POST':
-        uploaded_file = request.FILES['document']
-        fs = FileSystemStorage()
-        name = fs.save(uploaded_file.name, uploaded_file)
-        file_path = "media/{}".format(name)
-        current_file.clear()
-        current_file.append(name)
-        pdf_to_txt(name, file_path)
-        context['url'] = fs.url(name)
-    return render(request, 'upload.html', context)
+#     context = {}
+#     if request.method == 'POST':
+#         uploaded_file = request.FILES['document']
+#         fs = FileSystemStorage()
+#         name = fs.save(uploaded_file.name, uploaded_file)
+#         file_path = "media/{}".format(name)
+#         current_file.clear()
+#         current_file.append(name)
+#         pdf_to_txt(name, file_path)
+#         context['url'] = fs.url(name)
+#     return render(request, 'upload.html', context)
 
 @login_required
 def pdf_list(request):
@@ -73,8 +73,6 @@ def delete_pdf(request, pk):
         pdf.delete()
     return redirect('pdf_list')
 
-def name_of_the_file(request):
-    return HttpResponse(current_file[0])
 
 # @login_required
 # def table_to_dataframe(request, pk):

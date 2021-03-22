@@ -6,6 +6,7 @@ from django.urls import path
 from django.urls.conf import include
 from users.views import index
 from .views import *
+from table.views import table_to_dataframe
 
 urlpatterns = [
     path('pdfs/', pdf_list, name='pdf_list'),
@@ -14,17 +15,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('accounts/', include('allauth.urls')),
+    path('page_number/',table_to_dataframe),
+    path('page_number/<int:pk>', table_to_dataframe, name="page_number"),
     path('quality_control/', include('quality_control.urls')),
     path('masterdata/', include('masterdata.urls')),
     path('', index, name='index'),
-    # path ('page_number/', table_to_dataframe, name="page_number"),
-    # path('table/<int:pk>', table_to_dataframe, name="table"),
-    # path('data/', table_to_dataframe, name="data"),
     url(r'^health$', health),
-    path('upload/', upload, name='upload'),
-    #path('parse/<int:pk>/', parse, name='parse'),
-    #path('parse/<int:pk>/', include('spacy_parse.urls')),
-    path('table', include('table.urls')),
+    # path('upload/', upload, name='upload'),
+    path('table/', include('table.urls')),
     path('parse/', include('spacy_parse.urls')),
     path('', index, name='index'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -30,7 +30,7 @@
                 <a href="{% url 'parse' pdf.pk %}" class="w3-btn w3-black">Parse text</a>
             </td>
             <td>
-                <a href="{% url 'table' pdf.pk%}" class="w3-btn w3-black">Extract data from tables</a>
+                <a href="{% url 'redirect_form' pdf.pk %}" class="w3-btn w3-black">Extract data from tables</a>
             </td>
             <td>
                 <form method="post" action="{% url 'delete_pdf' pdf.pk %}">

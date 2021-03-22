@@ -21,21 +21,44 @@ import pandas as pd
 import json
 import camelot
 
+wanted_pdf = []
+
 @login_required
-def table_to_dataframe(request, pk):
+def redirect_form(request, pk):
+    
+    context = {}
+    # if request.method == 'POST':
+    #     uploaded_file = request.FILES['document']
+    #     fs = FileSystemStorage()
+    #     name = fs.save(uploaded_file.name, uploaded_file)
+    #     file_path = "media/{}".format(name)
+    #     current_file.clear()
+    #     current_file.append(name)
+    #     pdf_to_txt(name, file_path)
+    # context[''] = fs.url(name)
+    pdf = Pdf.objects.get(pk=pk)
+    file = pdf.pdf.path
+    wanted_pdf.clear()
+    wanted_pdf.append(file)
+    file_url = pdf.pdf.url
+    context['url'] = file_url
+    return render(request, 'redirect_form.html', context)
+
+@login_required
+def table_to_dataframe(request):
     context = {}
     # file_path = ""
     # if not current_file:
     #     return HttpResponse("no pdf provided")
     # file_path = "media/{}".format(current_file[0]) 
-    pdf = Pdf.objects.get(pk=pk)
-    file_path = pdf.pdf.path
+    # pdf = Pdf.objects.get(pk=pk)
+    file_path = wanted_pdf[0]
 
-    page_number = 8 #request.GET.get('page_number')
+    page_number = request.GET.get('page_number')
    
     camelot_tables = camelot.read_pdf(file_path, flavor='stream', pages='all')
     camelot_tables.export(file_path + '.json', f='json')
-    tables = tabula.read_pdf(file_path, pages='all', pandas_options={'header': None}, stream=True, multiple_tables=True)
+    tables = tabula.read_pdf(file_path, pages=page_number, pandas_options={'header': None}, stream=True, multiple_tables=True)
     if tables:
  
         i=1

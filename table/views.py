@@ -74,7 +74,7 @@ def table_to_dataframe(request):
 
             table.to_json(file_path + str(i)+ '.json', orient='table', index=False)
             table = table.to_html()
-            text_file = open("templates/data" +str(i)+ ".html", "w") 
+            text_file = open("templates/data" +str(i)+ ".html", "w", encoding='utf-8') 
             text_file.write(table) 
             i=i+1
         jobs = len(tables)   

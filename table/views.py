@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from project.models import Pdf
-from pdf_utility.pdf_reader import pdf_to_txt
-
+from .models import Json_Table
+from django.contrib.sessions.models import Session
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
@@ -22,14 +22,21 @@ import json
 import camelot
 
 wanted_pdf = []
+<<<<<<< HEAD
 wanted_pdf_name =[]
 
+=======
+pdf_name = []
+>>>>>>> main
 @login_required
 def redirect_form(request, pk):
     
     context = {}
     pdf = Pdf.objects.get(pk=pk)
     file = pdf.pdf.path
+    name = pdf.title
+    pdf_name.clear()
+    pdf_name.append(name)
     wanted_pdf.clear()
     wanted_pdf_name.clear()
     wanted_pdf.append(file)
@@ -42,36 +49,56 @@ def redirect_form(request, pk):
 @login_required
 def table_to_dataframe(request):
     context = {}
-    # file_path = ""
-    # if not current_file:
-    #     return HttpResponse("no pdf provided")
-    # file_path = "media/{}".format(current_file[0]) 
-    # pdf = Pdf.objects.get(pk=pk)
-    file_path = wanted_pdf[0]
+    user = request.user
+    print(str(user))
+    if not wanted_pdf:
+        return HttpResponse("no pdf provided")
 
+    file_path = wanted_pdf[0]
+    file_name = pdf_name[0]
     page_number = request.GET.get('page_number')
-    # strip_text=' .\n', split_text=True
-    camelot_tables = camelot.read_pdf(file_path, flavor='stream', pages=page_number)
-    
+    page = str(page_number)
+    camelot_tables = camelot.read_pdf(file_path, flavor='stream', pages=page)
+    camelot_tables.export("media/json/" +file_name + '_camelot.json', f='json')
     tables = tabula.read_pdf(file_path, pages=page_number, pandas_options={'header': None}, stream=True, multiple_tables=True)
     
     if camelot_tables:
  
         i=1
-        for table in camelot_tables:
-            table = table.df
+        for table in tables:
+            table = pd.DataFrame(table)
             table.columns = table.iloc[0]
             table = table.reindex(table.index.drop(0)).reset_index(drop=True)
             table.columns.name = None
+           
              #To write Excel
             # table.to_excel("media/" + current_file[0] + str(i)+'.xlsx', header=True, index=False)
             #To write CSV
             # table.to_csv("media/" + current_file[0] + str(i)+ '.csv', sep=',',header=True, 
             # index=False)
 
-            table.to_json(file_path + str(i)+ '.json', orient='table', index=False)
+            table.to_json('media/json/' +file_name +'-page-' +page_number+ '-table-'+ str(i)+ '.json', orient='table', index=False)
+         
+
+            # with open(ROOT_FILE, 'r') as data:
+            #     parsed_json = json.load(data)
+            #     for result in parsed_json:
+            #         Json_Table.objects.create(
+            #          table_id = result['id'],
+            #          json_table= result['json_table'],
+            #         ) 
+            ROOT_FILE = 'media/json/' + file_name +'-page-' +page_number+ '-table-'+ str(i)+  '.json'
+            json_data = open(ROOT_FILE)
+            data = json.load(json_data)
+            # for row in data:
+            for key, value in data.items():
+                js = Json_Table()
+                js.json_table = value
+                js.save()
+                
+           
             table = table.to_html()
-            text_file = open("templates/data" +str(i)+ ".html", "w") 
+            text_file = open("templates/data" +str(i)+ ".html", "w", encoding='utf-8') 
             text_file.write(table) 
             i=i+1
         jobs = len(tables)   

@@ -71,6 +71,7 @@ input[type=submit] {
 input[type=submit]:hover {
   background-color: #45a049;
 }
+
 ul.socialaccount_providers {
   list-style-type: none;
   padding: 0;
@@ -110,4 +111,3 @@ ul.socialaccount_providers {
   padding-top: 0;
   border-radius: 4px;
 }
-

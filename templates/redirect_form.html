@@ -13,8 +13,8 @@
         <input type="submit" value="OK">
     </form>
  
-
     <br>
-    <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
+    <a href="{% url 'pdf_list' %}" class="w3-btn w3-black">Back to pdf list</a>
+    <br>
     {% endif %}
 {% endblock content %}

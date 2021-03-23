@@ -22,27 +22,22 @@ import json
 import camelot
 
 wanted_pdf = []
+wanted_pdf_name =[]
 
 @login_required
 def redirect_form(request, pk):
     
     context = {}
-    # if request.method == 'POST':
-    #     uploaded_file = request.FILES['document']
-    #     fs = FileSystemStorage()
-    #     name = fs.save(uploaded_file.name, uploaded_file)
-    #     file_path = "media/{}".format(name)
-    #     current_file.clear()
-    #     current_file.append(name)
-    #     pdf_to_txt(name, file_path)
-    # context[''] = fs.url(name)
     pdf = Pdf.objects.get(pk=pk)
     file = pdf.pdf.path
     wanted_pdf.clear()
+    wanted_pdf_name.clear()
     wanted_pdf.append(file)
+    wanted_pdf_name.append(pdf. title)
     file_url = pdf.pdf.url
     context['url'] = file_url
     return render(request, 'redirect_form.html', context)
+
 
 @login_required
 def table_to_dataframe(request):
@@ -55,14 +50,16 @@ def table_to_dataframe(request):
     file_path = wanted_pdf[0]
 
     page_number = request.GET.get('page_number')
-   
-    camelot_tables = camelot.read_pdf(file_path, flavor='stream', pages='all')
-    camelot_tables.export(file_path + '.json', f='json')
+    # strip_text=' .\n', split_text=True
+    camelot_tables = camelot.read_pdf(file_path, flavor='stream', pages=page_number)
+    
     tables = tabula.read_pdf(file_path, pages=page_number, pandas_options={'header': None}, stream=True, multiple_tables=True)
-    if tables:
+    
+    if camelot_tables:
  
         i=1
-        for table in tables:
+        for table in camelot_tables:
+            table = table.df
             table.columns = table.iloc[0]
             table = table.reindex(table.index.drop(0)).reset_index(drop=True)
             table.columns.name = None
@@ -79,6 +76,7 @@ def table_to_dataframe(request):
             i=i+1
         jobs = len(tables)   
         context['jobs'] = str(jobs)
+        camelot_tables.export(file_path + '.json', f='json')
         return TemplateResponse(request, 'table.html', context)
     else:
         return HttpResponse("no tables") 

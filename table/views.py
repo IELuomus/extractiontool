@@ -22,22 +22,16 @@ import json
 import camelot
 
 wanted_pdf = []
-
+pdf_name = []
 @login_required
 def redirect_form(request, pk):
     
     context = {}
-    # if request.method == 'POST':
-    #     uploaded_file = request.FILES['document']
-    #     fs = FileSystemStorage()
-    #     name = fs.save(uploaded_file.name, uploaded_file)
-    #     file_path = "media/{}".format(name)
-    #     current_file.clear()
-    #     current_file.append(name)
-    #     pdf_to_txt(name, file_path)
-    # context[''] = fs.url(name)
     pdf = Pdf.objects.get(pk=pk)
     file = pdf.pdf.path
+    name = pdf.title
+    pdf_name.clear()
+    pdf_name.append(name)
     wanted_pdf.clear()
     wanted_pdf.append(file)
     file_url = pdf.pdf.url
@@ -47,32 +41,33 @@ def redirect_form(request, pk):
 @login_required
 def table_to_dataframe(request):
     context = {}
-    # file_path = ""
-    # if not current_file:
-    #     return HttpResponse("no pdf provided")
-    # file_path = "media/{}".format(current_file[0]) 
-    # pdf = Pdf.objects.get(pk=pk)
-    file_path = wanted_pdf[0]
+    
+    if not wanted_pdf:
+        return HttpResponse("no pdf provided")
 
+    file_path = wanted_pdf[0]
+    file_name = pdf_name[0]
     page_number = request.GET.get('page_number')
-   
-    camelot_tables = camelot.read_pdf(file_path, flavor='stream', pages='all')
-    camelot_tables.export(file_path + '.json', f='json')
+    page = str(page_number)
+    camelot_tables = camelot.read_pdf(file_path, flavor='stream', pages=page)
+    camelot_tables.export("media/json/" +file_name + '_camelot.json', f='json')
     tables = tabula.read_pdf(file_path, pages=page_number, pandas_options={'header': None}, stream=True, multiple_tables=True)
     if tables:
  
         i=1
         for table in tables:
+            table = pd.DataFrame(table)
             table.columns = table.iloc[0]
             table = table.reindex(table.index.drop(0)).reset_index(drop=True)
             table.columns.name = None
+           
              #To write Excel
             # table.to_excel("media/" + current_file[0] + str(i)+'.xlsx', header=True, index=False)
             #To write CSV
             # table.to_csv("media/" + current_file[0] + str(i)+ '.csv', sep=',',header=True, 
             # index=False)
 
-            table.to_json(file_path + str(i)+ '.json', orient='table', index=False)
+            table.to_json("media/json/" +file_name +"-page-" +page_number+ "-table-"+ str(i)+ '.json', orient='table', index=False)
             table = table.to_html()
             text_file = open("templates/data" +str(i)+ ".html", "w", encoding='utf-8') 
             text_file.write(table) 

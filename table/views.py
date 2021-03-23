@@ -42,7 +42,7 @@ def redirect_form(request, pk):
 def table_to_dataframe(request):
     context = {}
     user = request.user
-    print(user)
+    print(str(user))
     if not wanted_pdf:
         return HttpResponse("no pdf provided")
 

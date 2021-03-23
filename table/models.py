@@ -4,14 +4,19 @@ import jsonfield
 # Create your models here.
 from django_mysql.models import JSONField
 
-class Json_Table(models.Model):
-    json_table= models.JSONField()
-    # created_by = models.CharField(max_length=50)
-    table = models.FileField(upload_to='json/')
 
-    def _str_(self):
-        return self.title
+class Json_TableQuerySet(models.QuerySet):
     
     def delete(self, *args, **kwargs):
-        self.json_table.delete()
-        super().delete(*args, **kwargs)
+        for obj in self:
+            obj.table.delete()
+        super(Json_TableQuerySet, self).delete(*args, **kwargs)
+
+
+class Json_Table(models.Model):
+    json_table= models.JSONField()
+    table = models.FileField(upload_to='json/')
+    
+    def delete(self, *args, **kwargs):
+        self.table.delete()
+        super(Json_Table, self).delete(*args, **kwargs)

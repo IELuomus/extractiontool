@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from project.models import Pdf
-from pdf_utility.pdf_reader import pdf_to_txt
-
+from .models import Json_Table
+from django.contrib.sessions.models import Session
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
@@ -41,7 +41,8 @@ def redirect_form(request, pk):
 @login_required
 def table_to_dataframe(request):
     context = {}
-    
+    user = request.user
+    print(user)
     if not wanted_pdf:
         return HttpResponse("no pdf provided")
 
@@ -67,7 +68,26 @@ def table_to_dataframe(request):
             # table.to_csv("media/" + current_file[0] + str(i)+ '.csv', sep=',',header=True, 
             # index=False)
 
-            table.to_json("media/json/" +file_name +"-page-" +page_number+ "-table-"+ str(i)+ '.json', orient='table', index=False)
+            table.to_json('media/json/' +file_name +'-page-' +page_number+ '-table-'+ str(i)+ '.json', orient='table', index=False)
+         
+
+            # with open(ROOT_FILE, 'r') as data:
+            #     parsed_json = json.load(data)
+            #     for result in parsed_json:
+            #         Json_Table.objects.create(
+            #          table_id = result['id'],
+            #          json_table= result['json_table'],
+            #         ) 
+            ROOT_FILE = 'media/json/' + file_name +'-page-' +page_number+ '-table-'+ str(i)+  '.json'
+            json_data = open(ROOT_FILE)
+            data = json.load(json_data)
+            # for row in data:
+            for key, value in data.items():
+                js = Json_Table()
+                js.json_table = value
+                js.save()
+                
+           
             table = table.to_html()
             text_file = open("templates/data" +str(i)+ ".html", "w", encoding='utf-8') 
             text_file.write(table) 

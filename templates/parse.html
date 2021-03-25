@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
+
 <h2>Parse the uploaded text</h2>
 {% if user.is_authenticated %}
 <p> {{user}} logged in</p>
@@ -10,15 +11,24 @@
     <button type="submit">Parse!</button>
 </form>  
     <br><br>
-    {% if entities %}
-    <h3>Named entities and their types:</h3>
+    
+    <h3>Recognized scientific names:</h3>
+    {% if scientificnames %}
     <table>
-      {% for ent in entities %}
-      <tr><td>{{ent.text}}</td><td>{{ent.label_}}</td></tr>
+      {% for name in scientificnames %}
+      <tr><td>{{name}}</td></tr>   
       {% endfor %}
     </table>
     {% endif %}
     <br>
+    <h3><h3>Recognized quantities:</h3></h3>
+    {% if quantities %}
+    <table>
+      {% for quantity in quantities %}
+      <tr><td>{{quantity}}</td></tr>   
+      {% endfor %}
+    </table>
+    {% endif %}
     {% if sentences %}
     <h3>Sentences with potential trait data:</h3>
     <br>
@@ -28,7 +38,27 @@
     {% endfor %}
   </table>
     {% endif %}
+    <input type="button"
+               value="Get Selection" 
+               onmousedown="getSelectedText()">
+    <form name="testform">
+            <textarea name="selectedtext" 
+                      rows="5"
+                      cols="20"></textarea>
+    </form>
     <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
+    <script>
+      function getSelectedText() {
+                var selectedText = '';
+                if (window.getSelection) {
+                    selectedText = window.getSelection();
+                } else return;
+                // To write the selected text into the textarea
+                document.testform.selectedtext.value = selectedText;
+                console.log("selText", selectedText)
+              }
+    </script>
+    
 {% else %} 
 <p>Please login first</p>
 {% endif %}

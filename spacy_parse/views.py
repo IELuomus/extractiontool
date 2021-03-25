@@ -68,11 +68,14 @@ def parse(request, pk):
 
         trait_doc = nlp(trait_text)
         
-        entities=[]
-
+        quantity_ner_labels = ["QUANTITY", "MONEY", "PERCENT", "CARDINAL"]
+        scientificnames=[ent.text for ent in trait_doc.ents if ent.label_ == "SCIENTIFICNAME"]
+        quantities=[ent.text for ent in trait_doc.ents if ent.label_ in quantity_ner_labels]
+        #print(scientificnames)
+        entities = []
         for entity in trait_doc.ents:
             entities.append(entity)
 
-        parse_result = {'sentences': sentences_with_traits, 'entities':entities}
+        parse_result = {'sentences': sentences_with_traits, 'entities':entities, 'scientificnames': scientificnames, 'quantities': quantities}
 
     return render(request, 'parse.html', parse_result)

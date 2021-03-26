@@ -25,7 +25,7 @@
     <center>
      
     </h1>
-     
+    {{ value|json_script:'data' }}
     <h3>Named entities and their types:</h3>
     
     <table>
@@ -61,6 +61,12 @@
             // To write the selected text into the textarea
             document.testform.selectedtext.value = selectedText;
         }
+
+      const js_variable = JSON.parse(document.getElementById('data').textContent);
+
+      function loopSentences(){    
+        console.log('js_variable', js_variable) 
+      }
     
     </script>
  

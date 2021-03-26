@@ -27,6 +27,8 @@ def parse(request, pk):
         ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk("./patterns_scientificNames.jsonl")
 
         doc = nlp(text)
+        # for token in doc:
+        #     print(token.lemma_)
 
         sentences_with_traits = []
         trait_words = ["weight", 
@@ -71,6 +73,7 @@ def parse(request, pk):
         entities=[]
 
         for entity in trait_doc.ents:
+        
             entities.append(entity)
 
         parse_result = {'sentences': sentences_with_traits, 'entities':entities}

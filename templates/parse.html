@@ -1,7 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
 <h2>Parse the uploaded text</h2>
+
+<style>
+.hl {background:#ffffff; }
+.hl:hover { background:#95db79; } 
+
+</style>
+
 {% if user.is_authenticated %}
 <p> {{user}} logged in</p>
 <br><br>
@@ -11,7 +21,18 @@
 </form>  
     <br><br>
     {% if entities %}
+    <center>
+     
+    </h1>
+     
+
+
+      <!--Button to invoke the 
+       function to get the selected text-->
+      
+
     <h3>Named entities and their types:</h3>
+    
     <table>
       {% for ent in entities %}
       <tr><td>{{ent.text}}</td><td>{{ent.label_}}</td></tr>
@@ -21,14 +42,67 @@
     <br>
     {% if sentences %}
     <h3>Sentences with potential trait data:</h3>
+    <h4>Select a traitname </h4>
     <br>
     <table>
+      <script>
+        // Function to get the Selected Text 
+        function getSelectedText() {
+            var selectedText = '';
+  
+            // window.getSelection
+            if (window.getSelection) {
+                selectedText = window.getSelection();
+            }
+            // document.getSelection
+            else if (document.getSelection) {
+                selectedText = document.getSelection();
+            }
+            // document.selection
+            else if (document.selection) {
+                selectedText = 
+                document.selection.createRange().text;
+            } else return;
+            // To write the selected text into the textarea
+            document.testform.selectedtext.value = selectedText;
+        }
+    
+    </script>
+ 
+   
+
     {% for sent in sentences %}
-    <tr><td>{{sent.text}}</td></tr>
-    {% endfor %}
+    
+     {% for token in sent %}
+ <span> {{ token.text }} </span>
+   <!-- <span class='hl'> {{ token.text }} </span> -->
+    <!-- <script>     
+      function highlight(word) {document.getElementById (word).bgColor="green";}
+    </script>  -->
+    $('li').on('click', function(event){
+    var myWindow = window.open("", "", "width=400, height=200");
+    myWindow.document.write($(this).data('value'));
+}
+     {% endfor %}
+    
+    <p></p>
+   {% endfor %}
+
   </table>
+  <input type="button"
+  value="Get Selection" 
+  onmousedown="getSelectedText()">
+
+<!--Form to show the selected text as output-->
+<form name="testform">
+<textarea name="selectedtext" 
+         rows="5"
+         cols="20"></textarea>
+</form>
+</center>
     {% endif %}
     <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
+
 {% else %} 
 <p>Please login first</p>
 {% endif %}

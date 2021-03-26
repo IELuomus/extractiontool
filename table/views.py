@@ -20,9 +20,12 @@ from django.core.files.storage import default_storage
 import pandas as pd
 import json
 import camelot
+from json import dumps
 
 wanted_pdf = []
 pdf_name = []
+
+
 @login_required
 def redirect_form(request, pk):
     
@@ -37,6 +40,7 @@ def redirect_form(request, pk):
     file_url = pdf.pdf.url
     context['url'] = file_url
     return render(request, 'redirect_form.html', context)
+
 
 @login_required
 def table_to_dataframe(request):

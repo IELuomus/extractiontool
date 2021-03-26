@@ -21,7 +21,6 @@ urlpatterns = [
     path('masterdata/', include('masterdata.urls')),
     path('', index, name='index'),
     url(r'^health$', health),
-    # path('upload/', upload, name='upload'),
     path('table/', include('table.urls')),
     path('parse/', include('spacy_parse.urls')),
     path('', index, name='index'),

@@ -5,6 +5,7 @@ from pdf_utility.pdf_reader import pdf_to_txt
 import spacy
 from spacy.symbols import nsubj, VERB
 import en_core_web_lg
+import json
 
 
 def parse(request, pk):
@@ -66,6 +67,12 @@ def parse(request, pk):
         for sent in sentences_with_traits:
             trait_text += sent.text
 
+        # koesent = sentences_with_traits[0]
+
+        # for token in koesent:
+        #     print(token.text)
+
+
         trait_doc = nlp(trait_text)
         
         quantity_ner_labels = ["QUANTITY", "MONEY", "PERCENT", "CARDINAL"]
@@ -75,7 +82,12 @@ def parse(request, pk):
         entities = []
         for entity in trait_doc.ents:
             entities.append(entity)
-
-        parse_result = {'sentences': sentences_with_traits, 'entities':entities, 'scientificnames': scientificnames, 'quantities': quantities}
-
+        number_of_sentences = len(sentences_with_traits)
+        data = trait_doc.to_json()
+        #data = json.dumps(sentences_with_traits)
+        #print('data', data)
+        parse_result = {'sentences': sentences_with_traits, 'entities':entities, 
+        'scientificnames': scientificnames, 'quantities': quantities,
+        'number': number_of_sentences, 'data': data}
+        #context['DJdata'] = json.dumps(DJdata)
     return render(request, 'parse.html', parse_result)

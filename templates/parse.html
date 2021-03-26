@@ -9,8 +9,10 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <button type="submit">Parse!</button>
+    <input type="button" value="Loop sentences" onmousedown="loopSentences()">Loop!</button>
 </form>  
     <br><br>
+    {{ value|json_script:'data' }}
     
     <h3>Recognized scientific names:</h3>
     {% if scientificnames %}
@@ -48,15 +50,12 @@
     </form>
     <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
     <script>
-      function getSelectedText() {
-                var selectedText = '';
-                if (window.getSelection) {
-                    selectedText = window.getSelection();
-                } else return;
-                // To write the selected text into the textarea
-                document.testform.selectedtext.value = selectedText;
-                console.log("selText", selectedText)
-              }
+      const js_variable = JSON.parse(document.getElementById('data').textContent);
+
+      function loopSentences(){    
+        console.log('js_variable', JSON.stringify(js_variable))
+      }
+      
     </script>
     
 {% else %} 

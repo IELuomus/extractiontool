@@ -58,32 +58,32 @@
     <script>
       // Function to get the Selected Text 
       function getSelectedText() {
-          var selectedText = '';
+        var selectedText = '';
 
-          // window.getSelection
-          if (window.getSelection) {
-              selectedText = window.getSelection();
-          }
-          // document.getSelection
-          else if (document.getSelection) {
-              selectedText = document.getSelection();
-          }
-          // document.selection
-          else if (document.selection) {
-              selectedText = 
-              document.selection.createRange().text;
-          } else return;
-          // To write the selected text into the textarea
-          document.testform.selectedtext.value = selectedText;
+        // window.getSelection
+        if (window.getSelection) {
+          selectedText = window.getSelection();
+        }
+        // document.getSelection
+        else if (document.getSelection) {
+          selectedText = document.getSelection();
+        }
+        // document.selection
+        else if (document.selection) {
+          selectedText =
+            document.selection.createRange().text;
+        } else return;
+        // To write the selected text into the textarea
+        document.testform.selectedtext.value = selectedText;
       }
 
-    const js_variable = JSON.parse(document.getElementById('data').textContent);
+      const js_variable = JSON.parse(document.getElementById('data').textContent);
 
-    function loopSentences(){    
-      console.log('js_variable', js_variable) 
-    }
-  
-  </script>
+      function loopSentences() {
+        console.log('js_variable', js_variable)
+      }
+
+    </script>
 
     {% for sent in sentences %}
     <script type="text/javascript">
@@ -111,7 +111,7 @@
           // Make a container element for the list
           listContainer = document.createElement('div'),
           // Make the list
-          listElement = document.createElement('ol'),
+          listElement = document.createElement('ol', id = "mylist"),
           // Set up a loop that goes through the items in listItems one at a time
           numberOfListItems = listData.length,
           listItem,
@@ -123,20 +123,32 @@
 
         for (i = 0; i < numberOfListItems; ++i) {
           // create an item for each one
-          listItem = document.createElement('li');
+          listItem = document.createElement('li', id='mylist');
 
           // Add the item text
           listItem.innerHTML = listData[i];
 
           // Add listItem to the listElement
           listElement.appendChild(listItem);
+
         }
       }
-
       makeList(sentence_array);
+      // document.getElementById("mylist").addEventListener('click', function (event) {
+      //       if ('LI' != event.target.tagName) return;
+      //       alert(event.target.innerText);
+      //     }, false);
     </script>
   </table>
+  <script>
+    var a = document.getElementsByTagName("ol")[0].getElementsByTagName('li');
 
+    for (var i = 0; i < a.length; i++) {
+      a[i].onclick = function () {
+        alert(this.innerHTML);
+      }
+    }
+  </script>
   <input type="button" value="Get Selection" onmousedown="getSelectedText()">
   <!--Form to show the selected text as output-->
   <form name="testform">

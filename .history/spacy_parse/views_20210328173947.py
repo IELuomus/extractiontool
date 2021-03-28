@@ -24,7 +24,7 @@ def ajax_url(request):
             print(data)
             for key, value in data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
                 print(key)
-                print('value: ', str(value))
+                print('value: ', str())
     # if request.method == 'POST':
     #     print("fetch")
     #     response_json = request.POST

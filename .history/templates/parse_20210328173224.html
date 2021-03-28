@@ -191,6 +191,7 @@
                         'Accept': 'application/json',
                         'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
                         'X-CSRFToken': '{{ csrf_token }}',
+                        'csrfmiddlewaretoken': ' {{csrf_token}}'
                     },
                     data: {
                         'traitvalues': traitvalues

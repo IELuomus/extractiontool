@@ -161,39 +161,34 @@
                     // document.write(foo, bar);
                 URL = "{% url 'ajax_url' %}"
                 console.log('traitvalues', traitvalues)
-                    // fetch(URL, {
-                    //         method: 'POST',
-                    //         credentials: 'same-origin',
-                    //         headers: {
-                    //             'Accept': 'application/json',
-                    //             'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
-                    //             'X-CSRFToken': '{{ csrf_token }}',
-                    //             'csrfmiddlewaretoken': ' {{csrf_token}}'
-                    //         },
-                    //         body: JSON.stringify({
-                    //                 data: {
-                    //                     'traitvalues': traitvalues
-                    //                 }
-                    //             }) //JavaScript object of data to POST
-                    //     })
-                    //     .then(response => {
-                    //         return response.json() //Convert response to JSON
-                    //     })
-                    //     .then(data => {
-                    //         //Perform actions with the response data from the view
-                    //     })
+                fetch(URL, {
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({
+                                data: {
+                                    'traitvalues': traitvalues
+                                }
+                            }) //JavaScript object of data to POST
+                    })
+                    .then(response => {
+                        return response.json() //Convert response to JSON
+                    })
+                    .then(data => {
+                        //Perform actions with the response data from the view
+                    })
                 $.ajax({
                     url: "{% url 'ajax_url' %}",
                     type: 'GET',
                     dataType: "json",
                     contentType: 'application/json; charset=utf-8',
-                    headers: {
-                        'Accept': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
-                        'X-CSRFToken': '{{ csrf_token }}',
-                    },
                     data: {
-                        'traitvalues': traitvalues
+                        'traitvalues': traitvalues,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                 });
 

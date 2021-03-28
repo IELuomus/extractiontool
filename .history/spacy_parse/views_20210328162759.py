@@ -15,24 +15,30 @@ from django.http import HttpResponse
 @require_GET
 def ajax_url(request):
   
-    print("ajax: ")
-    
+    print("fetch: ")
+    data = {
+            'traivalues':traitvalues
+    }
     if request.method == 'GET':
+
             response_json = request.GET
             response_json = json.dumps(response_json)
             data = json.loads(response_json)
             print(data)
-            for key, value in data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
-                print(key)
-                print('value: ', str(value))
-    # if request.method == 'POST':
-    #     print("fetch")
-    #     response_json = request.POST
-    #     response_json = json.dumps(response_json)
-    #     data2 = json.loads(response_json)
-    #     print(data2)
+            data = json.loads(request.decode("utf-8"))
+            arr = data['traitvalues']
+            print(str(arr))
 
+    # if request.method == 'POST':
+    #         print("js fetch")
+    #         response_json = request.POST
+    #         response_json = json.dumps(response_json)
+    #         data2 = json.loads(response_json)
+    #         print(data2)
+     
     return JsonResponse(data)
+
+    # return HttpResponse("OK")
 
 def parse(request, pk):
     parse_result = {}

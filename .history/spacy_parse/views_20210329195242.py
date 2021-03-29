@@ -17,7 +17,7 @@ current_pdf_id = []
 def ajax_url(request):
 
     if request.method == 'POST':
-   
+        print("fetch")
         data = request.POST
         received_json_data=json.loads(request.body)
     

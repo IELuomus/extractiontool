@@ -9,7 +9,6 @@ import json
 from .forms import TraitValuesForm
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST, require_GET
-from django.contrib.sessions.models import Session
 from django.http import JsonResponse
 from django.http import HttpResponse
 
@@ -17,19 +16,16 @@ current_pdf_id = []
 def ajax_url(request):
 
     if request.method == 'POST':
-   
+        print("fetch")
         data = request.POST
         received_json_data=json.loads(request.body)
     
 
-        for key, value in received_json_data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
-            for key, value in value.items():
-                print("key:", str(key))
-                print(" ")
-                print("value: ", str(value))
-        print("user.id: ", request.user.id)
-        if current_pdf_id:
-            print("pdf.id: ", current_pdf_id[0])
+        for name, key, value in received_json_data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
+            print("key:", str(key))
+            print(" ")
+            print("value: ", str(value))
+            print("user.id: ", request.user.id)
 
     return JsonResponse(data)
 

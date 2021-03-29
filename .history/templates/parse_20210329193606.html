@@ -76,7 +76,7 @@
             document.getElementById("trait").innerHTML = x;
             console.log(x)
             i++;
-            traitvalues[sentences[index - 1]] = x;
+            traitvalues[sentences[index]] = x;
             console.table(traitvalues)
 
         }
@@ -106,12 +106,12 @@
             return cookie ? cookie[2] : null;
         }
         var data = {
-            traitvalues
-            // "sentences": sentence_array[0],
-            // "traitvalue": "test_value"
+            'traitvalues': traitvalues
+                // "sentences": sentence_array[0],
+                // "traitvalue": "test_value"
         };
 
-        function fetchTraitValues() {
+        function getTrai() {
             URL = "{% url 'ajax_url' %}"
             fetch(URL, {
                     method: 'post',
@@ -133,12 +133,11 @@
                     // alert(`Error: ${err}`, 'danger');
                     console.log(err)
                 });
-        }
     </script>
     <div id="element"></div>
     <button onclick="loop()">Show next sentence</button>
 
-    <input type="button" value="Get Selection" onmousedown="getSelectedText(); getTraitValue(); fetchTraitValues()">
+    <input type="button" value="Get Selection" onmousedown="getSelectedText(); getTraitValue();">
 
     <form name="testform">
         <textarea name="selectedtext" id="trait_value" rows="5" cols="20"></textarea>

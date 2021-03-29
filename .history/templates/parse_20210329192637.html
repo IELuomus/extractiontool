@@ -76,10 +76,11 @@
             document.getElementById("trait").innerHTML = x;
             console.log(x)
             i++;
-            traitvalues[sentences[index - 1]] = x;
-            console.table(traitvalues)
-
-        }
+            traitvalues[sentences[index]] = x; <
+            script >
+                console.table(traitvalues)
+    </script>
+    }
     </script>
     <H4 id="trait"></H4>
     {% for sent in sentences %}
@@ -106,39 +107,36 @@
             return cookie ? cookie[2] : null;
         }
         var data = {
-            traitvalues
-            // "sentences": sentence_array[0],
-            // "traitvalue": "test_value"
+            "sentences": sentence_array[0],
+            "traitvalue": "test_value"
         };
 
-        function fetchTraitValues() {
-            URL = "{% url 'ajax_url' %}"
-            fetch(URL, {
-                    method: 'post',
-                    headers: {
-                        "X-CSRFToken": getCookie("csrftoken"),
-                        'Accept': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                })
-                .then((res) => {
-                    return res.json()
-                })
-                .then(json => {
+        URL = "{% url 'ajax_url' %}"
+        fetch(URL, {
+                method: 'post',
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken"),
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then((res) => {
+                return res.json()
+            })
+            .then(json => {
 
-                    // alert('value posted...', 'success');
+                // alert('value posted...', 'success');
 
-                })
-                .catch(err => {
-                    // alert(`Error: ${err}`, 'danger');
-                    console.log(err)
-                });
-        }
+            })
+            .catch(err => {
+                // alert(`Error: ${err}`, 'danger');
+                console.log(err)
+            });
     </script>
     <div id="element"></div>
     <button onclick="loop()">Show next sentence</button>
 
-    <input type="button" value="Get Selection" onmousedown="getSelectedText(); getTraitValue(); fetchTraitValues()">
+    <input type="button" value="Get Selection" onmousedown="getSelectedText(); getTraitValue();">
 
     <form name="testform">
         <textarea name="selectedtext" id="trait_value" rows="5" cols="20"></textarea>

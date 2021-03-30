@@ -70,6 +70,7 @@
         var i = 0;
 
         function getTraitValue() {
+            //traitvalues = {}
             var x =
                 document.getElementById("trait_value").value;
 
@@ -78,6 +79,7 @@
             i++;
             traitvalues[sentences[index - 1]] = x;
             console.table(traitvalues)
+            
 
         }
     </script>
@@ -137,9 +139,8 @@
     </script>
     <div id="element"></div>
     <button onclick="loop()">Show next sentence</button>
-
-    <input type="button" value="Get Selection" onmousedown="getSelectedText(); getTraitValue(); fetchTraitValues()">
-
+    <button onclick="fetchTraitValues()">Confirm selection</button>
+    <input type="button" value="Get Selection" onmousedown="getSelectedText(); getTraitValue()">
     <form name="testform">
         <textarea name="selectedtext" id="trait_value" rows="5" cols="20"></textarea>
     </form>

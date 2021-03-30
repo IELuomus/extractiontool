@@ -12,6 +12,7 @@ from django.views.decorators.http import require_POST, require_GET
 from django.contrib.sessions.models import Session
 from django.http import JsonResponse
 from django.http import HttpResponse
+import pandas as pd
 
 current_pdf_id = []
 def ajax_url(request):
@@ -20,8 +21,25 @@ def ajax_url(request):
    
         data = request.POST
         received_json_data=json.loads(request.body)
-    
+        jsondict = received_json_data['traitvalues']
+        df = pd.DataFrame(list(jsondict.items()),columns = ['column1','column2'])
+        print("")
+        print("START DATAFRAME EXPERIMENT -----------------------------------")
+        if df.iloc[-1, df.columns.get_loc("column1")]:
+            CURRENT_SENT = df.iloc[-1, df.columns.get_loc("column1")]
+     
+            print("CURRENT_SENT: ", CURRENT_SENT)
+        else:
+            pass
+        if df.iloc[-1, df.columns.get_loc("column2")]:
+            CURRENT_TRAIT_VALUE = df.iloc[-1, df.columns.get_loc("column2")]
+            print("CURRENT_TRAIT_VALUE: ", CURRENT_TRAIT_VALUE)
+        else:
+            pass
+        print("END DATAFRAE EXPERIMENT--------------------------------------")
+        print("")
         train_data = []
+
         LABEL = "TRAITNAME"
         for key, value in received_json_data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
             for key, value in value.items():

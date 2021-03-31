@@ -129,12 +129,12 @@
     </script>
     <div id="element"></div>
     <button onclick="loop()">Show Next Sentence</button>
-    <input type="button" value="Get Selection" onmousedown="getSelectedText();">
-
+    <button type="button" value="Get Selection" onCllick="getSelectedText();"></button>
+    <button onclick="return confirm('Are you sure you want to confirm?');fetchTraitValues()" type="submit">Confirm Selection</button>
     <form name="testform">
-        <textarea name="selectedtext" id="trait_value" rows="2" cols="10"></textarea>
+        <textarea name="selectedtext" id="trait_value" rows="5" cols="20"></textarea>
     </form>
-    <input onmousedown="fetchTraitValues()" value="Confirm Selection">
+
 
 </center>
 

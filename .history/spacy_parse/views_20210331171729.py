@@ -15,9 +15,8 @@ from django.http import HttpResponse
 import pandas as pd
 
 current_pdf_id = []
-train_data = []
 def ajax_url(request):
-        
+        train_data = []
 
         LABEL = "TRAITNAME"
         if request.method == 'POST':
@@ -52,19 +51,16 @@ def ajax_url(request):
         #         print(" ")
         #         print("value: ", str(value))
             start = sentence.find(trait_value)
-            print("start: ", str(start))
             end = start + len(trait_value)
             print("start and end:", start, end )
             train_instance = {"content" : sentence, "annotation" : [{
-            "label":["TRAITNAME"], 
-            "points" : [{"text" : trait_value, "start" : start, "end" : end}]
-            }]}
-            if train_instance not in train_data:         
-                train_data.append(json.dumps(train_instance))
-        # print("train_data", train_data)
-        print("train_data list below: ")
-        print(*train_data, sep = "\n")
-            
+                "label":["TRAITNAME"], 
+                "points" : [{"text" : trait_value, "start" : start, "end" : end}]
+                }]
+                }
+                if train_instance not in train_data:         
+                    train_data.append(json.dumps(train_instance))
+        print("train_data", train_data)
         print("user.id: ", request.user.id)
         if current_pdf_id:
             print("pdf.id: ", current_pdf_id[0])

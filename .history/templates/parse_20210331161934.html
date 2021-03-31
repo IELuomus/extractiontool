@@ -54,6 +54,7 @@
                     document.selection.createRange().text;
             } else return;
             // To write the selected text into the textarea
+            console.log(selectedText)
 
             document.testform.selectedtext.value = selectedText;
         }
@@ -101,40 +102,51 @@
 
         function fetchTraitValues() {
             URL = "{% url 'ajax_url' %}"
+            var userChoice;
+            let val = JSON.stringify(document.getElementById("trait_value").value)
             var data = {
                 sentence: sentence_array[index - 1],
                 trait_value: document.getElementById("trait_value").value
             };
+            confirm(`Do you want to save ${val}?`)
+            if (!confirm) {
 
-            fetch(URL, {
-                    method: 'post',
-                    headers: {
-                        "X-CSRFToken": getCookie("csrftoken"),
-                        'Accept': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                })
-                .then((res) => {
-                    return res.json()
-                })
-                .then(json => {
+                userChoice = "Save Cancelled!";
+                alert(userChoice)
+                return;
+            } else {
+                fetch(URL, {
+                        method: 'post',
+                        headers: {
+                            "X-CSRFToken": getCookie("csrftoken"),
+                            'Accept': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    })
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then(json => {
 
-                })
-                .catch(err => {
-                    alert(`Error: ${err}`, 'danger');
-                    console.log(err)
-                });
+                        userChoice = `${tr} saved succesfully`;
+                        alert(userChoice, 'success');
 
+                    })
+                    .catch(err => {
+                        alert(`Error: ${err}`, 'danger');
+                        console.log(err)
+                    });
+            }
         }
     </script>
     <div id="element"></div>
-    <button onclick="loop()">Show Next Sentence</button>
-    <input type="button" value="Get Selection" onmousedown="getSelectedText();">
+    <button onclick="loop()">Show next sentence</button>
 
+    <input type="button" value="Get Selection" onmousedown="getSelectedText();fetchTraitValues()">
     <form name="testform">
-        <textarea name="selectedtext" id="trait_value" rows="2" cols="10"></textarea>
+        <textarea name="selectedtext" id="trait_value" rows="5" cols="20"></textarea>
     </form>
-    <input onmousedown="fetchTraitValues()" value="Confirm Selection">
+
 
 </center>
 

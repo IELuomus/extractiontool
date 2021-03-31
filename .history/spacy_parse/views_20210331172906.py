@@ -15,7 +15,6 @@ from django.http import HttpResponse
 import pandas as pd
 
 current_pdf_id = []
-train_data = []
 def ajax_url(request):
         
 

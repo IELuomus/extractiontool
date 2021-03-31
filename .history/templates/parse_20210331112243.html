@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% block content %} {% load static %}
 
 <head>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
     <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 </head>
 <meta charset="utf-8">
@@ -29,8 +30,13 @@
     <br> {% if sentences %}
 
     <script>
+        // var traitvalues = {};
         let word = "";
         const sentence_array = []
+            //let sentence = "";
+            //var sentences1 = '{{sentences}}';
+            // console.log((sentences1).constructor.name)
+            // var stringarr = sentences1.toString();
     </script>
     <h3>Sentences with potential trait data:</h3>
     <h4>Select a traitname </h4>
@@ -54,6 +60,7 @@
                     document.selection.createRange().text;
             } else return;
             // To write the selected text into the textarea
+            console.log(selectedText)
 
             document.testform.selectedtext.value = selectedText;
         }
@@ -80,6 +87,7 @@
     {% for sent in sentences %}
     <script type="text/javascript">
         sentence = "{{ sent}}";
+        //console.log(sentence)
         sentence_array.push(sentence)
     </script>
     <p></p>
@@ -89,6 +97,7 @@
         let index = 0
 
         function loop() {
+            //console.log('loop kutsuttu')
             document.getElementById("element").innerHTML = sentences[index]
             index++
         }
@@ -98,14 +107,18 @@
             let cookie = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
             return cookie ? cookie[2] : null;
         }
+        // var data = {
+        //     traitvalues
+        //     // "sentences": sentence_array[0],
+        //     // "traitvalue": "test_value"
+        // };
 
         function fetchTraitValues() {
             URL = "{% url 'ajax_url' %}"
             var data = {
                 sentence: sentence_array[index - 1],
-                trait_value: document.getElementById("trait_value").value
+                selected_text: document.getElementById("trait_value").value
             };
-
             fetch(URL, {
                     method: 'post',
                     headers: {
@@ -119,33 +132,91 @@
                 })
                 .then(json => {
 
+                    // alert('value posted...', 'success');
+
                 })
                 .catch(err => {
-                    alert(`Error: ${err}`, 'danger');
+                    // alert(`Error: ${err}`, 'danger');
                     console.log(err)
                 });
-
         }
     </script>
     <div id="element"></div>
-    <button onclick="loop()">Show Next Sentence</button>
+    <button onclick="loop()">Show next sentence</button>
+
     <input type="button" value="Get Selection" onmousedown="getSelectedText();">
-
     <form name="testform">
-        <textarea name="selectedtext" id="trait_value" rows="2" cols="10"></textarea>
+        <textarea name="selectedtext" id="trait_value" rows="5" cols="20"></textarea>
     </form>
-    <input onmousedown="fetchTraitValues()" value="Confirm Selection">
-
+    <input type="button" onmousedown="fetchTraitValues()">
+    <p>Confirm selection </p>
 </center>
 
 
 {% endif %} {% csrf_token %}
 <br><br>
-<br>
-<a href="{% url 'pdf_list' %}" class="w3-btn w3-black">Back to pdf list</a>
-<br> {% else %}
+<input type=button value="Previous Page" onClick="javascript:history.go(-1);"> {% else %}
 <p>Please login first</p>
 {% endif %} {% endblock content %}
 
 
+<!-- <script>
+var a = document.getElementsByTagName("ol")[0].getElementsByTagName('li');
+
+// function getValue() {
+//   var retVal = prompt(JSON.innerHTML,  "traitvalue");
+//   document.write("You have entered : " + retVal);
+// }
+
+var traitvalues = {};
+for (var i = 0; i < a.length; i++) {
+    a[i].onclick = function() {
+        let foo = prompt(this.innerHTML, "TRAITVALUE")
+        let bar = confirm(`TRAITVALUE: ${foo}`);
+        console.log(foo, bar);
+        if (bar) {
+            traitvalues[this.innerHTML] = `${foo}`
+        }
+        console.table(traitvalues)
+            // document.write(foo, bar);
+        URL = "{% url 'ajax_url' %}"
+        console.log('traitvalues', traitvalues)
+            // fetch(URL, {
+            //         method: 'POST',
+            //         credentials: 'same-origin',
+            //         headers: {
+            //             'Accept': 'application/json',
+            //             'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+            //             'X-CSRFToken': '{{ csrf_token }}',
+            //             'csrfmiddlewaretoken': ' {{csrf_token}}'
+            //         },
+            //         body: JSON.stringify({
+            //                 data: {
+            //                     'traitvalues': traitvalues
+            //                 }
+            //             }) //JavaScript object of data to POST
+            //     })
+            //     .then(response => {
+            //         return response.json() //Convert response to JSON
+            //     })
+            //     .then(data => {
+            //         //Perform actions with the response data from the view
+            //     })
+        $.ajax({
+            url: "{% url 'ajax_url' %}",
+            type: 'GET',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            data: {
+                'traitvalues': traitvalues
+            },
+        });
+
+    }
+}
 </script> -->

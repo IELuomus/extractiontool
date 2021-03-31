@@ -106,6 +106,7 @@
                 trait_value: document.getElementById("trait_value").value
             };
 
+
             fetch(URL, {
                     method: 'post',
                     headers: {
@@ -119,6 +120,13 @@
                 })
                 .then(json => {
 
+
+                    if (confirm(`Are you sure you want to save ${val}?`) == true)
+                        return true;
+                    else
+                        return false;
+
+
                 })
                 .catch(err => {
                     alert(`Error: ${err}`, 'danger');
@@ -128,13 +136,14 @@
         }
     </script>
     <div id="element"></div>
-    <button onclick="loop()">Show Next Sentence</button>
-    <input type="button" value="Get Selection" onmousedown="getSelectedText();">
+    <button onclick="loop()">Show next sentence</button>
 
+    <input type="button" value="Get Selection" onmousedown="getSelectedText();">
+    <button onclick="return confirm('Are you sure you want to confirm?');fetchTraitValues()" type="submit">OK</button>
     <form name="testform">
-        <textarea name="selectedtext" id="trait_value" rows="2" cols="10"></textarea>
+        <textarea name="selectedtext" id="trait_value" rows="5" cols="20"></textarea>
     </form>
-    <input onmousedown="fetchTraitValues()" value="Confirm Selection">
+
 
 </center>
 

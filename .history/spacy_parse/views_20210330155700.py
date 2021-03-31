@@ -17,29 +17,26 @@ import pandas as pd
 current_pdf_id = []
 def ajax_url(request):
 
-        if request.method == 'POST':
+    if request.method == 'POST':
+   
+        data = request.POST
+        received_json_data=json.loads(request.body)
+        jsondict = received_json_data['traitvalues']
+        df = pd.DataFrame(list(jsondict.items()),columns = ['column1','column2'])
+        lastrow = df.tail(1)
+        print("START HERE!!!!SEE ME!!! -----------------------------------")
+        # for index, row in lastrow.iterrows():
+        #     sentence = row['column1']
+        #     value = row['column2']
+        print("lend(df)", len(df))
     
-            data = request.POST
-            received_json_data=json.loads(request.body)
-            jsondict = received_json_data['traitvalues']
-            df = pd.DataFrame(list(jsondict.items()),columns = ['column1','column2'])
-            print("")
-            print("START DATAFRAME EXPERIMENT -----------------------------------")
-            if df.iloc[-1, df.columns.get_loc("column1")]:
-                CURRENT_SENT = df.iloc[-1, df.columns.get_loc("column1")]
-        
-                print("CURRENT_SENT: ", CURRENT_SENT)
-            else:
-                pass
-            if df.iloc[-1, df.columns.get_loc("column2")]:
-                CURRENT_TRAIT_VALUE = df.iloc[-1, df.columns.get_loc("column2")]
-                print("CURRENT_TRAIT_VALUE: ", CURRENT_TRAIT_VALUE)
-            else:
-                pass
-            print("END DATAFRAME EXPERIMENT--------------------------------------")
-            print("")
+        print("sentence")
+        print(str(lastrow['column1']).trim())
+        print("traitvalue")
+        print(str(lastrow['column2']).)
+      
+        print("OTHER PRINTS")
         train_data = []
-
         LABEL = "TRAITNAME"
         for key, value in received_json_data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
             for key, value in value.items():
@@ -61,7 +58,7 @@ def ajax_url(request):
         if current_pdf_id:
             print("pdf.id: ", current_pdf_id[0])
 
-        return JsonResponse(data)
+    return JsonResponse(data)
 
 
 def parse(request, pk):

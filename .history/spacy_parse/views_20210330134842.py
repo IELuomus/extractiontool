@@ -17,51 +17,25 @@ import pandas as pd
 current_pdf_id = []
 def ajax_url(request):
 
-        if request.method == 'POST':
+    if request.method == 'POST':
+   
+        data = request.POST
+        received_json_data=json.loads(request.body)
     
-            data = request.POST
-            received_json_data=json.loads(request.body)
-            jsondict = received_json_data['traitvalues']
-            df = pd.DataFrame(list(jsondict.items()),columns = ['column1','column2'])
-            print("")
-            print("START DATAFRAME EXPERIMENT -----------------------------------")
-            if df.iloc[-1, df.columns.get_loc("column1")]:
-                CURRENT_SENT = df.iloc[-1, df.columns.get_loc("column1")]
-        
-                print("CURRENT_SENT: ", CURRENT_SENT)
-            else:
-                pass
-            if df.iloc[-1, df.columns.get_loc("column2")]:
-                CURRENT_TRAIT_VALUE = df.iloc[-1, df.columns.get_loc("column2")]
-                print("CURRENT_TRAIT_VALUE: ", CURRENT_TRAIT_VALUE)
-            else:
-                pass
-            print("END DATAFRAME EXPERIMENT--------------------------------------")
-            print("")
-        train_data = []
-
-        LABEL = "TRAITNAME"
+        df = pd.DataFrame(list(received_json_data.items()),columns = ['column1','column2'])
+        print("df.head()", df.head())
         for key, value in received_json_data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
             for key, value in value.items():
                 print("key:", str(key))
                 print(" ")
                 print("value: ", str(value))
-                start = key.index(value)
-                end = start + len(value)
-                print("start and end:", start, end )
-                train_instance = {"content" : key, "annotation" : [{
-                    "label":["TRAITNAME"], 
-                    "points" : [{"text" : value, "start" : start, "end" : end}]
-                    }]
-                }
-                if train_instance not in train_data:         
-                    train_data.append(json.dumps(train_instance))
-                print("train_data", train_data)
+                
+        
         print("user.id: ", request.user.id)
         if current_pdf_id:
             print("pdf.id: ", current_pdf_id[0])
-
-        return JsonResponse(data)
+        print(len(received_json_data))
+    return JsonResponse(data)
 
 
 def parse(request, pk):

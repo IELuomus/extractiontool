@@ -36,7 +36,7 @@ def ajax_url(request):
                 print("CURRENT_TRAIT_VALUE: ", CURRENT_TRAIT_VALUE)
             else:
                 pass
-            print("END DATAFRAME EXPERIMENT--------------------------------------")
+            print("END DATAFRAE EXPERIMENT--------------------------------------")
             print("")
         train_data = []
 
@@ -61,7 +61,7 @@ def ajax_url(request):
         if current_pdf_id:
             print("pdf.id: ", current_pdf_id[0])
 
-        return JsonResponse(data)
+    return JsonResponse(data)
 
 
 def parse(request, pk):

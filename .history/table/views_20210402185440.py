@@ -22,7 +22,12 @@ import json
 import camelot
 
 wanted_pdf = []
+<<<<<<< HEAD
+wanted_pdf_name =[]
+
+=======
 pdf_name = []
+>>>>>>> main
 @login_required
 def redirect_form(request, pk):
     

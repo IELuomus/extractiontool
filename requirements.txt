@@ -19,7 +19,7 @@ djangorestframework==3.12.4
 django-simple-history==2.12.0
 django-sslserver==0.22
 django-userforeignkey==0.3.0
-fontawesome-free==version_number
+fontawesome-free==5.15.3
 gunicorn==20.0.4
 idna==2.10
 mysqlclient==2.0.3

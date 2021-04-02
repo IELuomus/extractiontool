@@ -24,7 +24,6 @@ from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 
 wanted_pdf = []
-wanted_pdf_name = []
 pdf_name = []
 pdf_id = []
 
@@ -92,8 +91,8 @@ def table_to_dataframe(request):
             for key, value in data.items():
                 js = Json_Table()
                 js.user_id = request.user.id
-                if pdf_id:
-                    js.pdf_id = pdf_id[0]
+                if pd
+                js.pdf_id = pdf_id[0]
                 js.json_table = value
                 js.save()
                 

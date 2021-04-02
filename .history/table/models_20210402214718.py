@@ -14,8 +14,8 @@ class Json_TableQuerySet(models.QuerySet):
 
 
 class Json_Table(models.Model):
-    user_id = models.IntegerField(null=True)
-    pdf_id = models.IntegerField(null=True)
+    user_id = models.IntegerField()
+    pdf_id = models.IntegerField()
     json_table= models.JSONField()
     table = models.FileField(upload_to='json/')
     

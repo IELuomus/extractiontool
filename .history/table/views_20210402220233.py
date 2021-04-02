@@ -24,7 +24,7 @@ from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 
 wanted_pdf = []
-wanted_pdf_name = []
+wanted_pdf = []
 pdf_name = []
 pdf_id = []
 

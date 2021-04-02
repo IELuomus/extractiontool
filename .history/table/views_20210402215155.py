@@ -20,17 +20,10 @@ from django.core.files.storage import default_storage
 import pandas as pd
 import json
 import camelot
-from django.contrib.sessions.models import Session
-from django.contrib.auth.models import User
 
 wanted_pdf = []
-wanted_pdf_name = []
 pdf_name = []
 pdf_id = []
-
-
-
-
 @login_required
 def redirect_form(request, pk):
     
@@ -38,8 +31,7 @@ def redirect_form(request, pk):
     pdf = Pdf.objects.get(pk=pk)
     file = pdf.pdf.path
     name = pdf.title
-    pdf_id.clear()
-    pdf_id.append(pk)
+    
     pdf_name.clear()
     pdf_name.append(name)
     wanted_pdf.clear()
@@ -91,9 +83,6 @@ def table_to_dataframe(request):
             # for row in data:
             for key, value in data.items():
                 js = Json_Table()
-                js.user_id = request.user.id
-                if pdf_id:
-                    js.pdf_id = pdf_id[0]
                 js.json_table = value
                 js.save()
                 

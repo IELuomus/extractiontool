@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <h2>Parse the uploaded text</h2>
-
+<!-- 
 <style>
     .hl {
         background: #ffffff;
@@ -15,7 +15,7 @@
     .hl:hover {
         background: #95db79;
     }
-</style>
+</style> -->
 
 {% if user.is_authenticated %}
 <p> {{user}} logged in</p>
@@ -27,24 +27,17 @@
 <br>
 <center>
 
-    <br> {% if sentences %}
-
-    <script>
-        const sentence_array = []
-    </script>
+    <br> {% if json_sentences %}
     <h3>Sentences with potential trait data:</h3>
     <h4>Select a traitname </h4>
     <br>
     <script>
         var json_sents = '{{json_sentences}}'
-        const usingSplit = json_sents.split('&quot;, &quot;');
-        var arrayLength = usingSplit.length;
-        for (var i = 0; i < arrayLength; i++) {
-            usingSplit[i].replace('&quot;', '')
-            usingSplit[i] = usingSplit[i].replace('&quot;', '')
-            console.log(usingSplit[i]);
-            //Do something
-        }
+        const sentencesArray = json_sents.split('&quot;, &quot;');
+        sentencesArray[0] = sentencesArray[0].replace('&quot;', '')
+        var n = sentencesArray.length - 1;
+        sentencesArray[n] = sentencesArray[n].replace('&quot;', '')
+        console.log(sentencesArray)
     </script>
 
 
@@ -84,15 +77,15 @@
         }
     </script> -->
     <H4 id="trait"></H4>
-    {% for sent in sentences %}
+    <!-- {% for sent in sentences %}
     <script type="text/javascript">
         sentence = "{{ sent}}";
         sentence_array.push(sentence)
     </script>
     <p></p>
-    {% endfor %}
+    {% endfor %} -->
     <script>
-        const sentences = sentence_array
+        const sentences = sentencesArray
         let index = 0
 
         function loop() {
@@ -108,8 +101,11 @@
 
         function fetchTraitValues() {
             URL = "{% url 'ajax_url' %}"
+            var trainingVal = JSON.stringify(document.getElementById("trait_value").value)
+
+
             var data = {
-                sentence: sentence_array[index - 1],
+                sentence: sentencesArray[index - 1],
                 trait_value: document.getElementById("trait_value").value
             };
 
@@ -125,7 +121,7 @@
                     return res.json()
                 })
                 .then(json => {
-
+                    window.alert(`${trainingVal} successfully posted`)
                 })
                 .catch(err => {
                     alert(`Error: ${err}`, 'danger');

@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'table',
     'corsheaders', 
     'rest_framework',
-     'fontawesome-free'
     ]
 
 SITE_ID = 1

@@ -17,7 +17,6 @@ django-mysql==3.11.1
 django-simple-history==2.12.0
 django-sslserver==0.22
 django-userforeignkey==0.3.0
-fontawesome-free==version_number
 gunicorn==20.0.4
 idna==2.10
 mysqlclient==2.0.3

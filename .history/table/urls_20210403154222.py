@@ -10,7 +10,7 @@ from .views import (
 urlpatterns = [
   path('table/', table_to_dataframe, name="table"),
   path('redirect_form/<int:pk>', redirect_form, name='redirect_form'),
-  path('selected_tables/<int:user_id>/<int:pdf_id>/<int:page_number>/', json_table_list, name='selected_tables'),
+  path('selected_tables/<int:user_id>/<int:pdf_id>/<>', json_table_list, name='selected_tables'),
   path('table_list/', TableListView.as_view(), name='table-list'),
   url(r'^health$', health),    
 ]

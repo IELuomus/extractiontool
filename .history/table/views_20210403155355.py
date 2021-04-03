@@ -50,10 +50,10 @@ class TableListView(ListView):
 
 
 @login_required
-def json_table_list(request, user_id, pdf_id, page_number):
+def json_table_list(request, user_id, pdf_id, page_numbe):
     table_list = []
     pdf_id = pdf_ids[0]
-    json_tables = Json_Table.objects.filter(pdf_id=pdf_id).filter(page_number=page_number)
+    json_tables = Json_Table.objects.filter(pdf_id=pdf_id)
 
     for table in json_tables:
         # print(str(table.json_table))

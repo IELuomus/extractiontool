@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+<p></p>
+<p></p>
+{% block content %}
+<p></p>
+<p></p>
+{% load static %}
+<title>TableView - Startup</title> 
+
+<meta charset="utf-8"> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
+<p></p>
+<p></p>
+{% if user.is_authenticated %}
+
+<!-- Write HTML code here -->
+<!DOCTYPE html> 
+
+<html lang="en"> 
+
+<head> 
+
+  <title>TableView - Startup</title> 
+
+  <meta charset="utf-8"> 
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> 
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
+
+</head> 
+
+<body> 
+
+  
+
+<div class="container"> 
+
+  <h2 class="text-center"><u>20 - Startups Table</u></h2><br>             
+
+  <table class="table table-dark table-striped"> 
+
+    <thead> 
+
+      <tr> 
+
+        <th>Column 1</th> 
+
+        <th>Column 2</th> 
+
+        <th>Column 3</th> 
+
+        <th>Column 4</th> 
+
+        <th>Column 5</th> 
+
+      </tr> 
+
+    </thead> 
+
+    <tbody> 
+
+    <!-- jinja2 Technique -->
+
+    {% if d %}   
+
+    {% for i in d %} 
+        {% for a in i %}
+      <tr> 
+
+        <td>{{i.0}}</td> 
+
+        <td>{{i.1}}</td> 
+
+        <td>{{i.2}}</td> 
+
+        <td>{{i.3}}</td> 
+
+        <td>{{i.4}}</td> 
+
+      </tr> 
+      {% endfor %} 
+    {% endfor %} 
+
+    {% endif %} 
+
+    </tbody> 
+
+  </table> 
+
+</div> 
+<script>
+    function htmlDecode(str) {
+        const doc = new DOMParser().parseFromString(str, "text/html");
+        return doc.documentElement.textContent;
+    }
+</script>
+
+<h1>DataFrame in Dataframes</h1>
+<script>
+    var a = htmlDecode('{{table_list}}')
+    console.log(a)
+</script>
+{% for html_table in html_dataframes %}
+  {{html_table}}
+<script>
+    console.log(JSON.stringify(htmlDecode('{{html_table}}')))
+</script>
+{% endfor %}
+
+<!-- <script>
+    var arr = '{{data_frames}}'
+    console.log(arr.constructor.name)
+    console.log(arr)
+    htmlDecode(JSON.stringify(arr))
+    console.table(arr)
+</script> -->
+{% for df in data_frames %}
+<table>
+ {{df}}
+</table>
+{% endfor %}
+<br>
+<a href="{% url 'pdf_list' %}" class="w3-btn w3-black">Back to pdf list</a>
+<br>
+{% endif %}
+{% endblock content %}

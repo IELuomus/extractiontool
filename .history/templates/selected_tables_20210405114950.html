@@ -61,7 +61,28 @@
  console.table(data_object)
 
 
+ var table = document.createElement("table"), row, cellA, cellB;
+  document.getElementById("demoA").appendChild(table);
+  for (let key in data) {
+    // (C2) ROWS & CELLS
+    row = document.createElement("tr");
+    cellA = document.createElement("td");
+    cellB = document.createElement("td");
+    cellC = document.createElement("td");
+    cellD = document.createElement("td");
  
+    // (C3) KEY & VALUE
+    cellA.innerHTML = key;
+    cellB.innerHTML = data[key];
+    cellC.innerHTML = key2;
+    cellD.innerHTML = data[key];
+ 
+    // (C4) ATTACH ROW & CELLS
+    table.appendChild(row);
+    row.appendChild(cellA);
+    row.appendChild(cellB);
+  }
+});
 </script>
 {% endfor %}
 {% if d %}   

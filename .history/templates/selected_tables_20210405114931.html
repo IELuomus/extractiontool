@@ -48,11 +48,14 @@
 }
 </script>
 {% for df in d2 %}
+<div id="demoA"></div>
+ 
 <script>
 //     function htmlDecode(str) {
 //      const doc = new DOMParser().parseFromString(str, 'text/html');
 //      return doc.documentElement.textContent;
 // }
+window.addEventListener("load", function(){
  var data = htmlDecode("{{df}}")
  console.log(data.constructor.name)
  console.table(data)
@@ -61,7 +64,6 @@
  console.table(data_object)
 
 
- 
 </script>
 {% endfor %}
 {% if d %}   

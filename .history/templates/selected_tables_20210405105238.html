@@ -24,6 +24,10 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+<body onLoad="buildHtmlTable('#excelDataTable')">
+  <table id="excelDataTable" border="1">
+  </table>
+</body>
 <head> 
 
   <title>TableView </title> 
@@ -42,28 +46,8 @@
 
 </head> 
 <script>
-       function htmlDecode(str) {
-     const doc = new DOMParser().parseFromString(str, 'text/html');
-     return doc.documentElement.textContent;
-}
+    
 </script>
-{% for df in d2 %}
-<script>
-//     function htmlDecode(str) {
-//      const doc = new DOMParser().parseFromString(str, 'text/html');
-//      return doc.documentElement.textContent;
-// }
- var data = htmlDecode("{{df}}")
- console.log(data.constructor.name)
- console.table(data)
- data_object = JSON.parse(data);
- console.log(data_object.constructor.name)
- console.table(data_object)
-
-
- 
-</script>
-{% endfor %}
 {% if d %}   
 {% for i in d %} 
 
@@ -143,9 +127,16 @@
 
 </div> 
 <script>
-   
-var stringd = htmlDecode('{{d}}')
+      function htmlDecode(str) {
+        const doc = new DOMParser().parseFromString(str, "text/html");
+        return doc.documentElement.textContent;
+    }
+    var stringd = htmlDecode('{{d}}')
+    var myList = stringd.split('},')
 
+    console.log('myList')
+    console.table(myList)
+//     function buildHtmlTable(selector) {
 //   var columns = addAllColumnHeaders(myList, selector);
 
 //   for (var i = 0; i < myList.length; i++) {
@@ -178,7 +169,8 @@ var stringd = htmlDecode('{{d}}')
 //   }
 //   $(selector).append(headerTr$);
 
-//   return columnSet; }
+//   return columnSet; 
+}
 
     </script>
 {% endfor %} 

@@ -62,12 +62,12 @@ def json_table_list(request, user_id, pdf_id, page_number):
         dataf = json.loads(json_records)
         data_f.append(dataf)
         json_data = json.dumps(dataf)
-        data_f2.append(json_data)
+        
 
     i = i+1
 
 
-    return render(request, 'selected_tables.html', {'d': data_f, 'd2': data_f2})
+    return render(request, 'selected_tables.html', {'dataframes': data_frames, 'html_dataframes': html_dataframes, 'json_tables': json_tables, 'table_list': table_list, 'd': data_f})
 
 
 @login_required

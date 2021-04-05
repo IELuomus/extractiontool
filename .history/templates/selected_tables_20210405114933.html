@@ -48,11 +48,14 @@
 }
 </script>
 {% for df in d2 %}
+<div id="demoA"></div>
+ 
 <script>
 //     function htmlDecode(str) {
 //      const doc = new DOMParser().parseFromString(str, 'text/html');
 //      return doc.documentElement.textContent;
 // }
+window.addEventListener("load", function(){
  var data = htmlDecode("{{df}}")
  console.log(data.constructor.name)
  console.table(data)
@@ -61,7 +64,30 @@
  console.table(data_object)
 
 
+ var table = document.createElement("table"), row, cellA, cellB;
+  document.getElementById("demoA").appendChild(table);
+  for (let key in data) {
+    // (C2) ROWS & CELLS
+    row = document.createElement("tr");
+    cellA = document.createElement("td");
+    cellB = document.createElement("td");
+    cellC = document.createElement("td");
+    cellD = document.createElement("td");
  
+    // (C3) KEY & VALUE
+    cellA.innerHTML = key;
+    cellB.innerHTML = data[key];
+    cellC.innerHTML = key2;
+    cellD.innerHTML = data[key2];
+ 
+    // (C4) ATTACH ROW & CELLS
+    table.appendChild(row);
+    row.appendChild(cellA);
+    row.appendChild(cellB);
+    row.appendChild(cellC);
+    row.appendChild(cellD);
+  }
+});
 </script>
 {% endfor %}
 {% if d %}   

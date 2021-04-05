@@ -24,6 +24,10 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+<body onLoad="buildHtmlTable('#excelDataTable')">
+  <table id="excelDataTable" border="1">
+  </table>
+</body>
 <head> 
 
   <title>TableView </title> 
@@ -42,28 +46,8 @@
 
 </head> 
 <script>
-       function htmlDecode(str) {
-     const doc = new DOMParser().parseFromString(str, 'text/html');
-     return doc.documentElement.textContent;
-}
+    
 </script>
-{% for df in d2 %}
-<script>
-//     function htmlDecode(str) {
-//      const doc = new DOMParser().parseFromString(str, 'text/html');
-//      return doc.documentElement.textContent;
-// }
- var data = htmlDecode("{{df}}")
- console.log(data.constructor.name)
- console.table(data)
- data_object = JSON.parse(data);
- console.log(data_object.constructor.name)
- console.table(data_object)
-
-
- 
-</script>
-{% endfor %}
 {% if d %}   
 {% for i in d %} 
 
@@ -143,43 +127,49 @@
 
 </div> 
 <script>
-   
-var stringd = htmlDecode('{{d}}')
+      function htmlDecode(str) {
+        const doc = new DOMParser().parseFromString(str, "text/html");
+        return doc.documentElement.textContent;
+    }
+    var stringd = htmlDecode('{{d}}')
+    var myList = stringd.split('},')
+    console.log('myList')
+    console.table(myList)
+    function buildHtmlTable(selector) {
+  var columns = addAllColumnHeaders(myList, selector);
 
-//   var columns = addAllColumnHeaders(myList, selector);
+  for (var i = 0; i < myList.length; i++) {
+    var row$ = $('<tr/>');
+    for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+      var cellValue = myList[i][columns[colIndex]];
+      if (cellValue == null) cellValue = "";
+      row$.append($('<td/>').html(cellValue));
+    }
+    $(selector).append(row$);
+  }
+}
 
-//   for (var i = 0; i < myList.length; i++) {
-//     var row$ = $('<tr/>');
-//     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
-//       var cellValue = myList[i][columns[colIndex]];
-//       if (cellValue == null) cellValue = "";
-//       row$.append($('<td/>').html(cellValue));
-//     }
-//     $(selector).append(row$);
-//   }
-// }
+// Adds a header row to the table and returns the set of columns.
+// Need to do union of keys from all records as some records may not contain
+// all records.
 
-// // Adds a header row to the table and returns the set of columns.
-// // Need to do union of keys from all records as some records may not contain
-// // all records.
+function addAllColumnHeaders(myList, selector) {
+  var columnSet = [];
+  var headerTr$ = $('<tr/>');
 
-// function addAllColumnHeaders(myList, selector) {
-//   var columnSet = [];
-//   var headerTr$ = $('<tr/>');
+  for (var i = 0; i < myList.length; i++) {
+    var rowHash = myList[i];
+    for (var key in rowHash) {
+      if ($.inArray(key, columnSet) == -1) {
+        columnSet.push(key);
+        headerTr$.append($('<th/>').html(key));
+      }
+    }
+  }
+  $(selector).append(headerTr$);
 
-//   for (var i = 0; i < myList.length; i++) {
-//     var rowHash = myList[i];
-//     for (var key in rowHash) {
-//       if ($.inArray(key, columnSet) == -1) {
-//         columnSet.push(key);
-//         headerTr$.append($('<th/>').html(key));
-//       }
-//     }
-//   }
-//   $(selector).append(headerTr$);
-
-//   return columnSet; }
-
+  return columnSet;
+}
     </script>
 {% endfor %} 
 {% endif %} 
@@ -192,6 +182,19 @@ var stringd = htmlDecode('{{d}}')
 </script>
 
 
+
+
+{% for df in data_frames %}
+<table>
+    {% for table in df.iterrows %}
+    <script>
+        var tableDf = htmlDecode('{{table}}')
+        console.log('tableDf')
+        console.table(tableDf)
+    </script>
+    {% endfor %}
+</table>
+{% endfor %}
 <br>
 <a href="{% url 'pdf_list' %}" class="w3-btn w3-black">Back to pdf list</a>
 <br>

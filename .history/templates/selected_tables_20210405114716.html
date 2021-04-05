@@ -48,20 +48,27 @@
 }
 </script>
 {% for df in d2 %}
+<div id="df"></div>
+ 
 <script>
 //     function htmlDecode(str) {
 //      const doc = new DOMParser().parseFromString(str, 'text/html');
 //      return doc.documentElement.textContent;
 // }
- var data = htmlDecode("{{df}}")
- console.log(data.constructor.name)
- console.table(data)
- data_object = JSON.parse(data);
- console.log(data_object.constructor.name)
- console.table(data_object)
+function htmlDecode(str) {
+     const doc = new DOMParser().parseFromString(str, 'text/html');
+     return doc.documentElement.textContent;
+}
 
+window.addEventListener("load", function(){
 
- 
+ var table = "<table>";
+  for (let key in data) {
+    table += `<tr><td>${key}</td><td>${data[key]}</td></tr>`;
+  }
+  table += "</table>";
+  document.getElementById("df").innerHTML = table;
+});
 </script>
 {% endfor %}
 {% if d %}   

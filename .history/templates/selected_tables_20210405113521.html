@@ -42,26 +42,21 @@
 
 </head> 
 <script>
-       function htmlDecode(str) {
-     const doc = new DOMParser().parseFromString(str, 'text/html');
-     return doc.documentElement.textContent;
-}
+    
 </script>
 {% for df in d2 %}
 <script>
-//     function htmlDecode(str) {
-//      const doc = new DOMParser().parseFromString(str, 'text/html');
-//      return doc.documentElement.textContent;
-// }
- var data = htmlDecode("{{df}}")
+    function htmlDecode(str) {
+     const doc = new DOMParser().parseFromString(str, 'text/html');
+     return doc.documentElement.textContent;
+}
+ var data = htmlDecode("{{i}}")
  console.log(data.constructor.name)
  console.table(data)
+
  data_object = JSON.parse(data);
  console.log(data_object.constructor.name)
  console.table(data_object)
-
-
- 
 </script>
 {% endfor %}
 {% if d %}   

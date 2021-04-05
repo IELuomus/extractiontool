@@ -53,15 +53,13 @@
 //      const doc = new DOMParser().parseFromString(str, 'text/html');
 //      return doc.documentElement.textContent;
 // }
- var data = htmlDecode("{{df}}")
+ var data = htmlDecode("{{i}}")
  console.log(data.constructor.name)
  console.table(data)
+
  data_object = JSON.parse(data);
  console.log(data_object.constructor.name)
  console.table(data_object)
-
-
- 
 </script>
 {% endfor %}
 {% if d %}   

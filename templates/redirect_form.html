@@ -6,6 +6,10 @@
     width: 9em;  height: 3em;
     background-color:rgb(64, 125, 204);
 }
+
+input[type=number] {
+    width: 9em;  height: 4em;
+}
 p {
     font-size: large;
 }
@@ -17,8 +21,9 @@ p {
 <p>File Url: <a href="{{ url}}" target="_blank" rel="noopener noreferrer" >{{url}}" </a></p>
      <form action="/page_number/" method="get">
         {% csrf_token %}
-        <label for="element_id"> <b>Page Number</b></label>
+        <label for="element_id"> <b>Page Number   </b></label><br>
         <input id="element_id" type="number" name="page_number" value="required">
+        <p></p>
         <input type="submit" value="OK">
     </form>
  

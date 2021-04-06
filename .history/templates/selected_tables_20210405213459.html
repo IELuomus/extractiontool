@@ -46,48 +46,42 @@
      const doc = new DOMParser().parseFromString(str, 'text/html');
      return doc.documentElement.textContent;
 }
-
-function makeAdataframe(arr){
- var cols = [];
-for (var k in s) {
-  for (var c in s[k]) {
-    if (cols.indexOf(c)===-1) cols.push(c);
-  }
-}
-var html = '<table id ="dataframe" border="1" class="table table-dark table-striped"> ><thead><tr>'+
-    cols.map(function(c){ return '<th>'+c+'</th>' }).join('')+
-    '</tr></thead><tbody>';
-for (var l in s) {
-  html += '<tr>'+cols.map(function(c){ return '<td>'+(s[l][c]||'')+'</td>' }).join('')+'</tr>';
-}
-html += '</tbody></table>';
-  
-document.body.innerHTML = html;
-}
 </script>
 {% for df in d2 %}
-<script  type="text/javascript" language="JavaScript" charset="UTF-8">
-
+<script  type="text/javascript" charset="UTF-8">
+//     function htmlDecode(str) {
+//      const doc = new DOMParser().parseFromString(str, 'text/html');
+//      return doc.documentElement.textContent;
+// }
  var data = htmlDecode("{{df}}")
  console.log(data.constructor.name)
- console.log(data)
- s = JSON.parse(data);
- console.log(s.constructor.name)
- console.table(s)
- 
-//  makeAdataframe(s)
+ console.table(data)
+ data_object = JSON.parse(data);
+ console.log(data_object.constructor.name)
+ console.table(data_object)
 </script>
 {% endfor %}
 {% if d %}   
 {% for i in d %} 
-
+<script  type="text/javascript" charset="UTF-8">
+    //     function htmlDecode(str) {
+    //      const doc = new DOMParser().parseFromString(str, 'text/html');
+    //      return doc.documentElement.textContent;
+    // }
+     var data2 = htmlDecode("{{i}}")
+     console.log(data2.constructor.name)
+     console.table(data2)
+     data_object = JSON.parse(data);
+     console.log(data_object.constructor.name)
+     console.table(data_object)
+    </script>
 <div class="container"> 
 
   <h2 class="text-center"><u>Data Frame </u></h2><br>             
 
-  <table class="table table-dark table-striped" id='datatable'> 
-<!--    
-    <table  border="1" class="dataframe">  -->
+  <!-- <table class="table table-dark table-striped" id='datatable'>  -->
+   
+    <table  border="1" class="dataframe"> 
     <thead> 
 
       <tr> 
@@ -107,11 +101,18 @@ document.body.innerHTML = html;
         <th> 14</th> 
         <th> 15</th> 
         <th> 16</th> 
+        <th> 17</th> 
+        <th> 18</th> 
+        <th> 19</th> 
+        <th> 20</th> 
       </tr> 
+
     </thead> 
+
     <tbody> 
 
     <!-- jinja2 Technique -->
+
    
         {% for a in i %}
       <tr> 
@@ -138,17 +139,21 @@ document.body.innerHTML = html;
         <td>{{a.14}}</td> 
         <td>{{a.15}}</td> 
         <td>{{a.16}}</td> 
+        <td>{{a.17}}</td> 
+        <td>{{a.18}}</td> 
+        <td>{{a.19}}</td> 
+        <td>{{a.20}}</td> 
       </tr> 
       {% endfor %}   
 
     </tbody> 
 
   </table> 
-  
 
 </div> 
 <script>
-      
+   
+var stringd = htmlDecode('{{d}}')
 
 //   var columns = addAllColumnHeaders(myList, selector);
 

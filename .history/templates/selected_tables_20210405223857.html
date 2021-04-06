@@ -46,15 +46,25 @@
      const doc = new DOMParser().parseFromString(str, 'text/html');
      return doc.documentElement.textContent;
 }
-
-function makeAdataframe(arr){
+</script>
+{% for df in d2 %}
+<script  type="text/javascript" language="JavaScript" charset="UTF-8">
+var i
+for (i = 0; i < '{{n}}'; i++) {
+ var data = htmlDecode("{{df}}")
+ console.log(data.constructor.name)
+ console.log(data)
+ s = JSON.parse(data);
+ console.log(s.constructor.name)
+ console.table(s)
+ function makeA
  var cols = [];
 for (var k in s) {
   for (var c in s[k]) {
     if (cols.indexOf(c)===-1) cols.push(c);
   }
 }
-var html = '<table id ="dataframe" border="1" class="table table-dark table-striped"> ><thead><tr>'+
+var html = '<table border="1" class="table table-dark table-striped"> ><thead><tr>'+
     cols.map(function(c){ return '<th>'+c+'</th>' }).join('')+
     '</tr></thead><tbody>';
 for (var l in s) {
@@ -64,18 +74,6 @@ html += '</tbody></table>';
   
 document.body.innerHTML = html;
 }
-</script>
-{% for df in d2 %}
-<script  type="text/javascript" language="JavaScript" charset="UTF-8">
-
- var data = htmlDecode("{{df}}")
- console.log(data.constructor.name)
- console.log(data)
- s = JSON.parse(data);
- console.log(s.constructor.name)
- console.table(s)
- 
-//  makeAdataframe(s)
 </script>
 {% endfor %}
 {% if d %}   

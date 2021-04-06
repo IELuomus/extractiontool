@@ -46,36 +46,19 @@
      const doc = new DOMParser().parseFromString(str, 'text/html');
      return doc.documentElement.textContent;
 }
-
-function makeAdataframe(arr){
- var cols = [];
-for (var k in s) {
-  for (var c in s[k]) {
-    if (cols.indexOf(c)===-1) cols.push(c);
-  }
-}
-var html = '<table id ="dataframe" border="1" class="table table-dark table-striped"> ><thead><tr>'+
-    cols.map(function(c){ return '<th>'+c+'</th>' }).join('')+
-    '</tr></thead><tbody>';
-for (var l in s) {
-  html += '<tr>'+cols.map(function(c){ return '<td>'+(s[l][c]||'')+'</td>' }).join('')+'</tr>';
-}
-html += '</tbody></table>';
-  
-document.body.innerHTML = html;
-}
 </script>
 {% for df in d2 %}
-<script  type="text/javascript" language="JavaScript" charset="UTF-8">
-
+<script  type="text/javascript" charset="UTF-8">
+//     function htmlDecode(str) {
+//      const doc = new DOMParser().parseFromString(str, 'text/html');
+//      return doc.documentElement.textContent;
+// }
  var data = htmlDecode("{{df}}")
  console.log(data.constructor.name)
- console.log(data)
- s = JSON.parse(data);
- console.log(s.constructor.name)
- console.table(s)
- 
-//  makeAdataframe(s)
+ console.table(data)
+ data_object = JSON.parse(data);
+ console.log(data_object.constructor.name)
+ console.table(data_object)
 </script>
 {% endfor %}
 {% if d %}   
@@ -148,7 +131,35 @@ document.body.innerHTML = html;
 
 </div> 
 <script>
-      
+      function makeList(listData) {
+        // Establish the array which acts as a data source for the list
+        let
+          // Make a container element for the list
+          listContainer = document.createElement('div'),
+          // Make the list
+          listElement = document.createElement('ol'),
+          // Set up a loop that goes through the items in listItems one at a time
+          numberOfListItems = listData.length,
+          listItem,
+          i;
+
+        // Add it to the page
+        document.getElementsByTagName('body')[0].appendChild(listContainer);
+        listContainer.appendChild(listElement);
+
+        for (i = 0; i < numberOfListItems; ++i) {
+          // create an item for each one
+          listItem = document.createElement('td');
+
+          // Add the item text
+          listItem.innerHTML = listData[i];
+
+          // Add listItem to the listElement
+          listElement.appendChild(listItem);
+        }
+      }
+
+      makeList(data_object);
 
 //   var columns = addAllColumnHeaders(myList, selector);
 

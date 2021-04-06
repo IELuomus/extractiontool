@@ -46,8 +46,17 @@
      const doc = new DOMParser().parseFromString(str, 'text/html');
      return doc.documentElement.textContent;
 }
+</script>
+{% for df in d2 %}
+<script  type="text/javascript" language="JavaScript" charset="UTF-8">
 
-function makeAdataframe(arr){
+ var data = htmlDecode("{{df}}")
+ console.log(data.constructor.name)
+ console.log(data)
+ s = JSON.parse(data);
+ console.log(s.constructor.name)
+ console.table(s)
+ function makeAdataframe(arr){
  var cols = [];
 for (var k in s) {
   for (var c in s[k]) {
@@ -64,18 +73,7 @@ html += '</tbody></table>';
   
 document.body.innerHTML = html;
 }
-</script>
-{% for df in d2 %}
-<script  type="text/javascript" language="JavaScript" charset="UTF-8">
-
- var data = htmlDecode("{{df}}")
- console.log(data.constructor.name)
- console.log(data)
- s = JSON.parse(data);
- console.log(s.constructor.name)
- console.table(s)
- 
-//  makeAdataframe(s)
+makeAdataframe(s)
 </script>
 {% endfor %}
 {% if d %}   

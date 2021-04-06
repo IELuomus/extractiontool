@@ -67,7 +67,7 @@ def json_table_list(request, user_id, pdf_id, page_number):
     i = i+1
     n = str(len(data_f2))
 
-    return render(request, 'selected_tables.html', {'d': data_f, 'd2': data_f2, 'n': n})
+    return render(request, 'selected_tables.html', {'d': data_f, 'd2': data_f2, 'n'})
 
 
 @login_required

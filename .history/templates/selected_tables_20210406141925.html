@@ -20,6 +20,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
 <p></p>
 <p></p>
+{% if user.is_authenticated %}
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <head> 
@@ -54,10 +56,6 @@ table, th, td {
   </style>
 
 </head> 
-{% if user.is_authenticated %}
-
-<center>
-
 <script>
        function htmlDecode(str) {
      const doc = new DOMParser().parseFromString(str, 'text/html');
@@ -92,11 +90,28 @@ document.body.innerHTML = html;
  s = JSON.parse(data);
  console.log(s.constructor.name)
  console.table(s)
- 
-//  makeAdataframe(s)
+ var n = '{{}}'
+ for ()
+ makeAdataframe(s)
 
 </script>
 
+<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
+
+<form name="traitNameForm">
+    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
+</form>
+
+<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
+
+<form name="traitValueForm">
+    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
+</form>
+<input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();">
+
+<form name="traitUnitForm">
+    <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
+</form>
 {% endfor %}
 {% if d %}   
 {% for i in d %} 
@@ -160,15 +175,31 @@ document.body.innerHTML = html;
         <td>{{a.16}}</td> 
       </tr> 
 
+
       {% endfor %}   
 
     </tbody> 
        
   </table> 
 
+  <input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
 
+  <form name="traitNameForm">
+      <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
+  </form>
+  
+  <input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
+  
+  <form name="traitValueForm">
+      <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
+  </form>
+  <input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();">
+  
+  <form name="traitUnitForm">
+      <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
+  </form>
 </div> 
-<script script type="text/javascript">
+<script>
   // Function to get the Selected Text 
   function getSelectedTraitName() {
       var selectedText = '';
@@ -178,17 +209,11 @@ document.body.innerHTML = html;
       } // document.getSelection 
       else if (document.getSelection) {
           selectedText = document.getSelection();
-          alert (selectedText.text);
       } // document.selection 
       else if (document.selection) {
           selectedText = document.selection.createRange().text;
       } else return; // To write the selected text into the textarea 
-
-
-     document.getElementById('trait_name').value = selectedText;
-
-      // document.traitNameForm.selectedTraitName.value = selectedText;
-    
+      document.traitNameForm.selectedTraitName.value = selectedText;
   }
   function getSelectedTraitValue() {
       var selectedText = '';
@@ -202,9 +227,7 @@ document.body.innerHTML = html;
       else if (document.selection) {
           selectedText = document.selection.createRange().text;
       } else return; // To write the selected text into the textarea 
-
       document.traitValueForm.selectedTraitValue.value = selectedText;
-      
   }
   function getSelectedTraitUnit() {
       var selectedText = '';
@@ -222,71 +245,10 @@ document.body.innerHTML = html;
   }
 </script>
 
-<script>
-      
 
-//   var columns = addAllColumnHeaders(myList, selector);
 
-//   for (var i = 0; i < myList.length; i++) {
-//     var row$ = $('<tr/>');
-//     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
-//       var cellValue = myList[i][columns[colIndex]];
-//       if (cellValue == null) cellValue = "";
-//       row$.append($('<td/>').html(cellValue));
-//     }
-//     $(selector).append(row$);
-//   }
-// }
-
-// // Adds a header row to the table and returns the set of columns.
-// // Need to do union of keys from all records as some records may not contain
-// // all records.
-
-// function addAllColumnHeaders(myList, selector) {
-//   var columnSet = [];
-//   var headerTr$ = $('<tr/>');
-
-//   for (var i = 0; i < myList.length; i++) {
-//     var rowHash = myList[i];
-//     for (var key in rowHash) {
-//       if ($.inArray(key, columnSet) == -1) {
-//         columnSet.push(key);
-//         headerTr$.append($('<th/>').html(key));
-//       }
-//     }
-//   }
-//   $(selector).append(headerTr$);
-
-//   return columnSet; }
-
-    </script>
 {% endfor %} 
 {% endif %} 
-<div id="element"></div>
-<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
-
-<form name="traitNameForm">
-    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
-</form>
-
-<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
-
-<form name="traitValueForm">
-    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
-</form>
-<input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();">
-
-<form name="traitUnitForm">
-    <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
-</form>
-</center>
-
-<script>
-    function htmlDecode(str) {
-        const doc = new DOMParser().parseFromString(str, "text/html");
-        return doc.documentElement.textContent;
-    }
-</script>
 
 
 <br>

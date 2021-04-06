@@ -20,6 +20,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
 <p></p>
 <p></p>
+{% if user.is_authenticated %}
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <head> 
@@ -28,7 +30,8 @@
 
   <meta charset="utf-8"> 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1">  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> 
 
@@ -54,25 +57,22 @@ table, th, td {
   </style>
 
 </head> 
-{% if user.is_authenticated %}
-
-<center>
-
 <script>
-       function htmlDecode(str) {
+let s 
+     function htmlDecode(str) {
      const doc = new DOMParser().parseFromString(str, 'text/html');
      return doc.documentElement.textContent;
 }
 
        
-function makeAdataframe(arr){
+function makeAdataframe(s){ 
  var cols = [];
 for (var k in s) {
   for (var c in s[k]) {
     if (cols.indexOf(c)===-1) cols.push(c);
   }
 }
-var html = '<table id ="dataframe" class="w3-table w3-striped w3-bordered"  > ><thead><tr>'+
+var html = '<table id ="dataframe" class="w3-table w3-striped w3-bordered"> ><thead><tr>'+
     cols.map(function(c){ return '<th>'+c+'</th>' }).join('')+
     '</tr></thead><tbody>';
 for (var l in s) {
@@ -83,20 +83,77 @@ html += '</tbody></table>';
 document.body.innerHTML = html;
 }
 </script>
+<script>
+  // // Function to get the Selected Text 
+  // function getSelectedTraitName() {
+  //     var selectedTraitName = '';
+  //     // window.getSelection 
+  //     if (window.getSelection) {
+  //       selectedTraitName= window.getSelection();
+  //     } // document.getSelection 
+  //     else if (document.getSelection) {
+  //       selectedTraitName= document.getSelection();
+  //     } // document.selection 
+  //     else if (document.selection) {
+  //       selectedTraitName = document.selection.createRange().text;
+  //     } else return; // To write the selected text into the textarea 
+  //     document.traitNameForm.selectedTraitName.value = selectedTraitName;
+  // }
+  // function getSelectedTraitValue() {
+  //     var selectedTraitValue = '';
+  //     // window.getSelection 
+  //     if (window.getSelection) {
+  //       selectedTraitValue = window.getSelection();
+  //     } // document.getSelection 
+  //     else if (document.getSelection) {
+  //       selectedTraitValue= document.getSelection();
+  //     } // document.selection 
+  //     else if (document.selection) {
+  //       selectedTraitValue = document.selection.createRange().text;
+  //     } else return; // To write the selected text into the textarea 
+  //     document.traitValueForm.selectedTraitValue.value = selectedTraitValue;
+  // }
+  // function getSelectedTraitUnit() {
+  //     var selectedTraitUnit= '';
+  //     // window.getSelection 
+  //     if (window.getSelection) {
+  //       selectedTraitUnit= window.getSelection();
+  //     } // document.getSelection 
+  //     else if (document.getSelection) {
+  //       selectedTraitUnit= document.getSelection();
+  //     } // document.selection 
+  //     else if (document.selection) {
+  //       selectedTraitUnit= document.selection.createRange().text;
+  //     } else return; // To write the selected text into the textarea 
+  //     document.traitUnitForm.selectedTraitUnit.value = selectedTraitUnit;
+  // }
+
+var n = parseInt('{{n}}')
+console.log(n)
+var dataframes_array = "{{d2}}"
+console.log("datframes_array", dataframes_array.constructor.name)
+dataframes_array = JSON.parse(dataframes_array)
+console.log("datframes_array", dataframes_array.constructor.name)
+console.table(dataframes_array)
+</script>
 {% for df in d2 %}
+
 <script  type="text/javascript" language="JavaScript" charset="UTF-8">
+
 
  var data = htmlDecode("{{df}}")
  console.log(data.constructor.name)
  console.log(data)
- s = JSON.parse(data);
- console.log(s.constructor.name)
- console.table(s)
- 
-//  makeAdataframe(s)
+ var arr = JSON.parse(data);
+ console.log(arr.constructor.name)
+ console.table(arr)
+
+//  makeAdataframe(arr)
 
 </script>
-
+<!-- <script>
+  makeAdataframe(arr)
+</script> -->
 {% endfor %}
 {% if d %}   
 {% for i in d %} 
@@ -104,12 +161,10 @@ document.body.innerHTML = html;
 <div class="container" style="overflow-x:auto;" > 
   <h2 class="text-center" id="dataframe" ><u>Dataframe </u></h2><br>             
 
-</script>
   <!-- <table class="table table-dark table-striped" id='dataframeTable'>  -->
    
     <table  border="1" class="w3-table w3-striped w3-bordered"> 
     <thead> 
-
       <tr> 
         <th> </th> 
         <th> </th> 
@@ -130,22 +185,15 @@ document.body.innerHTML = html;
       </tr> 
     </thead> 
     <tbody> 
-
     <!-- jinja2 Technique -->
    
         {% for a in i %}
       <tr> 
-
         <td>{{a.0}}</td> 
-
         <td>{{a.1}}</td> 
-
         <td>{{a.2}}</td> 
-
         <td>{{a.3}}</td> 
-
         <td>{{a.4}}</td> 
-
         <td>{{a.5}}</td> 
         <td>{{a.6}}</td> 
         <td>{{a.7}}</td> 
@@ -159,127 +207,79 @@ document.body.innerHTML = html;
         <td>{{a.15}}</td> 
         <td>{{a.16}}</td> 
       </tr> 
-
       {% endfor %}   
-
     </tbody> 
-       
   </table> 
-
-
-</div> 
-<script script type="text/javascript">
-  // Function to get the Selected Text 
+    <script>
+      // Function to get the Selected Text 
   function getSelectedTraitName() {
-      var selectedText = '';
+      var selectedTraitName = '';
       // window.getSelection 
       if (window.getSelection) {
-          selectedText = window.getSelection();
+        selectedTraitName= window.getSelection();
       } // document.getSelection 
       else if (document.getSelection) {
-          selectedText = document.getSelection();
-          alert (selectedText.text);
+        selectedTraitName= document.getSelection();
       } // document.selection 
       else if (document.selection) {
-          selectedText = document.selection.createRange().text;
+        selectedTraitName = document.selection.createRange().text;
       } else return; // To write the selected text into the textarea 
-
-
-     document.getElementById('trait_name').value = selectedText;
-
-      // document.traitNameForm.selectedTraitName.value = selectedText;
-    
+      document.traitNameForm.selectedTraitName.value = selectedTraitName;
   }
   function getSelectedTraitValue() {
-      var selectedText = '';
+      var selectedTraitValue = '';
       // window.getSelection 
       if (window.getSelection) {
-          selectedText = window.getSelection();
+        selectedTraitValue = window.getSelection();
       } // document.getSelection 
       else if (document.getSelection) {
-          selectedText = document.getSelection();
+        selectedTraitValue= document.getSelection();
       } // document.selection 
       else if (document.selection) {
-          selectedText = document.selection.createRange().text;
+        selectedTraitValue = document.selection.createRange().text;
       } else return; // To write the selected text into the textarea 
-
-      document.traitValueForm.selectedTraitValue.value = selectedText;
-      
+      document.traitValueForm.selectedTraitValue.value = selectedTraitValue;
   }
   function getSelectedTraitUnit() {
-      var selectedText = '';
+      var selectedTraitUnit= '';
       // window.getSelection 
       if (window.getSelection) {
-          selectedText = window.getSelection();
+        selectedTraitUnit= window.getSelection();
       } // document.getSelection 
       else if (document.getSelection) {
-          selectedText = document.getSelection();
+        selectedTraitUnit= document.getSelection();
       } // document.selection 
       else if (document.selection) {
-          selectedText = document.selection.createRange().text;
+        selectedTraitUnit= document.selection.createRange().text;
       } else return; // To write the selected text into the textarea 
-      document.traitUnitForm.selectedTraitUnit.value = selectedText;
+      document.traitUnitForm.selectedTraitUnit.value = selectedTraitUnit;
   }
-</script>
-
-<script>
-      
-
-//   var columns = addAllColumnHeaders(myList, selector);
-
-//   for (var i = 0; i < myList.length; i++) {
-//     var row$ = $('<tr/>');
-//     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
-//       var cellValue = myList[i][columns[colIndex]];
-//       if (cellValue == null) cellValue = "";
-//       row$.append($('<td/>').html(cellValue));
-//     }
-//     $(selector).append(row$);
-//   }
-// }
-
-// // Adds a header row to the table and returns the set of columns.
-// // Need to do union of keys from all records as some records may not contain
-// // all records.
-
-// function addAllColumnHeaders(myList, selector) {
-//   var columnSet = [];
-//   var headerTr$ = $('<tr/>');
-
-//   for (var i = 0; i < myList.length; i++) {
-//     var rowHash = myList[i];
-//     for (var key in rowHash) {
-//       if ($.inArray(key, columnSet) == -1) {
-//         columnSet.push(key);
-//         headerTr$.append($('<th/>').html(key));
-//       }
-//     }
-//   }
-//   $(selector).append(headerTr$);
-
-//   return columnSet; }
-
     </script>
+    <div>
+      <input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
+    
+    <form name="traitNameForm" id>
+        <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
+    </form>
+    
+    <input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
+    
+    <form name="traitValueForm">
+        <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
+    </form>
+    <input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();">
+    
+    <form name="traitUnitForm">
+        <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
+    </form>
+    </div>    
+ 
+ 
+</div> 
+
 {% endfor %} 
+
 {% endif %} 
-<div id="element"></div>
-<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
-
-<form name="traitNameForm">
-    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
-</form>
-
-<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
-
-<form name="traitValueForm">
-    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
-</form>
-<input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();">
-
-<form name="traitUnitForm">
-    <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
-</form>
-</center>
 
 <script>
     function htmlDecode(str) {

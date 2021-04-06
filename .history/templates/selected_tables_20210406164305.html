@@ -20,6 +20,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
 <p></p>
 <p></p>
+{% if user.is_authenticated %}
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <head> 
@@ -54,10 +56,6 @@ table, th, td {
   </style>
 
 </head> 
-{% if user.is_authenticated %}
-
-<center>
-
 <script>
        function htmlDecode(str) {
      const doc = new DOMParser().parseFromString(str, 'text/html');
@@ -65,7 +63,7 @@ table, th, td {
 }
 
        
-function makeAdataframe(arr){
+function makeAdataframe(s){
  var cols = [];
 for (var k in s) {
   for (var c in s[k]) {
@@ -83,7 +81,68 @@ html += '</tbody></table>';
 document.body.innerHTML = html;
 }
 </script>
+<script>
+  // Function to get the Selected Text 
+  function getSelectedTraitName() {
+      var selectedText = '';
+      // window.getSelection 
+      if (window.getSelection) {
+          selectedText = window.getSelection();
+      } // document.getSelection 
+      else if (document.getSelection) {
+          selectedText = document.getSelection();
+      } // document.selection 
+      else if (document.selection) {
+          selectedText = document.selection.createRange().text;
+      } else return; // To write the selected text into the textarea 
+      document.traitNameForm.selectedTraitName.value = selectedText;
+  }
+  function getSelectedTraitValue() {
+      var selectedText = '';
+      // window.getSelection 
+      if (window.getSelection) {
+          selectedText = window.getSelection();
+      } // document.getSelection 
+      else if (document.getSelection) {
+          selectedText = document.getSelection();
+      } // document.selection 
+      else if (document.selection) {
+          selectedText = document.selection.createRange().text;
+      } else return; // To write the selected text into the textarea 
+      document.traitValueForm.selectedTraitValue.value = selectedText;
+  }
+  function getSelectedTraitUnit() {
+      var selectedText = '';
+      // window.getSelection 
+      if (window.getSelection) {
+          selectedText = window.getSelection();
+      } // document.getSelection 
+      else if (document.getSelection) {
+          selectedText = document.getSelection();
+      } // document.selection 
+      else if (document.selection) {
+          selectedText = document.selection.createRange().text;
+      } else return; // To write the selected text into the textarea 
+      document.traitUnitForm.selectedTraitUnit.value = selectedText;
+  }
+</script>
 {% for df in d2 %}
+<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
+
+<form name="traitNameForm">
+    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
+</form>
+
+<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
+
+<form name="traitValueForm">
+    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
+</form>
+<input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();">
+
+<form name="traitUnitForm">
+    <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
+</form>
 <script  type="text/javascript" language="JavaScript" charset="UTF-8">
 
  var data = htmlDecode("{{df}}")
@@ -93,7 +152,8 @@ document.body.innerHTML = html;
  console.log(s.constructor.name)
  console.table(s)
  
-//  makeAdataframe(s)
+ 
+// makeAdataframe(s)
 
 </script>
 
@@ -109,7 +169,6 @@ document.body.innerHTML = html;
    
     <table  border="1" class="w3-table w3-striped w3-bordered"> 
     <thead> 
-
       <tr> 
         <th> </th> 
         <th> </th> 
@@ -137,13 +196,9 @@ document.body.innerHTML = html;
       <tr> 
 
         <td>{{a.0}}</td> 
-
         <td>{{a.1}}</td> 
-
         <td>{{a.2}}</td> 
-
         <td>{{a.3}}</td> 
-
         <td>{{a.4}}</td> 
 
         <td>{{a.5}}</td> 
@@ -168,59 +223,24 @@ document.body.innerHTML = html;
 
 
 </div> 
-<script script type="text/javascript">
-  // Function to get the Selected Text 
-  function getSelectedTraitName() {
-      var selectedText = '';
-      // window.getSelection 
-      if (window.getSelection) {
-          selectedText = window.getSelection();
-      } // document.getSelection 
-      else if (document.getSelection) {
-          selectedText = document.getSelection();
-          alert (selectedText.text);
-      } // document.selection 
-      else if (document.selection) {
-          selectedText = document.selection.createRange().text;
-      } else return; // To write the selected text into the textarea 
 
 
-     document.getElementById('trait_name').value = selectedText;
+<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
 
-      // document.traitNameForm.selectedTraitName.value = selectedText;
-    
-  }
-  function getSelectedTraitValue() {
-      var selectedText = '';
-      // window.getSelection 
-      if (window.getSelection) {
-          selectedText = window.getSelection();
-      } // document.getSelection 
-      else if (document.getSelection) {
-          selectedText = document.getSelection();
-      } // document.selection 
-      else if (document.selection) {
-          selectedText = document.selection.createRange().text;
-      } else return; // To write the selected text into the textarea 
+<form name="traitNameForm">
+    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
+</form>
 
-      document.traitValueForm.selectedTraitValue.value = selectedText;
-      
-  }
-  function getSelectedTraitUnit() {
-      var selectedText = '';
-      // window.getSelection 
-      if (window.getSelection) {
-          selectedText = window.getSelection();
-      } // document.getSelection 
-      else if (document.getSelection) {
-          selectedText = document.getSelection();
-      } // document.selection 
-      else if (document.selection) {
-          selectedText = document.selection.createRange().text;
-      } else return; // To write the selected text into the textarea 
-      document.traitUnitForm.selectedTraitUnit.value = selectedText;
-  }
-</script>
+<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
+
+<form name="traitValueForm">
+    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
+</form>
+<input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();">
+
+<form name="traitUnitForm">
+    <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
+</form>
 
 <script>
       
@@ -262,24 +282,6 @@ document.body.innerHTML = html;
     </script>
 {% endfor %} 
 {% endif %} 
-<div id="element"></div>
-<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
-
-<form name="traitNameForm">
-    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
-</form>
-
-<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
-
-<form name="traitValueForm">
-    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
-</form>
-<input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();">
-
-<form name="traitUnitForm">
-    <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
-</form>
-</center>
 
 <script>
     function htmlDecode(str) {

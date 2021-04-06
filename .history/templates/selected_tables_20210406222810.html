@@ -184,10 +184,7 @@ document.body.innerHTML = html;
           selectedText = document.selection.createRange().text;
       } else return; // To write the selected text into the textarea 
 
-
-     document.getElementById('trait_name').value = selectedText;
-
-      // document.traitNameForm.selectedTraitName.value = selectedText;
+      document.traitNameForm.selectedTraitName.value = selectedText;
     
   }
   function getSelectedTraitValue() {
@@ -221,7 +218,24 @@ document.body.innerHTML = html;
       document.traitUnitForm.selectedTraitUnit.value = selectedText;
   }
 </script>
+<div id="element"></div>
+<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
 
+<form name="traitNameForm">
+    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
+</form>
+
+<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
+
+<form name="traitValueForm">
+    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
+</form>
+<input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();">
+
+<form name="traitUnitForm">
+    <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
+</form>
+</center>
 <script>
       
 
@@ -262,24 +276,6 @@ document.body.innerHTML = html;
     </script>
 {% endfor %} 
 {% endif %} 
-<div id="element"></div>
-<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
-
-<form name="traitNameForm">
-    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
-</form>
-
-<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
-
-<form name="traitValueForm">
-    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
-</form>
-<input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();">
-
-<form name="traitUnitForm">
-    <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
-</form>
-</center>
 
 <script>
     function htmlDecode(str) {

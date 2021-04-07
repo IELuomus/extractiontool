@@ -26,8 +26,6 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from .models import Json_Table
 from django.views.generic.list import ListView
-from django.http import JsonResponse
-
 wanted_pdf = []
 wanted_pdf_name = []
 pdf_name = []
@@ -45,15 +43,51 @@ def post_url(request):
 
             data = request.POST
             received_json_data = json.loads(request.body)
-            species = received_json_data['species']
-            trait_name = received_json_data['trait_name']
+            sentence = received_json_data['sentence']
             trait_value = received_json_data['trait_value']
-            # if received_json_data['trait_unit']:
-            #     trait_unit = received_json_data['trait_unit']
-            print(species)
-            print(trait_name)
+            print(sentence)
             print(trait_value)
-            # print(trait_unit)
+
+        #     df = pd.DataFrame(list(received_json_data.items()),columns = ['column1','column2'])
+        #     print("")
+        #     print("START DATAFRAME EXPERIMENT -----------------------------------")
+        #     if df.iloc[-1, df.columns.get_loc("column1")]:
+        #         CURRENT_SENT = df.iloc[-1, df.columns.get_loc("column1")]
+
+        #         print("CURRENT_SENT: ", CURRENT_SENT)
+        #     else:
+        #         pass
+        #     if df.iloc[-1, df.columns.get_loc("column2")]:
+        #         CURRENT_TRAIT_VALUE = df.iloc[-1, df.columns.get_loc("column2")]
+        #         print("CURRENT_TRAIT_VALUE: ", CURRENT_TRAIT_VALUE)
+        #     else:
+        #         pass
+        #     print("END DATAFRAME EXPERIMENT--------------------------------------")
+        #     print("")
+
+        # for key, value in received_json_data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
+        #     for key, value in value.items():
+        #         print("key:", str(key))
+        #         print(" ")
+        #         print("value: ", str(value))
+            start = sentence.find(trait_value)
+            print("start: ", str(start))
+            end = start + len(trait_value)
+            print("start and end:", start, end)
+            train_instance = {"content": sentence, "annotation": [{
+            "label": ["TRAITNAME"],
+            "points": [{"text": trait_value, "start": start, "end": end}]
+            }]}
+            if train_instance not in train_data:
+                train_data.append(json.dumps(train_instance))
+        # print("train_data", train_data)
+        print("train_data list below: ")
+        print(*train_data, sep="\n")
+
+        print("user.id: ", request.user.id)
+        if current_pdf_id:
+            print("pdf.id: ", current_pdf_id[0])
+
         return JsonResponse(data)
 
 @login_required

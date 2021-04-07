@@ -53,7 +53,7 @@ def post_url(request):
             print(species)
             print(trait_name)
             print(trait_value)
-            # print(trait_unit)
+            print(trait_unit)
         return JsonResponse(data)
 
 @login_required

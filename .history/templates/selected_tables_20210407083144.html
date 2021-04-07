@@ -283,7 +283,8 @@ document.body.innerHTML = html;
 <form name="speciesForm">
   <label for="species">Enter verbatimScientificName and post </label>
   <input id="species" type="text" name="verbatimScientificName">
-  <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
+
+  <input class="post"  type="button" value="" onmousedown="fetchValues()">
 </form>
 <!-- <button class="post" onClick="fetchValues()">Confirm Post</button> -->
 </center>
@@ -303,14 +304,17 @@ document.body.innerHTML = html;
            var trait_unit= document.getElementById("trait_unit").value
            console.log(JSON.stringify(species))
            console.log(JSON.stringify(trait_name))
-           console.log(trait_value)
+           console.log(train_value)
            console.log(JSON.stringify(trait_unit))
 
             var data = {
                 species: document.getElementById("species").value, 
                 trait_name: document.getElementById("trait_name").value, 
-                trait_value: document.getElementById("trait_value").value
-                // trait_unit: document.getElementById("trait_unit").value            
+                trait_value: document.getElementById("trait_value").value,
+                trait_value: document.getElementById("trait_unit").value,
+
+            
+
             };
 
             fetch(URL, {

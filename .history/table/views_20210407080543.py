@@ -26,8 +26,6 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from .models import Json_Table
 from django.views.generic.list import ListView
-from django.http import JsonResponse
-
 wanted_pdf = []
 wanted_pdf_name = []
 pdf_name = []
@@ -45,15 +43,6 @@ def post_url(request):
 
             data = request.POST
             received_json_data = json.loads(request.body)
-            species = received_json_data['species']
-            trait_name = received_json_data['trait_name']
-            trait_value = received_json_data['trait_value']
-            # if received_json_data['trait_unit']:
-            #     trait_unit = received_json_data['trait_unit']
-            print(species)
-            print(trait_name)
-            print(trait_value)
-            # print(trait_unit)
         return JsonResponse(data)
 
 @login_required

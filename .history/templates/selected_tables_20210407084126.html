@@ -300,7 +300,7 @@ document.body.innerHTML = html;
            var species = document.getElementById("species").value
            var trait_name = document.getElementById("trait_name").value
            var trait_value = document.getElementById("trait_value").value
-           var trait_unit= document.getElementById("trait_unit").value
+          //  var trait_unit= document.getElementById("trait_unit").value
            console.log(JSON.stringify(species))
            console.log(JSON.stringify(trait_name))
            console.log(trait_value)
@@ -309,8 +309,11 @@ document.body.innerHTML = html;
             var data = {
                 species: document.getElementById("species").value, 
                 trait_name: document.getElementById("trait_name").value, 
-                trait_value: document.getElementById("trait_value").value
-                // trait_unit: document.getElementById("trait_unit").value            
+                trait_value: document.getElementById("trait_value").value,
+                trait_value: document.getElementById("trait_unit").value
+
+            
+
             };
 
             fetch(URL, {

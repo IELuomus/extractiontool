@@ -48,12 +48,11 @@ def post_url(request):
             species = received_json_data['species']
             trait_name = received_json_data['trait_name']
             trait_value = received_json_data['trait_value']
-            # if received_json_data['trait_unit']:
-            #     trait_unit = received_json_data['trait_unit']
+            trait_unit = received_json_data['trait_unit']
             print(species)
             print(trait_name)
             print(trait_value)
-            # print(trait_unit)
+            print(trait_unit)
         return JsonResponse(data)
 
 @login_required

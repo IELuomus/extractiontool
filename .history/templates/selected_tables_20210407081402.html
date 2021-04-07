@@ -263,7 +263,6 @@ document.body.innerHTML = html;
 {% endfor %} 
 {% endif %} 
 <div id="element"></div>
-
 <input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
 
 <form name="traitNameForm">
@@ -280,62 +279,15 @@ document.body.innerHTML = html;
 <form name="traitUnitForm">
     <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
 </form>
-<form name="speciesForm">
-  <label for="species">Enter verbatimScientificName and post </label>
-  <input id="species" type="text" name="verbatimScientificName">
-  <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
-</form>
-<!-- <button class="post" onClick="fetchValues()">Confirm Post</button> -->
+<button class="post" onClick="fetchValues()">Confirm Post</button>
 </center>
 
 <script>
-        function getCookie(name) {
-            let cookie = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-            return cookie ? cookie[2] : null;
-        }
-
-        function fetchValues() {
-            URL = "{% url 'post_url' %}"
-
-           var species = document.getElementById("species").value
-           var trait_name = document.getElementById("trait_name").value
-           var trait_value = document.getElementById("trait_value").value
-           var trait_unit= document.getElementById("trait_unit").value
-           console.log(JSON.stringify(species))
-           console.log(JSON.stringify(trait_name))
-           console.log(trait_value)
-           console.log(JSON.stringify(trait_unit))
-
-            var data = {
-                species: document.getElementById("species").value, 
-                trait_name: document.getElementById("trait_name").value, 
-                trait_value: document.getElementById("trait_value").value
-                // trait_unit: document.getElementById("trait_unit").value            
-            };
-
-            fetch(URL, {
-                    method: 'post',
-                    headers: {
-                        "X-CSRFToken": getCookie("csrftoken"),
-                        'Accept': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                })
-                .then((res) => {
-                    return res.json()
-                })
-                .then(json => {
-                    window.alert(`successfully posted`)
-                })
-                .catch(err => {
-                    alert(`Error: ${err}`, 'danger');
-                    console.log(err)
-                });
-
-        }
-    </script>
-
-
+    function htmlDecode(str) {
+        const doc = new DOMParser().parseFromString(str, "text/html");
+        return doc.documentElement.textContent;
+    }
+</script>
 
 
 <br>

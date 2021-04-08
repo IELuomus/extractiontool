@@ -275,20 +275,26 @@ document.body.innerHTML = html;
 <form name="traitValueForm">
     <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
 </form>
-<p><b>Select Trait Unit from the Dropdown Menu</b></p>
-<!-- <input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();"> -->
-<select name="trait unit" id="trait_unit" value="Select Trait Unit">
+<input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();">
+
+<!-- <form name="traitUnitForm">
+    <textarea name="selectedTraitUnit" id="trait_unit" rows="2" cols="10"></textarea>
+</form> -->
+<form name="traitUnitForm">
+  <label for="trait_unit">Trait Unit:</label>
+  <input type="text" id="trait_unit" name="trait_unit"><br><br>
+  <input type="submit" value="Trait Unit">
+</form> 
+<label for="trait unit">Choose a trait unit:</label>
+
+<select name="trait unit" id="trait_unit">
+  <option value="not specicied">Not Specified</option>
   <option value="grams">Grams</option>
   <option value="Kilograms">Kilograms</option>
   <option value="Ounces">Pounds</option>
-  <option value="Millimeters">Millimeters</option>
-  <option value="Centimeters">Centimeters</option>
-  <option value="Inches">Inches</option>
-  <option value="Feet">Feet</option>
-  <option value="not specicied">Not Specified</option>
 </select>
 <form name="speciesForm">
-  <label for="species"><b>Enter verbatimScientificName and Post</b> </label>
+  <label for="species">Enter verbatimScientificName and post </label>
   <input id="species" type="text" name="verbatimScientificName">
   <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
 </form>

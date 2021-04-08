@@ -48,12 +48,11 @@ def post_url(request):
             species = received_json_data['species']
             trait_name = received_json_data['trait_name']
             trait_value = received_json_data['trait_value']
-            received_json_data['trait_unit']
-            trait_unit = received_json_data['trait_unit']
+            # if received_json_data['trait_unit']:
+            #     trait_unit = received_json_data['trait_unit']
             print(species)
             print(trait_name)
             print(trait_value)
-            print(trait_unit)
             # print(trait_unit)
         return JsonResponse(data)
 
@@ -62,15 +61,19 @@ def json_table_list(request, user_id, pdf_id, page_number):
     table_list = []
     # pdf_id = pdf_ids[0]
     data_frames = []
-    # html_dataframes = []
 
     json_tables = Json_Table.objects.filter(
         pdf_id=pdf_id).filter(page_number=page_number)
 
     file_paths = []
+    data_f = []
     for table in json_tables:
         table_list.append(str(table.json_table))
         json_file_name = table.table
+        data = pd.read_json(json.loads(table.json_table,  orient='columns')
+        json_records = data.reset_index().to_json(orient='records')
+        dataf = json.loads(json_records)
+        data_f.append(dataf)
         if json_file_name not in file_paths:
             file_paths.append(str(json_file_name))
 
@@ -80,12 +83,10 @@ def json_table_list(request, user_id, pdf_id, page_number):
     for entry in file_paths:
         file_path = 'media/json/' + entry
         data = pd.read_json(file_path,  orient='columns')
-        # data_html = data.to_html()
-        # html_dataframes.append(data_html)
         data_frames.append(data)
         json_records = data.reset_index().to_json(orient='records')
         dataf = json.loads(json_records)
-        data_f.append(dataf)
+        # data_f.append(dataf)
         json_data = json.dumps(dataf)
         data_f2.append(json_data)
 
@@ -191,11 +192,11 @@ def table_to_dataframe(request):
             # else:
             #     pass
 
-            # table = table.to_html()
-            # text_file = open("templates/data" + str(i) +
-            #                  ".html", "w", encoding='utf-8')
-            # text_file.write(table)
-            # i = i+1
+            table = table.to_html()
+            text_file = open("templates/data" + str(i) +
+                             ".html", "w", encoding='utf-8')
+            text_file.write(table)
+            i = i+1
         jobs = len(tables)
         context['jobs'] = str(jobs)
 

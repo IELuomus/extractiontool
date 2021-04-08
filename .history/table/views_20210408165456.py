@@ -48,12 +48,11 @@ def post_url(request):
             species = received_json_data['species']
             trait_name = received_json_data['trait_name']
             trait_value = received_json_data['trait_value']
-            received_json_data['trait_unit']
-            trait_unit = received_json_data['trait_unit']
+            # if received_json_data['trait_unit']:
+            #     trait_unit = received_json_data['trait_unit']
             print(species)
             print(trait_name)
             print(trait_value)
-            print(trait_unit)
             # print(trait_unit)
         return JsonResponse(data)
 
@@ -191,11 +190,11 @@ def table_to_dataframe(request):
             # else:
             #     pass
 
-            # table = table.to_html()
-            # text_file = open("templates/data" + str(i) +
-            #                  ".html", "w", encoding='utf-8')
-            # text_file.write(table)
-            # i = i+1
+            table = table.to_html()
+            text_file = open("templates/data" + str(i) +
+                             ".html", "w", encoding='utf-8')
+            text_file.write(table)
+            i = i+1
         jobs = len(tables)
         context['jobs'] = str(jobs)
 

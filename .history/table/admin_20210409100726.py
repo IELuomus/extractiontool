@@ -20,4 +20,4 @@ admin.site.register(Trait_Table)
 #     list_display = ( 'scientific_name',)
 #     search_fields = ('scientific_name',)
 
-# admin.site.register(Site, SiteAdmin)
+admin.site.register(Site, SiteAdmin)

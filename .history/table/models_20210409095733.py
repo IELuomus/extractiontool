@@ -34,12 +34,12 @@ class Trait_Table(models.Model):
     
 
     def delete(self, *args, **kwargs):
-        super(Trait_Table, self).delete(*args, **kwargs)
+        self.table.delete()
 
 
-class Trait_TableQuerySet(models.QuerySet):
+class Json_TableQuerySet(models.QuerySet):
 
     def delete(self, *args, **kwargs):
         for obj in self:
             obj.table.delete()
-        super(Trait_TableQuerySet, self).delete(*args, **kwargs)
+        super(Json_TableQuerySet, self).delete(*args, **kwargs)

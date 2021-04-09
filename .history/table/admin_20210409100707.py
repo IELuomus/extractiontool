@@ -12,12 +12,12 @@ class TraitTableAdmin(admin.ModelAdmin):
 
 admin.site.register(Json_Table, JsonTableAdmin)
 admin.site.register(Trait_Table)
-# admin.site.unregister(Site)
+admin.site.unregister(Site)
 
-# class SiteAdmin(admin.ModelAdmin):
-#     fields = ('pdf_id', 'scientific_name', 'trait_name', 'trait_value', 'trait_unit', 'sex')
-#     readonly_fields = ('id',)
-#     list_display = ( 'scientific_name',)
-#     search_fields = ('scientific_name',)
+class SiteAdmin(admin.ModelAdmin):
+    fields = ('pdf_id', 'scientific_name', 'trait_name', 'trait_value', 'trait_unit', 'sex')
+    readonly_fields = ('id',)
+    list_display = ( 'scientific_name',)
+    search_fields = ('scientific_name',)
 
-# admin.site.register(Site, SiteAdmin)
+admin.site.register(Site, SiteAdmin)

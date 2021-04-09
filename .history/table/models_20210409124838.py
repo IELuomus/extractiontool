@@ -34,6 +34,7 @@ class Trait_Table(models.Model):
     
 
     def delete(self, *args, **kwargs):
+        self.table.delete()
         super(Trait_Table, self).delete(*args, **kwargs)
 
 

@@ -34,7 +34,8 @@ class Trait_Table(models.Model):
     
 
     def delete(self, *args, **kwargs):
-        super(Trait_Table, self).delete(*args, **kwargs)
+        self.table.delete()
+        super(Json_Table, self).delete(*args, **kwargs)
 
 
 class Trait_TableQuerySet(models.QuerySet):

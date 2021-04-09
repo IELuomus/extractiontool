@@ -23,6 +23,7 @@ python manage.py migrate quality_control
 python manage.py migrate masterdata
 python manage.py makemigrations
 python manage.py migrate
+python manage.py createcachetable
 python manage.py collectstatic
 KOMENTOJA
 
@@ -34,6 +35,7 @@ python3 manage.py migrate users
 python3 manage.py migrate masterdata
 python3 manage.py makemigrations
 python3 manage.py migrate
+python manage.py createcachetable
 python3 manage.py collectstatic<<JEP
 yes
 JEP

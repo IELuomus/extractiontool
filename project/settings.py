@@ -52,7 +52,9 @@ INSTALLED_APPS = [
     'pdf_utility',
     'django_userforeignkey',
     'spacy_parse',
-    'table']
+    'table',
+    'django_q'
+    ]
 
 SITE_ID = 1
 
@@ -194,3 +196,21 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
 def show_toolbar(request):
     return True
 SHOW_TOOLBAR_CALLBACK = show_toolbar
+
+# DJANGO-Q
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'ieluomus_djangoq_cache_table',
+    }
+}
+# TODO: workers as env variable
+Q_CLUSTER = {
+    'name': 'DjangORM',
+    'workers': 2,
+    'timeout': 90,
+    'retry': 120,
+    'queue_limit': 50,
+    'bulk': 10,
+    'orm': 'default'
+}

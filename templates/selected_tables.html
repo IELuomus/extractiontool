@@ -82,22 +82,24 @@ html += '</tbody></table>';
   
 document.body.innerHTML = html;
 }
-</script>
-{% for df in d2 %}
-<script  type="text/javascript" language="JavaScript" charset="UTF-8">
 
- var data = htmlDecode("{{df}}")
- console.log(data.constructor.name)
- console.log(data)
- s = JSON.parse(data);
- console.log(s.constructor.name)
- console.table(s)
+</script>
+<script  type="text/javascript" language="JavaScript" charset="UTF-8">
+let x = "{{d2}}"
+var data = htmlDecode(x)
+console.log(x)
+data = JSON.parse(data)
+console.log(data.constructor.name)
+console.log(data)
+for (var s of data) { 
+  console.log(s)
+  console.log(s.constructor.name)
+  console.table(s)
+}
  
 //  makeAdataframe(s)
 
 </script>
-
-{% endfor %}
 {% if d %}   
 {% for i in d %} 
 

@@ -24,7 +24,7 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from .models import Json_Table, Trait_Table
+from .models import Json_Table
 from django.views.generic.list import ListView
 from django.http import JsonResponse
 
@@ -59,17 +59,17 @@ def post_url(request):
                 print(pdf_ids[0])
 
             
-            entry = Trait_Table()
-            if pdf_ids:
-                entry.pdf_id = pdf_ids[0]
-            entry.scientific_name = species
-            entry.sex = sex
-            entry.trait_name = trait_name
-            entry.trait_value = trait_value
-            entry.trait_unit = trait_unit
-            
-            entry.save()
-         
+            js = ()
+                js.user_id = request.user.id
+                js.json_table = data
+                if pdf_id:
+                    js.pdf_id = pdf_id
+
+                js.page_number = page_number
+                js.table = json_file_name
+                js.save()
+            else:
+                pass
         return JsonResponse(data)
 
 @login_required

@@ -62,7 +62,7 @@ def post_url(request):
             entry = Trait_Table()
             if pdf_ids:
                 entry.pdf_id = pdf_ids[0]
-            entry.scientific_name = species
+            entry.scientific_name = scientific_name
             entry.sex = sex
             entry.trait_name = trait_name
             entry.trait_value = trait_value

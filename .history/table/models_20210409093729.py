@@ -26,7 +26,7 @@ class Json_Table(models.Model):
 
 class Trait_Table(models.Model):
     pdf_id = models.IntegerField(null=True)
-    scientific_name = models.CharField(max_length=100, null=True)
+    scientific_name = models.CharField(max_length=100, nul)
     sex = models.CharField(max_length=100)
     trait_name = models.CharField(max_length=100)
     trait_value = models.CharField(max_length=100)

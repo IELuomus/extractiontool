@@ -61,13 +61,11 @@ def post_url(request):
             
             entry = Trait_Table()
             if pdf_ids:
-                entry.pdf_id = pdf_ids[0]
-            entry.scientific_name = species
-            entry.sex = sex
+                entry.pdf_id = pdfs_ids[0]
             entry.trait_name = trait_name
             entry.trait_value = trait_value
             entry.trait_unit = trait_unit
-            
+            entry.sex = sex
             entry.save()
          
         return JsonResponse(data)

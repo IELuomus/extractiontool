@@ -50,12 +50,12 @@ def post_url(request):
             trait_value = received_json_data['trait_value']
             received_json_data['trait_unit']
             trait_unit = received_json_data['trait_unit']
-            sex = received_json_data['sex']
+             trait_unit = received_json_data['trait_unit']
             print(species)
             print(trait_name)
             print(trait_value)
             print(trait_unit)
-            print(sex)
+            # print(trait_unit)
         return JsonResponse(data)
 
 @login_required

@@ -319,17 +319,16 @@ document.body.innerHTML = html;
            var trait_value = document.getElementById("trait_value").value
            trait_unit= document.getElementById("trait_unit").value
            sex = document.getElementById("sex").value
-          //  console.log(JSON.stringify(species))
-          //  console.log(JSON.stringify(trait_name))
-          //  console.log(trait_value)
-          //  console.log(JSON.stringify(trait_unit))
+           console.log(JSON.stringify(species))
+           console.log(JSON.stringify(trait_name))
+           console.log(trait_value)
+           console.log(JSON.stringify(trait_unit))
 
             var data = {
                 species: document.getElementById("species").value, 
                 trait_name: document.getElementById("trait_name").value, 
                 trait_value: document.getElementById("trait_value").value,
-                trait_unit,
-                sex
+                trait_unit
                 // trait_unit: document.getElementById("trait_unit").value            
             };
 

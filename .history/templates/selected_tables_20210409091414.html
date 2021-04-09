@@ -275,7 +275,7 @@ document.body.innerHTML = html;
 <form name="traitValueForm">
     <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
 </form>
-<p><b>Select Trait Unit from the Drop-down Menu</b></p>
+<p><b>Select Trait Unit from the Dropdown Menu</b></p>
 <!-- <input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();"> -->
 <select name="trait unit" id="trait_unit" value="Select Trait Unit">
   <option value="g">g</option>
@@ -289,15 +289,8 @@ document.body.innerHTML = html;
   <option value="ft">ft</option>
   <option value="not specicied">Not Specified</option>
 </select>
-<p><b>Select Sex from the Drop-down Menu</b></p>
-<!-- <input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();"> -->
-<select name="sex" id="sex" value="Select Sex">
-  <option value="female">female</option>
-  <option value="male">male</option>
-  <option value="not specicied">Not Specified</option>
-</select>
 <form name="speciesForm">
-  <label for="species"><b>Enter Verbatim Scientific Name and Post</b> </label>
+  <label for="species"><b>Enter VerbatimScientificName and Post</b> </label>
   <input id="species" type="text" name="verbatimScientificName">
   <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
 </form>
@@ -313,23 +306,20 @@ document.body.innerHTML = html;
         function fetchValues() {
             URL = "{% url 'post_url' %}"
           let trait_unit = ""
-          let sex = ""
            var species = document.getElementById("species").value
            var trait_name = document.getElementById("trait_name").value
            var trait_value = document.getElementById("trait_value").value
            trait_unit= document.getElementById("trait_unit").value
-           sex = document.getElementById("sex").value
-          //  console.log(JSON.stringify(species))
-          //  console.log(JSON.stringify(trait_name))
-          //  console.log(trait_value)
-          //  console.log(JSON.stringify(trait_unit))
+           console.log(JSON.stringify(species))
+           console.log(JSON.stringify(trait_name))
+           console.log(trait_value)
+           console.log(JSON.stringify(trait_unit))
 
             var data = {
                 species: document.getElementById("species").value, 
                 trait_name: document.getElementById("trait_name").value, 
                 trait_value: document.getElementById("trait_value").value,
-                trait_unit,
-                sex
+                trait_unit
                 // trait_unit: document.getElementById("trait_unit").value            
             };
 

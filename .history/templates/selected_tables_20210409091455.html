@@ -291,9 +291,16 @@ document.body.innerHTML = html;
 </select>
 <p><b>Select Sex from the Drop-down Menu</b></p>
 <!-- <input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();"> -->
-<select name="sex" id="sex" value="Select Sex">
-  <option value="female">female</option>
-  <option value="male">male</option>
+<select name="sex" id="sex" value="Select "">
+  <option value="g">g</option>
+  <option value="kg">kg</option>
+  <option value="lb">lb</option>
+  <option value="oz">oz</option>
+  <option value="mm">mm</option>
+  <option value="cm">cm</option>
+  <option value="m">m</option>
+  <option value="in">in</option>
+  <option value="ft">ft</option>
   <option value="not specicied">Not Specified</option>
 </select>
 <form name="speciesForm">
@@ -313,23 +320,20 @@ document.body.innerHTML = html;
         function fetchValues() {
             URL = "{% url 'post_url' %}"
           let trait_unit = ""
-          let sex = ""
            var species = document.getElementById("species").value
            var trait_name = document.getElementById("trait_name").value
            var trait_value = document.getElementById("trait_value").value
            trait_unit= document.getElementById("trait_unit").value
-           sex = document.getElementById("sex").value
-          //  console.log(JSON.stringify(species))
-          //  console.log(JSON.stringify(trait_name))
-          //  console.log(trait_value)
-          //  console.log(JSON.stringify(trait_unit))
+           console.log(JSON.stringify(species))
+           console.log(JSON.stringify(trait_name))
+           console.log(trait_value)
+           console.log(JSON.stringify(trait_unit))
 
             var data = {
                 species: document.getElementById("species").value, 
                 trait_name: document.getElementById("trait_name").value, 
                 trait_value: document.getElementById("trait_value").value,
-                trait_unit,
-                sex
+                trait_unit
                 // trait_unit: document.getElementById("trait_unit").value            
             };
 

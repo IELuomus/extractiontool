@@ -56,6 +56,7 @@ def post_url(request):
             print(trait_value)
             print(trait_unit)
             print(sex)
+            # print(trait_unit)
         return JsonResponse(data)
 
 @login_required

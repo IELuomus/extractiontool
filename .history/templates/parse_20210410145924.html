@@ -14,15 +14,13 @@
     background-color:rgb(64, 125, 204);
 }
 input[type=button] {
-    width: 18em;  height: 3em;
+    width: 18em;  height: 4em;
     background-color:rgb(64, 125, 204);
 }
 textarea{
     width: 18em; height:4em;
 }
-button {
-    width: 18em;  height: 3em;
-}
+
     /* .hl {
         background: #ffffff;
     }
@@ -44,7 +42,7 @@ button {
 
     <br> {% if json_sentences %}
     <h3>Sentences with potential trait data:</h3>
-    <!-- <h4>Select a traitname </h4> -->
+    <h4>Select a traitname </h4>
     <br>
     <script>
         var json_sents = '{{json_sentences}}'
@@ -139,20 +137,14 @@ button {
     <script>
     getFirstSent()
     </script>
-   
-    <br> <p></p>
-    <input type="button" value="Select a traitname " onmousedown="getSelectedText();">
+    <button onclick="loop()">Show Next Sentence</button>
+    <input type="button" value="Get Selection" onmousedown="getSelectedText();">
 
     <form name="testform">
         <textarea name="selectedtext" id="trait_name" rows="1" cols="5"></textarea>
     </form>
     <!-- <input class="post" onmousedown=" fetchTraitValues() " value="Confirm Selection "> -->
     <button class="post" onClick="fetchTraitValues()">Confirm Selection</button>
-    <br> <p></p>
-    <br> <p></p>
-    <br> <p></p>
-    <button onclick="loop()">Show Next Sentence</button>
-    <br> <p></p>
 </center>
 
 

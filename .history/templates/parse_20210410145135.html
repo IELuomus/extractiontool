@@ -7,30 +7,16 @@
 <meta name="viewport" content="width=device-width">
 <!-- #2196f3 -->
 <h2  style="background-color: #2d9af3 ; color:white;">spaCy TraitName-NER Annotator</h2>
-
+<!-- 
 <style>
-    input[type=submit] {
-    width: 18em;  height: 4em;
-    background-color:rgb(64, 125, 204);
-}
-input[type=button] {
-    width: 18em;  height: 3em;
-    background-color:rgb(64, 125, 204);
-}
-textarea{
-    width: 18em; height:4em;
-}
-button {
-    width: 18em;  height: 3em;
-}
-    /* .hl {
+    .hl {
         background: #ffffff;
     }
     
     .hl:hover {
         background: #95db79;
-    } */
-</style>
+    }
+</style> -->
 
 {% if user.is_authenticated %}
 <p style="text-align:right" > {{user}} logged in</p>
@@ -44,7 +30,7 @@ button {
 
     <br> {% if json_sentences %}
     <h3>Sentences with potential trait data:</h3>
-    <!-- <h4>Select a traitname </h4> -->
+    <h4>Select a traitname </h4>
     <br>
     <script>
         var json_sents = '{{json_sentences}}'
@@ -111,7 +97,7 @@ button {
 
             var data = {
                 sentence: sentencesArray[index - 1],
-                trait_name: document.getElementById("trait_name").value
+                trait_value: document.getElementById("trait_value").value
             };
 
             fetch(URL, {
@@ -139,20 +125,14 @@ button {
     <script>
     getFirstSent()
     </script>
-   
-    <br> <p></p>
-    <input type="button" value="Select a traitname " onmousedown="getSelectedText();">
+    <button onclick="loop()">Show Next Sentence</button>
+    <input type="button" value="Get Selection" onmousedown="getSelectedText();">
 
     <form name="testform">
-        <textarea name="selectedtext" id="trait_name" rows="1" cols="5"></textarea>
+        <textarea name="selectedtext" id="trait_value" rows="2" cols="10"></textarea>
     </form>
     <!-- <input class="post" onmousedown=" fetchTraitValues() " value="Confirm Selection "> -->
     <button class="post" onClick="fetchTraitValues()">Confirm Selection</button>
-    <br> <p></p>
-    <br> <p></p>
-    <br> <p></p>
-    <button onclick="loop()">Show Next Sentence</button>
-    <br> <p></p>
 </center>
 
 

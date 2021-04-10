@@ -39,10 +39,10 @@ def fetch_url(request):
             ],
         }
 
-        TraitnameLearnData.objects.create(data=train_instance)
-        # tld = TraitnameLearnData()
-        # tld.data = train_instance
-        # tld.save()
+        # TraitnameLearnData.objects.create(data=train_instance)
+        tld = TraitnameLearnData()
+        tld.data = train_instance
+        tld.save()
         # if train_instance not in train_data:
         #     train_data.append(json.dumps(train_instance))
     print("train_data list below: ")

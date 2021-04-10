@@ -39,7 +39,7 @@ def fetch_url(request):
             ],
         }
 
-        TraitnameLearnData.objects.create(data=train_instance)
+        # TraitnameLearnData.objects.create(data=train_instance)
         # tld = TraitnameLearnData()
         # tld.data = train_instance
         # tld.save()

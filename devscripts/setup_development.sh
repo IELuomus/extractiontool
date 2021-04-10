@@ -35,6 +35,10 @@ echo "to run django:"
 echo "  python3 manage.py runsslserver" # runs the webserver
 
 echo
+echo "to run django-q:"
+echo "  python manage.py qcluster" # runs django-q cluster
+
+echo
 echo "ADMIN SITE:"
 blue "  https://127.0.0.1:8000/admin/"
 

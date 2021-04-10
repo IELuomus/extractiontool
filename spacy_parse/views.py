@@ -20,59 +20,59 @@ train_data = []
 
 
 
-def fetch_url(request):
+# def fetch_url(request):
 
-        LABEL = "TRAITNAME"
-        if request.method == 'POST':
+#         LABEL = "TRAITNAME"
+#         if request.method == 'POST':
 
-            data = request.POST
-            received_json_data = json.loads(request.body)
-            sentence = received_json_data['sentence']
-            trait_value = received_json_data['trait_value']
-            print(sentence)
-            print(trait_value)
+#             data = request.POST
+#             received_json_data = json.loads(request.body)
+#             sentence = received_json_data['sentence']
+#             trait_value = received_json_data['trait_value']
+#             print(sentence)
+#             print(trait_value)
 
-        #     df = pd.DataFrame(list(received_json_data.items()),columns = ['column1','column2'])
-        #     print("")
-        #     print("START DATAFRAME EXPERIMENT -----------------------------------")
-        #     if df.iloc[-1, df.columns.get_loc("column1")]:
-        #         CURRENT_SENT = df.iloc[-1, df.columns.get_loc("column1")]
+#         #     df = pd.DataFrame(list(received_json_data.items()),columns = ['column1','column2'])
+#         #     print("")
+#         #     print("START DATAFRAME EXPERIMENT -----------------------------------")
+#         #     if df.iloc[-1, df.columns.get_loc("column1")]:
+#         #         CURRENT_SENT = df.iloc[-1, df.columns.get_loc("column1")]
 
-        #         print("CURRENT_SENT: ", CURRENT_SENT)
-        #     else:
-        #         pass
-        #     if df.iloc[-1, df.columns.get_loc("column2")]:
-        #         CURRENT_TRAIT_VALUE = df.iloc[-1, df.columns.get_loc("column2")]
-        #         print("CURRENT_TRAIT_VALUE: ", CURRENT_TRAIT_VALUE)
-        #     else:
-        #         pass
-        #     print("END DATAFRAME EXPERIMENT--------------------------------------")
-        #     print("")
+#         #         print("CURRENT_SENT: ", CURRENT_SENT)
+#         #     else:
+#         #         pass
+#         #     if df.iloc[-1, df.columns.get_loc("column2")]:
+#         #         CURRENT_TRAIT_VALUE = df.iloc[-1, df.columns.get_loc("column2")]
+#         #         print("CURRENT_TRAIT_VALUE: ", CURRENT_TRAIT_VALUE)
+#         #     else:
+#         #         pass
+#         #     print("END DATAFRAME EXPERIMENT--------------------------------------")
+#         #     print("")
 
-        # for key, value in received_json_data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
-        #     for key, value in value.items():
-        #         print("key:", str(key))
-        #         print(" ")
-        #         print("value: ", str(value))
-            start = sentence.find(trait_value)
-            print("start: ", str(start))
-            end = start + len(trait_value)
-            print("start and end:", start, end)
-            train_instance = {"content": sentence, "annotation": [{
-            "label": ["TRAITNAME"],
-            "points": [{"text": trait_value, "start": start, "end": end}]
-            }]}
-            if train_instance not in train_data:
-                train_data.append(json.dumps(train_instance))
-        # print("train_data", train_data)
-        print("train_data list below: ")
-        print(*train_data, sep="\n")
+#         # for key, value in received_json_data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
+#         #     for key, value in value.items():
+#         #         print("key:", str(key))
+#         #         print(" ")
+#         #         print("value: ", str(value))
+#             start = sentence.find(trait_value)
+#             print("start: ", str(start))
+#             end = start + len(trait_value)
+#             print("start and end:", start, end)
+#             train_instance = {"content": sentence, "annotation": [{
+#             "label": ["TRAITNAME"],
+#             "points": [{"text": trait_value, "start": start, "end": end}]
+#             }]}
+#             if train_instance not in train_data:
+#                 train_data.append(json.dumps(train_instance))
+#         # print("train_data", train_data)
+#         print("train_data list below: ")
+#         print(*train_data, sep="\n")
 
-        print("user.id: ", request.user.id)
-        if current_pdf_id:
-            print("pdf.id: ", current_pdf_id[0])
+#         print("user.id: ", request.user.id)
+#         if current_pdf_id:
+#             print("pdf.id: ", current_pdf_id[0])
 
-        return JsonResponse(data)
+#         return JsonResponse(data)
 
 
 def parse(request, pk):

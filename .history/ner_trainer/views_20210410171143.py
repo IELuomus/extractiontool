@@ -10,7 +10,8 @@ from django.http import HttpResponse
 
 
 current_pdf_id = []
-train_data = []
+# train_data = []
+
 
 def fetch_url(request):
 
@@ -39,9 +40,7 @@ def fetch_url(request):
         }
 
         TraitnameLearnData.objects.create(data=train_instance)
-        # tld = TraitnameLearnData()
-        # tld.data = train_instance
-        # tld.save()
+    
         # if train_instance not in train_data:
         #     train_data.append(json.dumps(train_instance))
     print("train_data list below: ")

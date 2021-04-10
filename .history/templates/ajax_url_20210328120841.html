@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<head>
+    <script src = 'https://code.jquery.com/jquery-3.3.1.min.js'></script> 
+  </head>
+  {% block content %}
+  {% csrf_token %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">traitvalues</button>
+  </form>
+  {% csrf_token %}
+  <form method="get">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">traitvalues</button>
+  </form>
+
+  {{traitvalues}}
+  <script>
+      const vals = `{{traitvalues}}`
+      console.log(vals)
+  </script>
+{% endblock content %} 

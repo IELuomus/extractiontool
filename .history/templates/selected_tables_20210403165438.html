@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% if user.is_authenticated %}
+
+<h1>Tables</h1>
+
+<script>
+    // Function to get the Selected Text 
+    function getSelectedText() {
+        var selectedText = '';
+        // window.getSelection 
+        if (window.getSelection) {
+            selectedText = window.getSelection();
+        } // document.getSelection 
+        else if (document.getSelection) {
+            selectedText = document.getSelection();
+        } // document.selection 
+        else if (document.selection) {
+            selectedText = document.selection.createRange().text;
+        } else return; // To write the selected text into the textarea 
+        document.testform.selectedtext.value = selectedText;
+    }
+</script>
+<script>
+    var
+        listOfTables =
+        '{{table_list}}'
+    console.log(listOfTables.constructor.name)
+
+    function jsonArrayTo2D(arrayOfObjects) {
+        let header = [],
+            AoA = [];
+        arrayOfObjects.forEach(obj => {
+            Object.keys(obj).forEach(key => header.includes(key) || header.push(key))
+            let thisRow = new Array(header.length);
+            header.forEach((col, i) => thisRow[i] = obj[col] || '')
+            AoA.push(thisRow);
+        })
+        AoA.unshift(header);
+        return AoA;
+        console.table(jsonArrayTo2D(listOfTables)
+        }
+</script>
+<table>
+    {% for table in table_list %}
+    <tr>
+        <ol>
+            <td>{{ table }}</td>
+    </tr>
+</table>
+<script>
+    var table = '{{table}}'
+    var items = table.split(',');
+
+
+    // var i = 0,
+    //     result = [];
+
+    // while (i < items.length) {
+    //     result.push([])
+    //     for (var key in items[i].fields) {
+    //         result[result.length - 1].push(items[i].fields[key])
+    //     }
+    //     i++
+    // }
+
+    // document.write(JSON.stringify(result, null, 4));
+</script>
+
+{% endfor %}
+
+<br>
+<a href="{% url 'pdf_list' %}" class="w3-btn w3-black">Back to pdf list</a>
+<br> {% endif %} {% endblock content %}

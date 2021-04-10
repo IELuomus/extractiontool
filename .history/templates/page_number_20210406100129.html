@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% if user.is_authenticated %}
+
+<p> {{user}} logged in</p>
+<form action = "/redirect_form" method = "POST"> 
+    {% csrf_token %}  
+    <label for="page_number">Enter the page number for the table: </label> 
+    <input id="page_number" type="number" name="page_number"> 
+    <input type="submit" value="OK"> 
+</form> 
+<form action = "/redirect_form/{{pdf.pk}}" method = "POST"> 
+    {% csrf_token %}  
+    <label for="page_number">Enter the page number for the table: </label> 
+    <input id="page_number" type="number" name="page_number"> 
+    <input type="submit" value="OK"> 
+</form> 
+
+    {% endif %}
+{% endblock content %}

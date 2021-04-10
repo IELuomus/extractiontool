@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_tables2',
     'users.apps.UsersConfig',
     'quality_control.apps.QualityControlConfig',
     'masterdata.apps.MasterdataConfig',
@@ -53,7 +54,10 @@ INSTALLED_APPS = [
     'django_userforeignkey',
     'fontawesome-free',
     'spacy_parse',
-    'table']
+    'table',
+    'fontawesome-free',
+    'django_q'
+    ]
 
 SITE_ID = 1
 
@@ -198,3 +202,21 @@ def show_toolbar(request):
 
 
 SHOW_TOOLBAR_CALLBACK = show_toolbar
+
+# DJANGO-Q
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'ieluomus_djangoq_cache_table',
+    }
+}
+# TODO: workers as env variable
+Q_CLUSTER = {
+    'name': 'DjangORM',
+    'workers': 2,
+    'timeout': 90,
+    'retry': 120,
+    'queue_limit': 50,
+    'bulk': 10,
+    'orm': 'default'
+}

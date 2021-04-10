@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% if user.is_authenticated %}
+
+<h1>Tables</h1>
+{% for table in html_tables %}
+<tr>
+    <td>{{ book.0 }}</td>
+    <td>{{ book.1 }}</td>
+    <td>{{ book.2 }} </td>
+    <td>{{ book.3 }}</td>
+</tr>
+{% endfor %} {{%for table in html_tables % }}
+<table id="info-table" class="table table-bordered table-hover">
+    {{table}}
+</table>
+<script>
+    var table = '{{table}}'
+    console.log(table.constructor.name)
+    console.table(table)
+</script>{% empty %} {% endfor %}
+
+<br>
+<a href="{% url 'pdf_list' %}" class="w3-btn w3-black">Back to pdf list</a>
+<br> {% endif %} {% endblock content %}

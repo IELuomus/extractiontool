@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% for table in html_list %} {{ table }} {% endfor %} {% for table in json_list %} {{ table.json_table }}
+<script charset="utf-8">
+    console.log('json_list', JSON.stringify('{{ table.json_table }}'))
+</script>
+<p></p>
+
+{% endfor %} {% for table in table_list %} {{ table }} {% endfor %}
+<script charset="utf-8">
+    let a = '{{ table_list }}'
+    let b = '{{ json_list }}'
+    let c = '{{ html_list }}'
+    console.log('a', a)
+    a = a.replace(new RegExp("&" + "#" + "x27;", "g"), "'")
+    console.log('a2', a)
+    console.log('b', JSON.stringify(b))
+    console.log('b', b)
+    console.log('c', c)
+</script>
+{% if user.is_authenticated %} {#
+<script charset="utf-8">
+    #} {#
+        let a = '{{ table_list }}'#
+    } {#
+        let b = '{{ json_list }}'#
+    } {#
+        let c = '{{ html_list }}'#
+    } {#
+        console.log('a', a)#
+    } {#
+        a = a.replace(new RegExp("&" + "#" + "x27;", "g"), "'")#
+    } {#
+        console.log('a2', a)#
+    } {#
+        console.log('b', JSON.stringify(b))#
+    } {#
+        console.log('b', b)#
+    } {#
+        console.log('c', JSON.stringify(c))#
+    } {##} {#
+</script>#} {# {% for table in table_list %}#} {# {{ table }}#} {# {% endfor %}#} {# {% for table in html_list %}#} {# {{ table }}#} {# {% endfor %}#} {# {% for table in json_list %}#} {#
+<script charset="utf-8">
+    console.log('json_list', JSON.stringify('{{ table.json_table }}'))
+</script>#} {#
+<p></p>#} {# {{ table.json_table }}#} {# {% endfor %}#} {##} {#{% if jobs == '1' %}#} {#{% include "data1.html" %}#} {#{% endif%}#} {#{% if jobs == '2' %}#} {#{% include "data1.html" %}#} {#
+<p></p>#} {#
+<p></p>#} {#{% include "data2.html" %}#} {#{% endif%}#} {#{% if jobs == '3' %}#} {#{% include "data1.html" %}#} {#
+<p></p>#} {#
+<p></p>#} {#{% include "data2.html" %}#} {#
+<p></p>#} {#
+<p></p>#} {#{% include "data3.html" %}#} {#{% endif%}#}
+<br>
+<a href="{% url 'pdf_list' %}" class="w3-btn w3-black">Back to pdf list</a>
+<br> {% endif %} {% endblock content %}

@@ -1,30 +1,44 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 import json
-from .forms import TraitValuesForm
+from spacy_parse.forms import TraitValuesForm
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST, require_GET
+#from django.contrib.sessions.models import Session
 from django.http import JsonResponse
 from django.http import HttpResponse
 
-@require_GET
+
+current_pdf_id = []
+train_data = []
+
 def ajax_url(request):
-  
-    print("ajax: ")
-    
-    if request.method == 'GET':
-            response_json = request.GET
-            response_json = json.dumps(response_json)
-            data = json.loads(response_json)
-            print(data)
-            for key, value in data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
-                print(key)
-                print('value: ', str(value))
-    # if request.method == 'POST':
-    #     print("fetch")
-    #     response_json = request.POST
-    #     response_json = json.dumps(response_json)
-    #     data2 = json.loads(response_json)
-    #     print(data2)
 
-    return JsonResponse(data)
+        LABEL = "TRAITNAME"
+        if request.method == 'POST':
 
+            data = request.POST
+            received_json_data = json.loads(request.body)
+            sentence = received_json_data['sentence']
+            trait_value = received_json_data['trait_value']
+            print(sentence)
+            print(trait_value)
+      
+            start = sentence.find(trait_value)
+            print("start: ", str(start))
+            end = start + len(trait_value)
+            print("start and end:", start, end)
+            train_instance = {"content": sentence, "annotation": [{
+            "label": ["TRAITNAME"],
+            "points": [{"text": trait_value, "start": start, "end": end}]
+            }]}
+            if train_instance not in train_data:
+                train_data.append(json.dumps(train_instance))
+        print("train_data list below: ")
+        print(*train_data, sep="\n")
+
+        print("user.id: ", request.user.id)
+        if current_pdf_id:
+            print("pdf.id: ", current_pdf_id[0])
+
+        return JsonResponse(data)

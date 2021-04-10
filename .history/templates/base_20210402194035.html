@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Information Extraction Tool</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut " href=“#”>
+    <meta name="viewport " content="width=device-width, initial-scale=1 ">
+    <link rel="stylesheet " href="https://www.w3schools.com/w3css/4/w3.css ">
+    <link rel="stylesheet " href="https://www.w3schools.com/lib/w3-theme-blue.css ">
+    <link rel="stylesheet " href="https://fonts.googleapis.com/css?family=Roboto ">
+    <link rel="stylesheet " href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css ">
+    <link rel="stylesheet " href="{% static 'style.css' %} " type="text/css ">
+    <script src="{% static 'fontawesome_free/js/all.min.js' %} "></script>
+    <link href="{% static 'fontawesome_free/css/all.min.css' %} " rel="stylesheet " type="text/css ">
+    <link href="{% static 'fontawesome_free/css/fontawesome.css' %} " rel="stylesheet " type="text/css ">
+    <link href="{% static 'fontawesome_free/css/brands.css' %} " rel="stylesheet " type="text/css ">
+    <link href="{% static 'fontawesome_free/css/solid.css' %} " rel="stylesheet " type="text/css ">
+    <script type="text/javascript " src="{% static 'base.js' %} "></script>
+    <script type="text/javascript " src="{% static 'dropdown.js' %} "></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="w3-top ">
+        <div class="w3-bar w3-theme w3-left-align w3-large ">
+            <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium w3-hover-white w3-large w3-theme-l1 " href="javascript:void(0) " onclick="w3_open() "><i class="fa fa-bars "></i></a>
+            <a href="{% url 'index' %} " class="w3-bar-item w3-button w3-theme-l1 ">ETIE</a> {% if user.is_data_admin or user.is_editor %}
+            <div class="w3-dropdown-hover ">
+                <button class="w3-button ">Quality Control</button>
+            </div>
+            {% endif %} {% if user.is_data_admin %}
+            <div class="w3-dropdown-hover w3-aritem ">
+                <button class="w3-button ">Import</button>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4 ">
+                </div>
+            </div>
+            {% endif %} {% if user.is_authenticated %}
+            <a href="{% url 'account_logout' %} " class="w3-bar-item w3-button w3-right w3-hover-white w3-hide-small ">Logout</a> {% else %}
+            <a href="{% url 'account_login' %} " class="w3-bar-item w3-button w3-right w3-hover-white w3-hide-small ">Login | Sign Up</a> {% endif %}
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <nav class="w3-sidebar w3-bar-block w3-large w3-theme-l5 w3-animate-left w3-collapse " id="mySidebar " style="display:none; ">
+        <a href="javascript:void(0) " onclick="w3_close() " class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large " title="Close Menu ">
+            <i class="fa fa-remove "></i>
+        </a>
+        <h4 class="w3-bar-item "><b>Account</b></h4>
+        {% if user.is_authenticated %}
+        <a href="{% url 'account_logout' %} " class="w3-bar-item w3-button w3-hover-black ">Logout</a> {% else %}
+        <a href="{% url 'account_login' %} " class="w3-bar-item w3-button w3-hover-black ">Login | Sign Up</a> {% endif %}
+    </nav>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large " onclick="w3_close() " style="cursor:pointer " title="close side menu " id="myOverlay "></div>
+
+    <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+    <main class="w3-main ">
+        <div class="w3-row w3-padding-64 ">
+            <div class="w3-container ">
+                {% if messages %} {% for message in messages %}
+                <div class="w3-panel w3-dark-grey ">
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %} {% endif %} {% block content %}{% endblock %}
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

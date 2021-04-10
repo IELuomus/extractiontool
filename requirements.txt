@@ -16,12 +16,14 @@ django-jsonfield==1.4.1
 django-mysql==3.11.1
 django-simple-history==2.12.0
 django-sslserver==0.22
+django-tables2==2.3.4
 django-userforeignkey==0.3.0
+excalibur-py==0.4.3
+fontawesome-free==5.15.3
 gunicorn==20.0.4
 idna==2.10
 mysqlclient==2.0.3
 oauthlib==3.1.0
-opencv-python==4.5.1.48
 Pillow==8.0.1
 PyMySQL==1.0.2
 python-dotenv==0.15.0
@@ -37,6 +39,7 @@ requests==2.25.1
 requests-oauthlib==1.3.0
 six==1.15.0
 sqlparse==0.4.1
+tablib==3.0.0
 tabula-py==2.2.0
 toml==0.10.2
 urllib3==1.26.2

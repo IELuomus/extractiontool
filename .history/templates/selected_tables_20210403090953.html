@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% if user.is_authenticated %}
+<!doctype html>
+<html>
+
+<head>
+    <title>List of tables</title>
+</head>
+
+<body>
+    {% render_table object_list %}
+</body>
+
+</html>
+
+{% endif %}

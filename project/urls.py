@@ -24,6 +24,7 @@ urlpatterns = [
     # path('upload/', upload, name='upload'),
     path('table/', include('table.urls')),
     path('parse/', include('spacy_parse.urls')),
+    path('ner_trainer/', include('ner_trainer.urls')),
     path('', index, name='index'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

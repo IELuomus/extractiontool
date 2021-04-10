@@ -124,39 +124,39 @@ def parse(request, pk):
                        ]
     string_sentences = []
     for sentence in doc.sents:
-        for trait in trait_words:
-            if trait in sentence.text:
-                sentences_with_traits.append(sentence)
-                break
+            for trait in trait_words:
+                if trait in sentence.text:
+                    sentences_with_traits.append(sentence)
+                    break
 
         # noun_phrases=[chunk.text for chunk in doc.noun_chunks]
         # verbs=[token.lemma_ for token in doc if token.pos_ == "VERB"]
 
-    trait_text = ""
-    for sent in sentences_with_traits:
-        string_sentences.append(sent.text)
-        trait_text += sent.text
+        trait_text = ""
+        for sent in sentences_with_traits:
+            string_sentences.append(sent.text)
+            trait_text += sent.text
 
         # koesent = sentences_with_traits[0]
 
         # for token in koesent:
         #     print(token.text)
 
-    trait_doc = nlp(trait_text)
+        trait_doc = nlp(trait_text)
 
-    quantity_ner_labels = ["QUANTITY", "MONEY", "PERCENT", "CARDINAL"]
-    scientificnames = [
-        ent.text for ent in trait_doc.ents if ent.label_ == "SCIENTIFICNAME"]
-    quantities = [
-        ent.text for ent in trait_doc.ents if ent.label_ in quantity_ner_labels]
+        quantity_ner_labels = ["QUANTITY", "MONEY", "PERCENT", "CARDINAL"]
+        scientificnames = [
+            ent.text for ent in trait_doc.ents if ent.label_ == "SCIENTIFICNAME"]
+        quantities = [
+            ent.text for ent in trait_doc.ents if ent.label_ in quantity_ner_labels]
         # print(scientificnames)
-    entities = []
-    for entity in trait_doc.ents:
-        entities.append(entity)
-    number_of_sentences = len(sentences_with_traits)
-    data = trait_doc.to_json()
-    json_sentences = json.dumps(string_sentences)
-    parse_result = {'sentences': sentences_with_traits,  'entities': entities,
+        entities = []
+        for entity in trait_doc.ents:
+            entities.append(entity)
+        number_of_sentences = len(sentences_with_traits)
+        data = trait_doc.to_json()
+        json_sentences = json.dumps(string_sentences)
+        parse_result = {'sentences': sentences_with_traits,  'entities': entities,
                         'scientificnames': scientificnames, 'quantities': quantities,
                         'number': number_of_sentences, 'json_sentences': json_sentences, 'data': data}
         # context['DJdata'] = json.dumps(DJdata)

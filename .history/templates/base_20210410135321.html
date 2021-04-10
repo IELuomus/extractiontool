@@ -28,7 +28,7 @@
             <a class="w3-bar-item w3-button w3-right w3-hide-large  w3-hide-medium w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
             <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-theme-l1">ETIE</a> {% if user.is_data_admin or user.is_editor %}
             <div class="w3-dropdown-hover">
-                <!-- <button class="w3-button">Quality Control</button> -->
+                <button class="w3-button">Quality Control</button>
             </div>
             {% endif %} {% if user.is_data_admin %}
             <div class="w3-dropdown-hover w3-aritem">

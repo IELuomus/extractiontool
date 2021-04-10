@@ -156,7 +156,7 @@ def parse(request, pk):
     number_of_sentences = len(sentences_with_traits)
     data = trait_doc.to_json()
     json_sentences = json.dumps(string_sentences)
-    parse_result = {'sentences': sentences_with_traits,  'entities': entities,
+        parse_result = {'sentences': sentences_with_traits,  'entities': entities,
                         'scientificnames': scientificnames, 'quantities': quantities,
                         'number': number_of_sentences, 'json_sentences': json_sentences, 'data': data}
         # context['DJdata'] = json.dumps(DJdata)

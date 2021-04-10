@@ -147,7 +147,7 @@ console.log(data)
 </form>
   <!-- <table class="table table-dark table-striped" id='dataframeTable'>  -->
         <!-- jinja2 Technique -->
-<!-- {% if d %}   
+{% if d %}   
 {% for i in d %} 
 
 <div class="container" style="overflow-x:auto;" > 
@@ -216,7 +216,7 @@ console.log(data)
   </table> 
 
 
-</div>  -->
+</div> 
 <script script type="text/javascript">
   // Function to get the Selected Text 
   function getSelectedTraitName() {
@@ -309,9 +309,8 @@ console.log(data)
 //   return columnSet; }
 
     </script>
-<!-- {% endfor %} 
-{% endif %}  -->
-<!-- 
+{% endfor %} 
+{% endif %} 
 <div id="element"></div>
 
 <input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
@@ -326,6 +325,7 @@ console.log(data)
     <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
 </form>
 <p><b>Select Trait Unit from the Drop-down Menu</b></p>
+<!-- <input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();"> -->
 <select name="trait unit" id="trait_unit" value="Select Trait Unit">
   <option value="g">g</option>
   <option value="kg">kg</option>
@@ -339,6 +339,7 @@ console.log(data)
   <option value="not specicied">Not Specified</option>
 </select>
 <p><b>Select Sex from the Drop-down Menu</b></p>
+<!-- <input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();"> -->
 <select name="sex" id="sex" value="Select Sex">
   <option value="female">female</option>
   <option value="male">male</option>
@@ -349,7 +350,8 @@ console.log(data)
   <input id="species" type="text" name="verbatimScientificName">
   <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
 </form>
-</center> -->
+<!-- <button class="post" onClick="fetchValues()">Confirm Post</button> -->
+</center>
 
 <script>
         function getCookie(name) {

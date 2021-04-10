@@ -30,7 +30,7 @@ def fetch_url(request):
             print("start and end:", start, end)
             train_instance = {"content": sentence, "annotation": [{
             "label": ["TRAITNAME"],
-            "points": [{"text": trait_name, "start": start, "end": end}]
+            "points": [{"text": trait_value, "start": start, "end": end}]
             }]}
             if train_instance not in train_data:
                 train_data.append(json.dumps(train_instance))

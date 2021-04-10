@@ -5,13 +5,12 @@ from spacy_parse.forms import TraitValuesForm
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST, require_GET
 from .models import TraitnameLearnData
-#from django.contrib.sessions.models import Session
 from django.http import JsonResponse
 from django.http import HttpResponse
 
 
 current_pdf_id = []
-train_data = []
+#train_data = []
 
 def fetch_url(request):
 
@@ -36,14 +35,8 @@ def fetch_url(request):
 
             TraitnameLearnData.objects.create(data=train_instance)
 
-            # TraitnameLearnData.objects.create(data={
-            #     'name': 'John',
-            #     'cities': ['London', 'Cambridge'],
-            #     'pets': {'dogs': ['Rufus', 'Meg']},
-            # })
-
-            if train_instance not in train_data:
-                train_data.append(json.dumps(train_instance))
+            # if train_instance not in train_data:
+            #     train_data.append(json.dumps(train_instance))
         print("train_data list below: ")
         print(*train_data, sep="\n")
 

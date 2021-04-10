@@ -1,13 +1,22 @@
 from django.db import models
 
-# class TraitnameData(models.Model):
-#     data = models.JSONField()
+class TraitnameLearnData(models.Model):
+    user_id = models.IntegerField(null=True)
+    data = models.JSONField()
 
-# TraitnameData.objects.create(data={
+    # def _str_(self):
+    #     return self.title
+    
+    # def delete(self, *args, **kwargs):
+    #     self.TraitNameLearnData.delete()
+    #     super().delete(*args, **kwargs)
+
+# TraitnameLearnData.objects.create(data={
 #     'name': 'John',
 #     'cities': ['London', 'Cambridge'],
 #     'pets': {'dogs': ['Rufus', 'Meg']},
 # })
+
 # ContactInfo.objects.filter(
 #     data__name='John',
 #     data__pets__has_key='dogs',

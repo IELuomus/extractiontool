@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django_userforeignkey',
     'spacy_parse',
     'table',
+    'ner_trainer',
     'corsheaders', 
     'rest_framework',
      'fontawesome-free'

@@ -4,6 +4,7 @@ import json
 from spacy_parse.forms import TraitValuesForm
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST, require_GET
+from .models import TraitnameLearnData
 #from django.contrib.sessions.models import Session
 from django.http import JsonResponse
 from django.http import HttpResponse
@@ -32,6 +33,15 @@ def ajax_url(request):
             "label": ["TRAITNAME"],
             "points": [{"text": trait_value, "start": start, "end": end}]
             }]}
+
+            TraitnameLearnData.objects.create(data=train_instance)
+
+            # TraitnameLearnData.objects.create(data={
+            #     'name': 'John',
+            #     'cities': ['London', 'Cambridge'],
+            #     'pets': {'dogs': ['Rufus', 'Meg']},
+            # })
+
             if train_instance not in train_data:
                 train_data.append(json.dumps(train_instance))
         print("train_data list below: ")

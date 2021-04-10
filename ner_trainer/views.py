@@ -10,7 +10,7 @@ from django.http import HttpResponse
 
 
 current_pdf_id = []
-#train_data = []
+train_data = []
 
 def fetch_url(request):
 

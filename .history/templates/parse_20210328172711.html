@@ -1,0 +1,221 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+
+<head>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+</head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<h2>Parse the uploaded text</h2>
+
+<style>
+    .hl {
+        background: #ffffff;
+    }
+    
+    .hl:hover {
+        background: #95db79;
+    }
+</style>
+
+{% if user.is_authenticated %}
+<p> {{user}} logged in</p>
+<br><br>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit">Parse!</button>
+    <input type="button" value="Loop sentences" onmousedown="loopSentences()">Loop!</button>
+</form>
+<br><br> {% if entities %}
+<center>
+
+    </h1>
+    {{ value|json_script:'data' }}
+    <h3>Named entities and their types:</h3>
+    <table>
+        {% for ent in entities %}
+        <tr>
+            <td>{{ent.text}}</td>
+            <td>{{ent.label_}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <br> {% if sentences %}
+
+    <script>
+        let word = "";
+        const sentence_array = []
+        let sentence = "";
+        var sentences1 = '{{sentences}}';
+        // console.log((sentences1).constructor.name)
+        // var stringarr = sentences1.toString();
+    </script>
+    <h3>Sentences with potential trait data:</h3>
+    <h4>Select a traitname </h4>
+    <br>
+    <table>
+        <script>
+            // Function to get the Selected Text 
+            function getSelectedText() {
+                var selectedText = '';
+
+                // window.getSelection
+                if (window.getSelection) {
+                    selectedText = window.getSelection();
+                }
+                // document.getSelection
+                else if (document.getSelection) {
+                    selectedText = document.getSelection();
+                }
+                // document.selection
+                else if (document.selection) {
+                    selectedText =
+                        document.selection.createRange().text;
+                } else return;
+                // To write the selected text into the textarea
+                document.testform.selectedtext.value = selectedText;
+            }
+
+            const js_variable = JSON.parse(document.getElementById('data').textContent);
+
+            function loopSentences() {
+                console.log('js_variable', js_variable)
+            }
+        </script>
+
+        {% for sent in sentences %}
+        <script type="text/javascript">
+            sentence = "{{ sent}}";
+            sentence_array.push(sentence)
+        </script>
+        {% for token in sent %}
+
+        <!-- <span class='hl'> {{ token.text }} </span> -->
+        <script>
+            function highlight(word) {
+                document.getElementById(word).bgColor = "green";
+            }
+        </script>
+
+        {% endfor %}
+
+        <p></p>
+        {% endfor %}
+        <script language="JavaScript">
+            console.table(sentence_array)
+
+            function makeList(listData) {
+                // Establish the array which acts as a data source for the list
+                let
+                // Make a container element for the list
+                    listContainer = document.createElement('div'),
+                    // Make the list
+                    listElement = document.createElement('ol', id = "mylist"),
+                    // Set up a loop that goes through the items in listItems one at a time
+                    numberOfListItems = listData.length,
+                    listItem,
+                    i;
+
+                // Add it to the page
+                document.getElementsByTagName('body')[0].appendChild(listContainer);
+                listContainer.appendChild(listElement);
+
+                for (i = 0; i < numberOfListItems; ++i) {
+                    // create an item for each one
+                    listItem = document.createElement('li', id = 'mylist');
+
+                    // Add the item text
+                    listItem.innerHTML = listData[i];
+
+                    // Add listItem to the listElement
+                    listElement.appendChild(listItem);
+
+                }
+            }
+            makeList(sentence_array);
+            // document.getElementById("mylist").addEventListener('click', function (event) {
+            //       if ('LI' != event.target.tagName) return;
+            //       alert(event.target.innerText);
+            //     }, false);
+        </script>
+    </table>
+    <script>
+        var a = document.getElementsByTagName("ol")[0].getElementsByTagName('li');
+
+        // function getValue() {
+        //   var retVal = prompt(JSON.innerHTML,  "traitvalue");
+        //   document.write("You have entered : " + retVal);
+        // }
+
+        var traitvalues = {};
+        for (var i = 0; i < a.length; i++) {
+            a[i].onclick = function() {
+                let foo = prompt(this.innerHTML, "TRAITVALUE")
+                let bar = confirm(`TRAITVALUE: ${foo}`);
+                console.log(foo, bar);
+                if (bar) {
+                    traitvalues[this.innerHTML] = `${foo}`
+                }
+                console.table(traitvalues)
+                    // document.write(foo, bar);
+                URL = "{% url 'ajax_url' %}"
+                console.log('traitvalues', traitvalues)
+                fetch(URL, {
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({
+                                data: {
+                                    'traitvalues': traitvalues
+                                }
+                            }) //JavaScript object of data to POST
+                    })
+                    .then(response => {
+                        return response.json() //Convert response to JSON
+                    })
+                    .then(data => {
+                        //Perform actions with the response data from the view
+                    })
+                $.ajax({
+                    url: "{% url 'ajax_url' %}",
+                    type: 'GET',
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'csrfmiddlewaretoken: ' {
+                            {
+                                csrf_token
+                            }
+                        }
+                        '
+                    },
+                    data: {
+                        'traitvalues': traitvalues,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                });
+
+            }
+        }
+    </script>
+    <input type="button" value="Get Selection" onmousedown="getSelectedText()">
+    <!--Form to show the selected text as output-->
+    <form name="testform">
+        <textarea name="selectedtext" rows="5" cols="20"></textarea>
+    </form>
+</center>
+{% endif %} {% csrf_token %}
+<script language="JavaScript">
+</script>
+<br><br>
+<input type=button value="Previous Page" onClick="javascript:history.go(-1);"> {% else %}
+<p>Please login first</p>
+{% endif %} {% endblock content %}

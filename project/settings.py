@@ -1,10 +1,10 @@
+from pathlib import Path
 import os
 import json
 from dotenv import load_dotenv
 
-load_dotenv()   
+load_dotenv()
 
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_tables2',
     'users.apps.UsersConfig',
     'quality_control.apps.QualityControlConfig',
     'masterdata.apps.MasterdataConfig',
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
     'django_userforeignkey',
     'spacy_parse',
     'table',
+    'fontawesome-free',
     'django_q'
     ]
 
@@ -78,8 +80,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 'DIRS': [os.path.join(BASE_DIR, "templates")],
-        'DIRS': [ os.path.join(os.path.dirname(__file__) ,'../templates').replace('\\','/')],
-       
+        'DIRS': [os.path.join(os.path.dirname(__file__), '../templates').replace('\\', '/')],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -110,7 +112,7 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
@@ -193,8 +195,11 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
 
+
 def show_toolbar(request):
     return True
+
+
 SHOW_TOOLBAR_CALLBACK = show_toolbar
 
 # DJANGO-Q

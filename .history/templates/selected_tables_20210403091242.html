@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% if user.is_authenticated %}
+
+<table class="w3-table w3-striped w3-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Download</th>
+            <th>Parse data from text</th>
+            <th>Extract data from tables</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for table in json_tables %}
+        <tr>
+            <td>{{ pdf.title }}</td>
+
+            <td>
+                <form method="post" action="{% url 'delete' pdf.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="w3-btn w3-black">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endif %} {% endblock content %}

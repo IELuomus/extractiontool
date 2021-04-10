@@ -92,3 +92,6 @@ target/
 
 # Media files
 media/
+
+#static files
+static/

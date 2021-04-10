@@ -54,6 +54,9 @@ INSTALLED_APPS = [
     'django_userforeignkey',
     'spacy_parse',
     'table',
+    'ner_trainer',
+    'corsheaders', 
+    'rest_framework',
     'fontawesome-free',
     'django_q'
     ]
@@ -66,6 +69,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -105,7 +109,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'MEMBER_API': False,
     }
 }
-
+CORS_ORIGIN_ALLOW_ALL = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"

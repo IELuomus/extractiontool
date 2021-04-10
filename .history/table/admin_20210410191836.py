@@ -20,4 +20,12 @@ admin.site.register(Trait_Table)
 #     list_display = ( 'scientific_name',)
 #     search_fields = ('scientific_name',)
 
+<<<<<<< HEAD
+admin.site.register(Json_Table, JsonTableAdmin)
+
+@admin.register(Edit_Text)
+class Edit_TextAdmin(admin.ModelAdmin):
+    pass
+=======
 # admin.site.register(Site, SiteAdmin)
+>>>>>>> d1d59e1889d4ec32d85c111bc49805e6bdfdeeb0

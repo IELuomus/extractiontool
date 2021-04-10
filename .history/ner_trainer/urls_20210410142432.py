@@ -8,6 +8,6 @@ from ner_trainer.views import (
 
 urlpatterns = [
   #path('ner_trainer/ajax_url/', ajax_url, name='ajax_url')
-  path('fetch_url/', fetch_url, name='fetch_url')
+  path('ajax_url/', ajax_url, name='ajax_url')
     
 ]

@@ -80,8 +80,7 @@ for (var l in s) {
 }
 html += '</tbody></table>';
   
-document.getElementById("element").innerHTML = html
-// document.body.innerHTML = html;
+document.body.innerHTML = html;
 }
 
 </script>
@@ -92,60 +91,19 @@ console.log(x)
 data = JSON.parse(data)
 console.log(data.constructor.name)
 console.log(data)
-
+for (var s of data) { 
+  console.log(s)
+  console.log(s.constructor.name)
+  console.table(s)
+}
  
 //  makeAdataframe(s)
 
 </script>
 <div id="element"></div>
     <script>
-      for (var s of data) { 
-  console.log(s)
-  console.log(s.constructor.name)
-  console.table(s)
-  makeAdataframe(s)
-}
-  
+    getFirstSent()
     </script>
-
-<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
-
-<form name="traitNameForm">
-    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
-</form>
-
-<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
-
-<form name="traitValueForm">
-    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
-</form>
-<p><b>Select Trait Unit from the Drop-down Menu</b></p>
-<!-- <input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();"> -->
-<select name="trait unit" id="trait_unit" value="Select Trait Unit">
-  <option value="g">g</option>
-  <option value="kg">kg</option>
-  <option value="lb">lb</option>
-  <option value="oz">oz</option>
-  <option value="mm">mm</option>
-  <option value="cm">cm</option>
-  <option value="m">m</option>
-  <option value="in">in</option>
-  <option value="ft">ft</option>
-  <option value="not specicied">Not Specified</option>
-</select>
-<p><b>Select Sex from the Drop-down Menu</b></p>
-<!-- <input type="button" value="Get Trait Unit" onmousedown="getSelectedTraitUnit();"> -->
-<select name="sex" id="sex" value="Select Sex">
-  <option value="female">female</option>
-  <option value="male">male</option>
-  <option value="not specicied">Not Specified</option>
-</select>
-<form name="speciesForm">
-  <label for="species"><b>Enter Verbatim Scientific Name and Post</b> </label>
-  <input id="species" type="text" name="verbatimScientificName">
-  <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
-</form>
-
    {% if d %}   
 {% for i in d %} 
 

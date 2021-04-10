@@ -80,8 +80,7 @@ for (var l in s) {
 }
 html += '</tbody></table>';
   
-document.getElementById("element").innerHTML = html
-// document.body.innerHTML = html;
+document.body.innerHTML = html;
 }
 
 </script>
@@ -103,9 +102,8 @@ console.log(data)
   console.log(s)
   console.log(s.constructor.name)
   console.table(s)
-  makeAdataframe(s)
 }
-  
+    makeAdataframe(s)
     </script>
 
 <input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">

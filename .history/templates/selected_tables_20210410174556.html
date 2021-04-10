@@ -80,8 +80,7 @@ for (var l in s) {
 }
 html += '</tbody></table>';
   
-document.getElementById("element").innerHTML = html
-// document.body.innerHTML = html;
+document.body.innerHTML = html;
 }
 
 </script>
@@ -92,20 +91,18 @@ console.log(x)
 data = JSON.parse(data)
 console.log(data.constructor.name)
 console.log(data)
-
+for (var s of data) { 
+  console.log(s)
+  console.log(s.constructor.name)
+  console.table(s)
+}
  
 //  makeAdataframe(s)
 
 </script>
 <div id="element"></div>
     <script>
-      for (var s of data) { 
-  console.log(s)
-  console.log(s.constructor.name)
-  console.table(s)
-  makeAdataframe(s)
-}
-  
+    makeAdataframe(s)
     </script>
 
 <input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">

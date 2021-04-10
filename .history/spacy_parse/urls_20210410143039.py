@@ -8,7 +8,7 @@ from spacy_parse.views import (
 
 urlpatterns = [
   path('<int:pk>/', parse, name='parse'),
-  #path('parse/fetch_url/', fetch_url, name='fetch_url')
+  #path('parse/fetch_url/', ajax_url, name='ajax_url')
   # path('<int:pk>/traitvalues/', traitvalues)
     
 ]

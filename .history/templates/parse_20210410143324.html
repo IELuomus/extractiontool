@@ -78,7 +78,7 @@
         }
     </script> -->
     <H4 id="trait"></H4>
-   
+    <p>sentences[0]</p>
     <!-- {% for sent in sentences %}
     <script type="text/javascript">
         sentence = "{{ sent}}";
@@ -88,14 +88,8 @@
     {% endfor %} -->
     <script>
         const sentences = sentencesArray
-
         let index = 1
-        // JSON.stringify(sentences[0])
-        function getFirstSent(){
-        var first = sentences[0]
-        first = first.replace('[','')
-        document.getElementById("element").innerHTML = first
-        }
+
         function loop() {
             document.getElementById("element").innerHTML = sentences[index]
             index++
@@ -139,9 +133,6 @@
         }
     </script>
     <div id="element"></div>
-    <script>
-    getFirstSent()
-    </script>
     <button onclick="loop()">Show Next Sentence</button>
     <input type="button" value="Get Selection" onmousedown="getSelectedText();">
 

@@ -92,9 +92,7 @@
         let index = 1
         // JSON.stringify(sentences[0])
         function getFirstSent(){
-        var first = sentences[0]
-        first = first.replace('[','')
-        document.getElementById("element").innerHTML = first
+        document.getElementById("element").innerHTML = JSON.stringify(sentences[0]
         }
         function loop() {
             document.getElementById("element").innerHTML = sentences[index]

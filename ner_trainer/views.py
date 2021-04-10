@@ -13,7 +13,7 @@ from django.http import HttpResponse
 current_pdf_id = []
 train_data = []
 
-def ajax_url(request):
+def fetch_url(request):
 
         LABEL = "TRAITNAME"
         if request.method == 'POST':
@@ -21,17 +21,17 @@ def ajax_url(request):
             data = request.POST
             received_json_data = json.loads(request.body)
             sentence = received_json_data['sentence']
-            trait_value = received_json_data['trait_value']
+            trait_name = received_json_data['trait_name']
             print(sentence)
-            print(trait_value)
+            print(trait_name)
       
-            start = sentence.find(trait_value)
+            start = sentence.find(trait_name)
             print("start: ", str(start))
-            end = start + len(trait_value)
+            end = start + len(trait_name)
             print("start and end:", start, end)
             train_instance = {"content": sentence, "annotation": [{
             "label": ["TRAITNAME"],
-            "points": [{"text": trait_value, "start": start, "end": end}]
+            "points": [{"text": trait_name, "start": start, "end": end}]
             }]}
 
             TraitnameLearnData.objects.create(data=train_instance)

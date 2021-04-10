@@ -1,0 +1,8 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% if user.is_authenticated %} {% if jobs == '1' %} {% include "table1.html" %} {% endif%} {% if jobs == '2' %} {% include "table1.html" %}
+<p></p>
+<p></p>
+{% include "table2.html" %} {% endif%}
+
+<br>
+<a href="{% url 'pdf_list' %}" class="w3-btn w3-black">Back to pdf list</a>
+<br> {% endif %} {% endblock content %}

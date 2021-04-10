@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% if user.is_authenticated %}
+
+<h1>Tables</h1>
+<ul>
+    {% for article in object_list %}
+    <li>{{ table.json_table }}</li>
+    {% empty %}
+    <li>No tables yet.</li>
+    {% endfor %}
+</ul>
+
+
+{% endif %} {% endblock content %}

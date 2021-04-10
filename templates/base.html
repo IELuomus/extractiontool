@@ -43,6 +43,7 @@
     </div>
 
     <!-- Sidebar -->
+
     <nav class="w3-sidebar w3-bar-block w3-large w3-theme-l5 w3-animate-left w3-collapse" id="mySidebar" style="display:none;">
         <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
             <i class="fa fa-remove"></i>
@@ -62,6 +63,7 @@
             <div class="w3-container">
                 {% if messages %} {% for message in messages %}
                 <div class="w3-panel w3-dark-grey">
+
                     <p>{{ message }}</p>
                 </div>
                 {% endfor %} {% endif %} {% block content %}{% endblock %}

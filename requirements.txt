@@ -18,13 +18,14 @@ django-mysql==3.11.1
 djangorestframework==3.12.4
 django-simple-history==2.12.0
 django-sslserver==0.22
+django-tables2==2.3.4
 django-userforeignkey==0.3.0
-fontawesome-free==5.15.3
 fontawesome-free==5.15.3
 ftfy==5.9
 future==0.18.2
 ghostscript==0.6
 grpcio==1.28.1
+excalibur-py==0.4.3
 gunicorn==20.0.4
 idna==2.10
 MarkupSafe==1.1.1
@@ -64,6 +65,7 @@ requests==2.25.1
 requests-oauthlib==1.3.0
 six==1.15.0
 sqlparse==0.4.1
+tablib==3.0.0
 tabula-py==2.2.0
 toml==0.10.2
 urllib3==1.26.2
@@ -72,3 +74,4 @@ spacy==3.0.0
 https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.0.0/en_core_web_lg-3.0.0.tar.gz#egg=en_core_web_lg
 Wand>=0.6.6
 pytesseract>=0.3.7
+django-q>=1.3.5

@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% if user.is_authenticated %}
+
+
+<table class="w3-table w3-striped w3-bordered">
+    <h1>Articles</h1>
+    <ul>
+        {% for article in object_list %}
+        <li>{{ table.json }} - {{ article.headline }}</li>
+        {% empty %}
+        <li>No tables yet.</li>
+        {% endfor %}
+    </ul>
+    <!-- <form method="post" action="{% url 'delete' pdf.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="w3-btn w3-black">Delete</button>
+                </form>
+
+                {% endfor %} -->
+    </tbody>
+</table>
+
+
+{% endif %} {% endblock content %}

@@ -25,7 +25,6 @@ services:
         DEBUG: ${DEBUG}  
     volumes:
       - .:/code
-    command: /bin/sh -c "./docker-entrypoint.sh"
     ports:
       - "8000:8000"
     links:

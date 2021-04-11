@@ -39,8 +39,6 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django_tables2",
     "users.apps.UsersConfig",
-    "quality_control.apps.QualityControlConfig",
-    "masterdata.apps.MasterdataConfig",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",

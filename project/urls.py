@@ -17,8 +17,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('page_number/',table_to_dataframe),
     path('page_number/<int:pk>', table_to_dataframe, name="page_number"),
-    path('quality_control/', include('quality_control.urls')),
-    path('masterdata/', include('masterdata.urls')),
     path('', index, name='index'),
     url(r'^health$', health),
     path('table/', include('table.urls')),

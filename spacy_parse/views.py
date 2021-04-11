@@ -18,63 +18,6 @@ from django.http import HttpResponse
 current_pdf_id = []
 train_data = []
 
-
-
-# def fetch_url(request):
-
-#         LABEL = "TRAITNAME"
-#         if request.method == 'POST':
-
-#             data = request.POST
-#             received_json_data = json.loads(request.body)
-#             sentence = received_json_data['sentence']
-#             trait_value = received_json_data['trait_value']
-#             print(sentence)
-#             print(trait_value)
-
-#         #     df = pd.DataFrame(list(received_json_data.items()),columns = ['column1','column2'])
-#         #     print("")
-#         #     print("START DATAFRAME EXPERIMENT -----------------------------------")
-#         #     if df.iloc[-1, df.columns.get_loc("column1")]:
-#         #         CURRENT_SENT = df.iloc[-1, df.columns.get_loc("column1")]
-
-#         #         print("CURRENT_SENT: ", CURRENT_SENT)
-#         #     else:
-#         #         pass
-#         #     if df.iloc[-1, df.columns.get_loc("column2")]:
-#         #         CURRENT_TRAIT_VALUE = df.iloc[-1, df.columns.get_loc("column2")]
-#         #         print("CURRENT_TRAIT_VALUE: ", CURRENT_TRAIT_VALUE)
-#         #     else:
-#         #         pass
-#         #     print("END DATAFRAME EXPERIMENT--------------------------------------")
-#         #     print("")
-
-#         # for key, value in received_json_data.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
-#         #     for key, value in value.items():
-#         #         print("key:", str(key))
-#         #         print(" ")
-#         #         print("value: ", str(value))
-#             start = sentence.find(trait_value)
-#             print("start: ", str(start))
-#             end = start + len(trait_value)
-#             print("start and end:", start, end)
-#             train_instance = {"content": sentence, "annotation": [{
-#             "label": ["TRAITNAME"],
-#             "points": [{"text": trait_value, "start": start, "end": end}]
-#             }]}
-#             if train_instance not in train_data:
-#                 train_data.append(json.dumps(train_instance))
-#         # print("train_data", train_data)
-#         print("train_data list below: ")
-#         print(*train_data, sep="\n")
-
-#         print("user.id: ", request.user.id)
-#         if current_pdf_id:
-#             print("pdf.id: ", current_pdf_id[0])
-
-#         return JsonResponse(data)
-
-
 def parse(request, pk):
     parse_result = {}
     current_pdf_id.clear()
@@ -129,18 +72,11 @@ def parse(request, pk):
                 sentences_with_traits.append(sentence)
                 break
 
-        # noun_phrases=[chunk.text for chunk in doc.noun_chunks]
-        # verbs=[token.lemma_ for token in doc if token.pos_ == "VERB"]
-
     trait_text = ""
     for sent in sentences_with_traits:
         string_sentences.append(sent.text)
         trait_text += sent.text
 
-        # koesent = sentences_with_traits[0]
-
-        # for token in koesent:
-        #     print(token.text)
 
     trait_doc = nlp(trait_text)
 
@@ -149,7 +85,7 @@ def parse(request, pk):
         ent.text for ent in trait_doc.ents if ent.label_ == "SCIENTIFICNAME"]
     quantities = [
         ent.text for ent in trait_doc.ents if ent.label_ in quantity_ner_labels]
-        # print(scientificnames)
+
     entities = []
     for entity in trait_doc.ents:
         entities.append(entity)
@@ -159,7 +95,5 @@ def parse(request, pk):
     parse_result = {'sentences': sentences_with_traits,  'entities': entities,
                         'scientificnames': scientificnames, 'quantities': quantities,
                         'number': number_of_sentences, 'json_sentences': json_sentences, 'data': data}
-        # context['DJdata'] = json.dumps(DJdata)
         
-
     return render(request, 'parse.html', parse_result)

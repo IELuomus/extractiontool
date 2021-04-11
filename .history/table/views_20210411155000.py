@@ -97,7 +97,7 @@ def post_url(request):
 #     for entry in file_paths:
 #         file_path = "media/json/" + entry
 #         data = pd.read_json(file_path, orient="columns")
-
+       
 #         data_frames.append(data)
 #         json_records = data.reset_index().to_json(orient="records")
 #         dataf = json.loads(json_records)
@@ -106,7 +106,7 @@ def post_url(request):
 #         data_f2.append(json_data)
 
 #     i = i + 1
-
+   
 #     return render(
 #         request,
 #         "selected_tables.html",
@@ -119,9 +119,8 @@ def json_table_list(request, user_id, pdf_id, page_number):
     data_frames = []
     # html_dataframes = []
 
-    json_tables = Json_Table.objects.filter(pdf_id=pdf_id).filter(
-        page_number=page_number
-    )
+    json_tables = Json_Table.objects.filter(
+        pdf_id=pdf_id).filter(page_number=page_number)
 
     file_paths = []
     for table in json_tables:
@@ -131,27 +130,26 @@ def json_table_list(request, user_id, pdf_id, page_number):
             file_paths.append(str(json_file_name))
 
     i = 1
-    data_f1 = []
+    data_f = []
     data_f2 = []
     for entry in file_paths:
-        file_path = "media/json/" + entry
-        data = pd.read_json(file_path, orient="columns")
+        file_path = 'media/json/' + entry
+        data = pd.read_json(file_path,  orient='columns')
         # data_html = data.to_html()
         # html_dataframes.append(data_html)
         data_frames.append(data)
-        json_records = data.reset_index().to_json(orient="records")
+        json_records = data.reset_index().to_json(orient='records')
         dataf = json.loads(json_records)
-        data_f1.append(dataf)
+        
+        data_f.append(dataf)
         json_data = dataf
-        # json_data = json_data.decode('utf-8', 'ignore')
         data_f2.append(json_data)
 
-    i = i + 1
-
-    d2 = json.dumps(data_f2, ensure_ascii=False).encode("utf8")
-    d2 = d2.decode()
-
-    return render(request, "selected_tables.html", {"d": data_f1, "d2": d2})
+    i = i+1
+    print(data_f2)
+    print('json.dumps data_f2')
+    print(str(json.dumps(data_f2)))
+    return render(request, 'selected_tables.html', {'d': data_f, 'd2': json.dumps(data_f2)})
 
 
 @login_required

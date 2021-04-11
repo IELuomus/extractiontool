@@ -147,11 +147,18 @@ def json_table_list(request, user_id, pdf_id, page_number):
         data_f2.append(json_data)
 
     i = i + 1
-
-    d2 = json.dumps(data_f2, ensure_ascii=False).encode("utf8")
-    d2 = d2.decode()
-
-    return render(request, "selected_tables.html", {"d": data_f1, "d2": d2})
+    print(data_f2)
+    print("json.dumps data_f2")
+    # for key in data_f2.keys():
+    #     data_f2[key] = data_f2[key].replace('\\n', '')
+    #     data_f2[key] = re.sub('[^A-Za-z0-9 ]+', '', data_f2[key])
+    print(str(json.dumps(data_f2)))
+    d2 = json.dumps(data_f2)
+    d2 = d2.decode('utf-8', 'ignore')
+    f
+    return render(
+        request, "selected_tables.html", {"d": data_f1, "d2": json.dumps(data_f2)}
+    )
 
 
 @login_required

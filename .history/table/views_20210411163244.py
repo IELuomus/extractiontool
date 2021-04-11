@@ -147,9 +147,21 @@ def json_table_list(request, user_id, pdf_id, page_number):
         data_f2.append(json_data)
 
     i = i + 1
-
-    d2 = json.dumps(data_f2, ensure_ascii=False).encode("utf8")
-    d2 = d2.decode()
+    print(data_f2)
+    print("json.dumps data_f2")
+    # for key in data_f2.keys():
+    #     data_f2[key] = data_f2[key].replace('\\n', '')
+    #     data_f2[key] = re.sub('[^A-Za-z0-9 ]+', '', data_f2[key])
+   
+    d2 = json.dumps(data_f2)
+    d2 = d2.replace('\n'," ")
+    print(d2)
+    # for i in d2:
+    #     i = i.decode("utf-8", "ignore")
+    import re
+    regex = re.compile("u'2022'",re.UNICODE)
+    d2 = re.sub(regex, ' ', d2)
+    print(d2)
 
     return render(request, "selected_tables.html", {"d": data_f1, "d2": d2})
 
@@ -189,7 +201,7 @@ def table_to_dataframe(request):
     page_number = request.GET.get("page_number")
     page = str(page_number)
     camelot_tables = camelot.read_pdf(file_path, flavor="stream", pages=page)
-    camelot_tables.export("media/json/" + file_name + ".json", f="json")
+    camelot_tables.export("media/json/" +pages=page file_name + ".json", f="json")
     # tables = tabula.read_pdf(
     #     file_path,
     #     pages=page_number,

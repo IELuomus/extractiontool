@@ -89,9 +89,9 @@ document.getElementById("element").innerHTML = html
 let x = "{{d2}}"
 var data = htmlDecode(x)
 console.log(data)
-data = data.replace(/\n/g,' ');
+// x = x.replace(/\n/g,' ');
 data = data.replace(/[^\x00-\x7F]/g, "");
-data = data.replace("'", "")
+data = data.replace('')
 data = JSON.parse(data)
 console.log(data.constructor.name)
 console.log(data)
@@ -104,17 +104,12 @@ for (var s of data) {
 <div id="element"></div>
 
     <script>
-   
-// makeAdataframe(data)
+
 //       for (var s of data) { 
 //   console.log(s.constructor.name)
 //   console.table(s)
 //   makeAdataframe(s)
 // }
-  // for (var i = 0; i <data.length; i++) {
-  //           console.table(data[i]);
-  //           makeAdataframe(data[i])
-  //       }
   
     </script>
 <!-- 
@@ -140,14 +135,14 @@ for (var s of data) {
   <option value="m">m</option>
   <option value="in">in</option>
   <option value="ft">ft</option>
-  <option value="not specicied">not specified</option>
+  <option value="not specicied">Not Specified</option>
 </select>
-<p><b>Select Sex from the Drop-down Menu</b></p> 
+<p><b>Select Sex from the Drop-down Menu</b></p> -->
 
-<select name="sex" id="sex" value="Select Sex">
+<!-- <select name="sex" id="sex" value="Select Sex">
   <option value="female">female</option>
   <option value="male">male</option>
-  <option value="not specicied">not specified</option>
+  <option value="not specicied">Not Specified</option>
 </select>
 <form name="speciesForm">
   <label for="species"><b>Enter Verbatim Scientific Name and Post</b> </label>

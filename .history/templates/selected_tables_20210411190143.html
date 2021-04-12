@@ -38,35 +38,19 @@
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
   <style>
+table, th, td {
+  border: 1px solid black;
+}  
+  /* table {
+  height: 150px;
+  width: 80%;
 
-table.tableSection {
-    display: table;
-    width: 100%;
 }
-table.tableSection thead, table.tableSection tbody {
-    float: left;
-    width: 100%;
-}
-table.tableSection tbody {
-    overflow: auto;
-    height: 150px;
-}
-table.tableSection tr {
-    width: 100%;
-    display: table;
-    text-align: left;
-}
-table.tableSection th, table.tableSection td {
-    width: 33%;
-}
-.my-custom-scrollbar {
-position: relative;
-height: 200px;
-overflow: auto;
-}
-.table-wrapper-scroll-y {
-display: block;
-}
+  th, td {
+  padding: 15px;
+  text-align: left;
+  
+} */ 
   </style>
 
 </head> 
@@ -109,24 +93,19 @@ data = data.replace(/\n/g,' ');
 data = data.replace(/[^\x00-\x7F]/g, "");
 data = data.replace("'", "")
 data = JSON.parse(data)
+console.log(data.length)
 console.log(data.constructor.name)
-console.log(data)
-for (var s of data) { 
-  console.log(s)
-  console.log(s.constructor.name)
+
+for (var arr of data) { 
+  console.log(arr)
+  console.log(arr.constructor.name)
   console.table(s)
 }
 </script>
 <div id="element"></div>
 
     <script>
-   $(document).ready(function () {
-$('#dtVerticalScrollExample').DataTable({
-"scrollY": "200px",
-"scrollCollapse": true,
-});
-$('.dataTables_length').addClass('bs-select');
-});
+   
 // makeAdataframe(data)
 //       for (var s of data) { 
 //   console.log(s.constructor.name)
@@ -178,54 +157,14 @@ $('.dataTables_length').addClass('bs-select');
 </form>
  <table class="table table-dark table-striped" id='dataframeTable'>  -->
         <!-- jinja2 Technique -->
-
 {% if d %}   
-{% for i in d %}            
+{% for i in d %} 
 <div class="container" style="overflow-x:auto;" > 
-<div id="element"></div>
+  <h2 class="text-center" id="dataframe" ><u>Dataframe </u></h2><br>             
 
-<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
+</script>
 
-<form name="traitNameForm">
-    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
-</form>
-
-<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
-
-<form name="traitValueForm">
-    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
-</form>
-<p><b>Select Trait Unit from the Drop-down Menu</b></p>
-<select name="trait unit" id="trait_unit" value="Select Trait Unit">
-  <option value="g">g</option>
-  <option value="kg">kg</option>
-  <option value="lb">lb</option>
-  <option value="oz">oz</option>
-  <option value="mm">mm</option>
-  <option value="cm">cm</option>
-  <option value="m">m</option>
-  <option value="in">in</option>
-  <option value="ft">ft</option>
-  <option value="not specicied">Not Specified</option>
-</select>
-<p><b>Select Sex from the Drop-down Menu</b></p>
-<select name="sex" id="sex" value="Select Sex">
-  <option value="female">female</option>
-  <option value="male">male</option>
-  <option value="not specicied">Not Specified</option>
-</select>
-<form name="speciesForm">
-  <label for="species"><b>Enter Verbatim Scientific Name and Post</b> </label>
-  <input id="species" type="text" name="verbatimScientificName">
-  <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
-</form>
-<p></p>
-<p></p>
-<H4 style="background-color: #2d9af3 ; color:white;" > Select values from the table below:</H4>
-<div class="table-wrapper-scroll-y my-custom-scrollbar">
-<!-- <table class="table table-dark table-striped" id='dataframeTable'>  -->
- 
-  <table  class="table table-bordered table-striped mb-0" id='dataframeTable'> 
+<table class="table table-dark table-striped" id='dataframeTable'> 
     <!-- <table  border="1" class="w3-table  border-collapse  w3-striped w3-bordered">  -->
     <thead> 
 
@@ -284,7 +223,7 @@ $('.dataTables_length').addClass('bs-select');
     </tbody> 
        
   </table> 
-</div>
+
 
 </div>  
 <script script type="text/javascript">
@@ -352,6 +291,43 @@ $('.dataTables_length').addClass('bs-select');
 {% endfor %} 
 {% endif %}  
 
+<div id="element"></div>
+
+<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
+
+<form name="traitNameForm">
+    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
+</form>
+
+<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
+
+<form name="traitValueForm">
+    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
+</form>
+<p><b>Select Trait Unit from the Drop-down Menu</b></p>
+<select name="trait unit" id="trait_unit" value="Select Trait Unit">
+  <option value="g">g</option>
+  <option value="kg">kg</option>
+  <option value="lb">lb</option>
+  <option value="oz">oz</option>
+  <option value="mm">mm</option>
+  <option value="cm">cm</option>
+  <option value="m">m</option>
+  <option value="in">in</option>
+  <option value="ft">ft</option>
+  <option value="not specicied">Not Specified</option>
+</select>
+<p><b>Select Sex from the Drop-down Menu</b></p>
+<select name="sex" id="sex" value="Select Sex">
+  <option value="female">female</option>
+  <option value="male">male</option>
+  <option value="not specicied">Not Specified</option>
+</select>
+<form name="speciesForm">
+  <label for="species"><b>Enter Verbatim Scientific Name and Post</b> </label>
+  <input id="species" type="text" name="verbatimScientificName">
+  <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
+</form>
 </center> 
 
 <script>

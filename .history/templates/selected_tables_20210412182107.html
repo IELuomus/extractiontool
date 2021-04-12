@@ -1,5 +1,9 @@
 {% extends "base.html" %}
+<p></p>
+<p></p>
 {% block content %}
+<p></p>
+<p></p>
 {% load static %}
 <title>TableView </title> 
 
@@ -72,21 +76,14 @@ input[type=button] {
     width: 18em;  height: 3em;
     background-color:rgb(64, 125, 204);
 }
-input[type=text] {
-    width: 18em;  height: 3em;
-    background-color:whitesmoke;
-}
 textarea{
-    width: 18em; height:3em;
+    width: 18em; height:4em;
 }
 button {
     width: 18em;  height: 3em;
 }
 select {
-  width: 18em;  height: 3em;
-}
-.sideBySideForm{
-display: inline-block;
+  
 }
   </style>
 
@@ -202,21 +199,22 @@ $('.dataTables_length').addClass('bs-select');
 
 {% if d %}   
 {% for i in d %}            
+<div class="container" style="overflow-x:auto;" > 
 <div id="element"></div>
-<div class="sideBySideForm">
-<input  type="button" float="left" value="Get Trait Name" onmousedown="getSelectedTraitName();">
-<form  name="traitNameForm" float="left">
-    <textarea name="selectedTraitName" float="left" id="trait_name" rows="2" cols="10"></textarea>
+
+<input type="button" value="Get Trait Name" onmousedown="getSelectedTraitName();">
+
+<form name="traitNameForm">
+    <textarea name="selectedTraitName" id="trait_name" rows="2" cols="10"></textarea>
 </form>
-<div float="right">
-<input type="button"  float="right" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
-<form name="traitValueForm" float="right">
-    <textarea name="selectedTraitValue" float="right" id="trait_value" rows="2" cols="10"></textarea>
+
+<input type="button" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
+
+<form name="traitValueForm">
+    <textarea name="selectedTraitValue" id="trait_value" rows="2" cols="10"></textarea>
 </form>
-</div>
-<div class="sideBySideForm">
-<p><b>Select trait unit  </b></p>
-<select name="trait unit"   style="float:left;"id="trait_unit" value="Select Trait Unit">
+<p><b>Select Trait Unit from the Drop-down Menu</b></p>
+<select name="trait unit" id="trait_unit" value="Select Trait Unit">
   <option value="g">g</option>
   <option value="kg">kg</option>
   <option value="lb">lb</option>
@@ -226,35 +224,22 @@ $('.dataTables_length').addClass('bs-select');
   <option value="m">m</option>
   <option value="in">in</option>
   <option value="ft">ft</option>
-  <option value="not specicied">not specified</option>
+  <option value="not specicied">Not Specified</option>
 </select>
-<p></p>
-<p></p>
-<p ><b>Select sex for the species  </b></p>
-<p></p>
-<p></p>
-<select name="sex"  style="float:left;" id="sex" value="Select Sex">
+<p><b>Select Sex from the Drop-down Menu</b></p>
+<select name="sex" id="sex" value="Select Sex">
   <option value="female">female</option>
   <option value="male">male</option>
-  <option value="not specicied">not specified</option>
+  <option value="not specicied">Not Specified</option>
 </select>
-</div>
-<p></p>
-<p></p>
-<div class="sideBySideForm">
 <form name="speciesForm">
-  <label for="species"><b>Enter verbatim scientific name</b> </label>
-  <p></p>
+  <label for="species"><b>Enter Verbatim Scientific Name and Post</b> </label>
   <input id="species" type="text" name="verbatimScientificName">
-  <p></p>
   <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
 </form>
-</div>
 <p></p>
 <p></p>
 <H4 style="background-color: #2d9af3 ; color:white;" > Select values from the table below:</H4>
-
-<div class="container" style="overflow-x:auto;" > 
 <div class="table-wrapper-scroll-y my-custom-scrollbar">
 <!-- <table class="table table-dark table-striped" id='dataframeTable'>  -->
  

@@ -59,14 +59,6 @@ table.tableSection tr {
 table.tableSection th, table.tableSection td {
     width: 33%;
 }
-.my-custom-scrollbar {
-position: relative;
-height: 200px;
-overflow: auto;
-}
-.table-wrapper-scroll-y {
-display: block;
-}
   </style>
 
 </head> 
@@ -120,13 +112,7 @@ for (var s of data) {
 <div id="element"></div>
 
     <script>
-   $(document).ready(function () {
-$('#dtVerticalScrollExample').DataTable({
-"scrollY": "200px",
-"scrollCollapse": true,
-});
-$('.dataTables_length').addClass('bs-select');
-});
+   
 // makeAdataframe(data)
 //       for (var s of data) { 
 //   console.log(s.constructor.name)
@@ -180,7 +166,8 @@ $('.dataTables_length').addClass('bs-select');
         <!-- jinja2 Technique -->
 
 {% if d %}   
-{% for i in d %}            
+{% for i in d %} 
+<h2 class="text-center" id="dataframe" ><u>Dataframe </u></h2><br>             
 <div class="container" style="overflow-x:auto;" > 
 <div id="element"></div>
 
@@ -219,10 +206,7 @@ $('.dataTables_length').addClass('bs-select');
   <input id="species" type="text" name="verbatimScientificName">
   <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
 </form>
-<p></p>
-<p></p>
-<H4 style="background-color: #2d9af3 ; color:white;" > Select values from the table below:</H4>
-<div class="table-wrapper-scroll-y my-custom-scrollbar">
+<div class="table-wrapper-scroll-y my-custom-scrollbar"></div>
 <!-- <table class="table table-dark table-striped" id='dataframeTable'>  -->
  
   <table  class="table table-bordered table-striped mb-0" id='dataframeTable'> 
@@ -284,7 +268,7 @@ $('.dataTables_length').addClass('bs-select');
     </tbody> 
        
   </table> 
-</div>
+
 
 </div>  
 <script script type="text/javascript">

@@ -96,6 +96,22 @@ display: inline-block;
 <center>
 
 <script>
+
+$(document).ready(function () {
+    var tfCont = 0;
+    var InputsWrapper = $("#InputsWrapper");
+    var x = InputsWrapper.length;
+    var namefield = $("#tfButton");
+    $(namefield).click(function () {
+        tfCont++;
+        $(InputsWrapper).append('<div>' + '<div class="table table-bordered table-striped mb-0" id="InputsWrapper_0' + tfCont + '">' + '<input type="textarea" id="field_' + tfCont + '" class="fTypex" placeholder="Type Here"/>' + '<br /><button type="button">Bold</button>' + '<br>' + '</div>' + '</div>');
+        x++;
+        return false;
+    });
+    $(document).on('click', 'button', function () {
+        $(this).closest('div.table table-bordered table-striped mb-0').find('input').css('font-weight', 'bold')
+    })
+});
        function htmlDecode(str) {
      const doc = new DOMParser().parseFromString(str, 'text/html');
      return doc.documentElement.textContent;
@@ -120,7 +136,14 @@ html += '</tbody></table>';
 document.getElementById("element").innerHTML = html
 // document.body.innerHTML = html;
 }
-
+function check()
+{
+  var checkbox = document.getElementById('checked');
+  if (checkbox.checked )
+  {
+    console.log("check!")
+  }
+}
 </script>
 <script  type="text/javascript" language="JavaScript" charset="UTF-8">
 let x = "{{d2}}"
@@ -141,7 +164,13 @@ for (var s of data) {
 <div id="element"></div>
 
     <script>
-
+   $(document).ready(function () {
+$('#dtVerticalScrollExample').DataTable({
+"scrollY": "200px",
+"scrollCollapse": true,
+});
+$('.dataTables_length').addClass('bs-select');
+});
 // makeAdataframe(data)
 //       for (var s of data) { 
 //   console.log(s.constructor.name)
@@ -273,6 +302,7 @@ for (var s of data) {
         <th> </th> 
         <th> </th> 
         <th> </th> 
+
       </tr> 
     </thead> 
     <tbody> 
@@ -280,8 +310,9 @@ for (var s of data) {
 
    
         {% for a in i %}
-      <tr> 
-
+      <tr id> 
+          <div id="InputsWrapper"></div></td>
+        <td>    <input type="checkbox" onclick="check()"  id="checked" /></td>
         <td>{{a.0}}</td> 
 
         <td>{{a.1}}</td> 
@@ -304,8 +335,8 @@ for (var s of data) {
         <td>{{a.14}}</td> 
         <td>{{a.15}}</td> 
         <td>{{a.16}}</td> 
+       
       </tr> 
-
       {% endfor %}   
 
     </tbody> 

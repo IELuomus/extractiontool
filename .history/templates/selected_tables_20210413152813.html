@@ -30,6 +30,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
 
+  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
@@ -88,20 +90,30 @@ select {
 .sideBySideForm{
 display: inline-block;
 }
+
   </style>
 
+  <!-- <script>
+  function boldtext () {
+  document.getElementById('text').style.fontWeight = 'bold';
+  }
+  </script> -->
 </head> 
 {% if user.is_authenticated %}
 
 <center>
 
 <script>
-       function htmlDecode(str) {
-     const doc = new DOMParser().parseFromString(str, 'text/html');
+function htmlDecode(str) {
+      const doc = new DOMParser().parseFromString(str, 'text/html');
      return doc.documentElement.textContent;
 }
 
-       
+
+function boldtext (x) {
+    $('t').css('font-weight','bold');
+    x.css('font-weight', 'bold');
+}
 function makeAdataframe(arr){
  var cols = [];
 for (var k in s) {
@@ -120,7 +132,9 @@ html += '</tbody></table>';
 document.getElementById("element").innerHTML = html
 // document.body.innerHTML = html;
 }
-
+$('table tr').on('click', function(){
+$(this).css("font-weight","bold");
+});
 </script>
 <script  type="text/javascript" language="JavaScript" charset="UTF-8">
 let x = "{{d2}}"
@@ -245,6 +259,7 @@ for (var s of data) {
 </form>
 </div>
 <p></p>
+
 <p></p>
 <H4 style="background-color: #2d9af3 ; color:white;" > Select values from the table below:</H4>
 
@@ -252,11 +267,11 @@ for (var s of data) {
 <div class="table-wrapper-scroll-y my-custom-scrollbar">
 <!-- <table class="table table-dark table-striped" id='dataframeTable'>  -->
  
-  <table  class="table table-bordered table-striped mb-0" id='dataframeTable'> 
+  <table  class="table table-bordered table-striped mb-0" id='table'> 
     <!-- <table  border="1" class="w3-table  border-collapse  w3-striped w3-bordered">  -->
     <thead> 
 
-      <tr> 
+      <tr scope="row"> 
         <th> </th> 
         <th> </th> 
         <th></th> 
@@ -273,6 +288,7 @@ for (var s of data) {
         <th> </th> 
         <th> </th> 
         <th> </th> 
+
       </tr> 
     </thead> 
     <tbody> 
@@ -280,17 +296,20 @@ for (var s of data) {
 
    
         {% for a in i %}
-      <tr> 
+      <div id='text'>
+      <tr onclick="boldtext(this);" > 
 
-        <td>{{a.0}}</td> 
+        <td> <input type="checkbox" onclick=boldtext(this); /> Check</td>
 
-        <td>{{a.1}}</td> 
+        <td >{{a.0}}</td> 
 
-        <td>{{a.2}}</td> 
+        <td >{{a.1}}</td> 
 
-        <td>{{a.3}}</td> 
+        <td >{{a.2}}</td> 
 
-        <td>{{a.4}}</td> 
+        <td >{{a.3}}</td> 
+
+        <td >{{a.4}}</td> 
 
         <td>{{a.5}}</td> 
         <td>{{a.6}}</td> 
@@ -305,7 +324,7 @@ for (var s of data) {
         <td>{{a.15}}</td> 
         <td>{{a.16}}</td> 
       </tr> 
-
+    </div>
       {% endfor %}   
 
     </tbody> 

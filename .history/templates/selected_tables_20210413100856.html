@@ -12,6 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
 <p></p>
@@ -85,9 +86,29 @@ button {
 select {
   width: 18em;  height: 3em;
 }
-.sideBySideForm{
+/* .sideBySideForm{
 display: inline-block;
+} */
+.noMargin {
+  margin: 0px;
 }
+
+.one {
+ 
+}
+
+.two {
+
+}
+
+.three {
+
+}
+
+.four {
+
+}
+
   </style>
 
 </head> 
@@ -141,7 +162,13 @@ for (var s of data) {
 <div id="element"></div>
 
     <script>
-
+   $(document).ready(function () {
+$('#dtVerticalScrollExample').DataTable({
+"scrollY": "200px",
+"scrollCollapse": true,
+});
+$('.dataTables_length').addClass('bs-select');
+});
 // makeAdataframe(data)
 //       for (var s of data) { 
 //   console.log(s.constructor.name)
@@ -197,18 +224,26 @@ for (var s of data) {
 {% if d %}   
 {% for i in d %}            
 <div id="element"></div>
-<div class="sideBySideForm">
+<!-- <div class="sideBySideForm"> -->
+  <div class="container">
+    <div class="row noMargin">
+      <div class="col one">
 <input  type="button" float="left" value="Get Trait Name" onmousedown="getSelectedTraitName();">
 <form  name="traitNameForm" float="left">
     <textarea name="selectedTraitName" float="left" id="trait_name" rows="2" cols="10"></textarea>
 </form>
-<div float="right">
+</div>
+<div class="col two">
+<!-- <div float="right"> -->
 <input type="button"  float="right" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
 <form name="traitValueForm" float="right">
     <textarea name="selectedTraitValue" float="right" id="trait_value" rows="2" cols="10"></textarea>
 </form>
 </div>
-<div class="sideBySideForm">
+<!-- <div class="sideBySideForm"> -->
+
+  <div class="row noMargin">
+    <div class="col three">
 <p><b>Select trait unit  </b></p>
 <select name="trait unit"   style="float:left;"id="trait_unit" value="Select Trait Unit">
   <option value="g">g</option>

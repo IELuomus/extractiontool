@@ -88,6 +88,26 @@ select {
 .sideBySideForm{
 display: inline-block;
 }
+.noMargin {
+  margin: 0px;
+}
+
+.one {
+ 
+}
+
+.two {
+
+}
+
+.three {
+
+}
+
+.four {
+
+}
+
   </style>
 
 </head> 
@@ -141,7 +161,13 @@ for (var s of data) {
 <div id="element"></div>
 
     <script>
-
+   $(document).ready(function () {
+$('#dtVerticalScrollExample').DataTable({
+"scrollY": "200px",
+"scrollCollapse": true,
+});
+$('.dataTables_length').addClass('bs-select');
+});
 // makeAdataframe(data)
 //       for (var s of data) { 
 //   console.log(s.constructor.name)

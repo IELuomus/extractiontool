@@ -88,6 +88,7 @@ select {
 .sideBySideForm{
 display: inline-block;
 }
+
   </style>
 
 </head> 
@@ -96,8 +97,9 @@ display: inline-block;
 <center>
 
 <script>
-       function htmlDecode(str) {
-     const doc = new DOMParser().parseFromString(str, 'text/html');
+  
+function htmlDecode(str) {
+      const doc = new DOMParser().parseFromString(str, 'text/html');
      return doc.documentElement.textContent;
 }
 
@@ -120,7 +122,14 @@ html += '</tbody></table>';
 document.getElementById("element").innerHTML = html
 // document.body.innerHTML = html;
 }
-
+function check()
+{
+  var checkbox = document.getElementById('checked');
+  if (checkbox.checked )
+  {
+    console.log("check!")
+  }
+}
 </script>
 <script  type="text/javascript" language="JavaScript" charset="UTF-8">
 let x = "{{d2}}"
@@ -141,7 +150,13 @@ for (var s of data) {
 <div id="element"></div>
 
     <script>
-
+   $(document).ready(function () {
+$('#dtVerticalScrollExample').DataTable({
+"scrollY": "200px",
+"scrollCollapse": true,
+});
+$('.dataTables_length').addClass('bs-select');
+});
 // makeAdataframe(data)
 //       for (var s of data) { 
 //   console.log(s.constructor.name)
@@ -273,6 +288,7 @@ for (var s of data) {
         <th> </th> 
         <th> </th> 
         <th> </th> 
+
       </tr> 
     </thead> 
     <tbody> 
@@ -282,6 +298,7 @@ for (var s of data) {
         {% for a in i %}
       <tr> 
 
+        <td>    <input type="checkbox" onclick="check()"  id="checked" /></td>
         <td>{{a.0}}</td> 
 
         <td>{{a.1}}</td> 
@@ -304,8 +321,8 @@ for (var s of data) {
         <td>{{a.14}}</td> 
         <td>{{a.15}}</td> 
         <td>{{a.16}}</td> 
+       
       </tr> 
-
       {% endfor %}   
 
     </tbody> 

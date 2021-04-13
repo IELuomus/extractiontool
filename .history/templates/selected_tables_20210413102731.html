@@ -120,7 +120,14 @@ html += '</tbody></table>';
 document.getElementById("element").innerHTML = html
 // document.body.innerHTML = html;
 }
-
+function check()
+{
+  var checkbox = document.getElementById('checked');
+  if (checkbox.checked )
+  {
+    console.log("check!")
+  }
+}
 </script>
 <script  type="text/javascript" language="JavaScript" charset="UTF-8">
 let x = "{{d2}}"
@@ -141,7 +148,13 @@ for (var s of data) {
 <div id="element"></div>
 
     <script>
-
+   $(document).ready(function () {
+$('#dtVerticalScrollExample').DataTable({
+"scrollY": "200px",
+"scrollCollapse": true,
+});
+$('.dataTables_length').addClass('bs-select');
+});
 // makeAdataframe(data)
 //       for (var s of data) { 
 //   console.log(s.constructor.name)
@@ -304,8 +317,9 @@ for (var s of data) {
         <td>{{a.14}}</td> 
         <td>{{a.15}}</td> 
         <td>{{a.16}}</td> 
+       
       </tr> 
-
+      <input type="checkbox" onclick="check()"  id="checked" checked />
       {% endfor %}   
 
     </tbody> 

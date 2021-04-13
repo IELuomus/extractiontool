@@ -88,6 +88,13 @@ select {
 .sideBySideForm{
 display: inline-block;
 }
+
+.box {
+    border: 1px solid black;
+    padding: 3px;
+    margin: 3px;
+    width: 18em;  height: 3em;
+}
   </style>
 
 </head> 
@@ -141,7 +148,13 @@ for (var s of data) {
 <div id="element"></div>
 
     <script>
-
+   $(document).ready(function () {
+$('#dtVerticalScrollExample').DataTable({
+"scrollY": "200px",
+"scrollCollapse": true,
+});
+$('.dataTables_length').addClass('bs-select');
+});
 // makeAdataframe(data)
 //       for (var s of data) { 
 //   console.log(s.constructor.name)
@@ -198,17 +211,22 @@ for (var s of data) {
 {% for i in d %}            
 <div id="element"></div>
 <div class="sideBySideForm">
+   <div class="box">
 <input  type="button" float="left" value="Get Trait Name" onmousedown="getSelectedTraitName();">
 <form  name="traitNameForm" float="left">
     <textarea name="selectedTraitName" float="left" id="trait_name" rows="2" cols="10"></textarea>
 </form>
+</div>
+<div class="box">
 <div float="right">
 <input type="button"  float="right" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
 <form name="traitValueForm" float="right">
     <textarea name="selectedTraitValue" float="right" id="trait_value" rows="2" cols="10"></textarea>
 </form>
 </div>
+</div>
 <div class="sideBySideForm">
+  <div class="box">
 <p><b>Select trait unit  </b></p>
 <select name="trait unit"   style="float:left;"id="trait_unit" value="Select Trait Unit">
   <option value="g">g</option>
@@ -222,8 +240,10 @@ for (var s of data) {
   <option value="ft">ft</option>
   <option value="not specicied">not specified</option>
 </select>
+</div>
 <p></p>
 <p></p>
+<div class="box">
 <p ><b>Select sex for the species  </b></p>
 <p></p>
 <p></p>
@@ -233,9 +253,11 @@ for (var s of data) {
   <option value="not specicied">not specified</option>
 </select>
 </div>
+</div>
 <p></p>
 <p></p>
 <div class="sideBySideForm">
+  <div class="box">
 <form name="speciesForm">
   <label for="species"><b>Enter verbatim scientific name</b> </label>
   <p></p>
@@ -243,6 +265,7 @@ for (var s of data) {
   <p></p>
   <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
 </form>
+</div>
 </div>
 <p></p>
 <p></p>

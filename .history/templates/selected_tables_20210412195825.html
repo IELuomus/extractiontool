@@ -141,7 +141,13 @@ for (var s of data) {
 <div id="element"></div>
 
     <script>
-
+   $(document).ready(function () {
+$('#dtVerticalScrollExample').DataTable({
+"scrollY": "200px",
+"scrollCollapse": true,
+});
+$('.dataTables_length').addClass('bs-select');
+});
 // makeAdataframe(data)
 //       for (var s of data) { 
 //   console.log(s.constructor.name)
@@ -198,11 +204,13 @@ for (var s of data) {
 {% for i in d %}            
 <div id="element"></div>
 <div class="sideBySideForm">
+  <div style='float:left'>
 <input  type="button" float="left" value="Get Trait Name" onmousedown="getSelectedTraitName();">
 <form  name="traitNameForm" float="left">
     <textarea name="selectedTraitName" float="left" id="trait_name" rows="2" cols="10"></textarea>
 </form>
-<div float="right">
+</div>
+<div style='float:'>
 <input type="button"  float="right" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
 <form name="traitValueForm" float="right">
     <textarea name="selectedTraitValue" float="right" id="trait_value" rows="2" cols="10"></textarea>

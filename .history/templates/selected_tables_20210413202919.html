@@ -91,20 +91,6 @@ display: inline-block;
 .selected {
     color: rgb(114, 181, 233);
 }
-
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  background-color: white;
-  padding: 5px;
-}
-.grid-item {
-  background-color: #f2f2f2;
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  padding: 15px;
-  font-size: 15px;
-  text-align: left;
-}
   </style>
 
 </head> 
@@ -220,14 +206,14 @@ for (var s of data) {
         </form>
       </div>
         <!-- <div float="right"> -->
-          <div class="grid-item">
+          <div class="grid-container">
         <input type="button"  float="right" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
         <form name="traitValueForm" float="right">
             <textarea name="selectedTraitValue" float="right" id="trait_value" rows="2" cols="10"></textarea>
         </form>
         </div>
         <!-- <div class="sideBySideForm"> -->
-          <div class="grid-item">
+          <div class="grid-container">
         <p><b>Select trait unit  </b></p>
         <select name="trait unit"   style="float:left;"id="trait_unit" value="Select Trait Unit">
           <option value="g">g</option>
@@ -244,7 +230,8 @@ for (var s of data) {
         <p></p>
         <p></p>
         </div>
-        <div class="grid-item">
+       
+        <div class="grid-container">
         <p ><b>Select sex for the species  </b></p>
         <p></p>
         <p></p>
@@ -254,7 +241,7 @@ for (var s of data) {
           <option value="not specicied">not specified</option>
         </select>
         </div>
-        <div class="grid-item">
+        <div class="grid-container">
         <p></p>
         <p></p>
 
@@ -266,7 +253,6 @@ for (var s of data) {
           <p></p>
           <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
         </form>
-        </div>
         </div>
         <p></p>
         <p></p>

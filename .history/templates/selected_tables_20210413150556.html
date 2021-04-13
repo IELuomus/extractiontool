@@ -30,6 +30,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
 
+  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
@@ -88,23 +90,29 @@ select {
 .sideBySideForm{
 display: inline-block;
 }
-.selected {
-    color: rgb(114, 181, 233);
-}
+
   </style>
 
+  <!-- <script>
+  function boldtext () {
+  document.getElementById('text').style.fontWeight = 'bold';
+  }
+  </script> -->
 </head> 
 {% if user.is_authenticated %}
 
 <center>
 
 <script>
-       function htmlDecode(str) {
-     const doc = new DOMParser().parseFromString(str, 'text/html');
+function htmlDecode(str) {
+      const doc = new DOMParser().parseFromString(str, 'text/html');
      return doc.documentElement.textContent;
 }
 
-       
+
+function boldtext () {
+    $('#text').css('font-weight','bold');
+}
 function makeAdataframe(arr){
  var cols = [];
 for (var k in s) {
@@ -123,7 +131,9 @@ html += '</tbody></table>';
 document.getElementById("element").innerHTML = html
 // document.body.innerHTML = html;
 }
-
+$('table td').on('click', function(){
+$(this).css("font-weight","bold");
+});
 </script>
 <script  type="text/javascript" language="JavaScript" charset="UTF-8">
 let x = "{{d2}}"
@@ -196,59 +206,10 @@ for (var s of data) {
 </form>
  <table class="table table-dark table-striped" id='dataframeTable'>  -->
         <!-- jinja2 Technique -->
-        <div id="element"></div>
-        <div class="sideBySideForm">
-        <input  type="button" float="left" value="Get Trait Name" onmousedown="getSelectedTraitName();">
-        <form  name="traitNameForm" float="left">
-            <textarea name="selectedTraitName" float="left" id="trait_name" rows="2" cols="10"></textarea>
-        </form>
-        <div float="right">
-        <input type="button"  float="right" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
-        <form name="traitValueForm" float="right">
-            <textarea name="selectedTraitValue" float="right" id="trait_value" rows="2" cols="10"></textarea>
-        </form>
-        </div>
-        <div class="sideBySideForm">
-        <p><b>Select trait unit  </b></p>
-        <select name="trait unit"   style="float:left;"id="trait_unit" value="Select Trait Unit">
-          <option value="g">g</option>
-          <option value="kg">kg</option>
-          <option value="lb">lb</option>
-          <option value="oz">oz</option>
-          <option value="mm">mm</option>
-          <option value="cm">cm</option>
-          <option value="m">m</option>
-          <option value="in">in</option>
-          <option value="ft">ft</option>
-          <option value="not specicied">not specified</option>
-        </select>
-        <p></p>
-        <p></p>
-        <p ><b>Select sex for the species  </b></p>
-        <p></p>
-        <p></p>
-        <select name="sex"  style="float:left;" id="sex" value="Select Sex">
-          <option value="female">female</option>
-          <option value="male">male</option>
-          <option value="not specicied">not specified</option>
-        </select>
-        </div>
-        <p></p>
-        <p></p>
-        <div class="sideBySideForm">
-        <form name="speciesForm">
-          <label for="species"><b>Enter verbatim scientific name</b> </label>
-          <p></p>
-          <input id="species" type="text" name="verbatimScientificName">
-          <p></p>
-          <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
-        </form>
-        </div>
-        <p></p>
-        <p></p>
+
 {% if d %}   
 {% for i in d %}            
-<!-- <div id="element"></div>
+<div id="element"></div>
 <div class="sideBySideForm">
 <input  type="button" float="left" value="Get Trait Name" onmousedown="getSelectedTraitName();">
 <form  name="traitNameForm" float="left">
@@ -297,14 +258,16 @@ for (var s of data) {
 </form>
 </div>
 <p></p>
-<p></p> -->
+<input type="checkbox" onclick=boldtext();>
+
+<p></p>
 <H4 style="background-color: #2d9af3 ; color:white;" > Select values from the table below:</H4>
 
 <div class="container" style="overflow-x:auto;" > 
 <div class="table-wrapper-scroll-y my-custom-scrollbar">
 <!-- <table class="table table-dark table-striped" id='dataframeTable'>  -->
  
-  <table  class="table table-bordered table-striped mb-0"  id="display-table"> 
+  <table  class="table table-bordered table-striped mb-0" id='dataframeTable'> 
     <!-- <table  border="1" class="w3-table  border-collapse  w3-striped w3-bordered">  -->
     <thead> 
 
@@ -325,6 +288,7 @@ for (var s of data) {
         <th> </th> 
         <th> </th> 
         <th> </th> 
+
       </tr> 
     </thead> 
     <tbody> 
@@ -332,7 +296,10 @@ for (var s of data) {
 
    
         {% for a in i %}
-      <tr> 
+
+      <tr onclick="boldtext();" id="text" > 
+
+        <td> <input type="checkbox" onclick=boldtext(); /> Check</td>
 
         <td>{{a.0}}</td> 
 
@@ -356,8 +323,9 @@ for (var s of data) {
         <td>{{a.14}}</td> 
         <td>{{a.15}}</td> 
         <td>{{a.16}}</td> 
+      </div>
       </tr> 
-
+ 
       {% endfor %}   
 
     </tbody> 
@@ -421,36 +389,12 @@ for (var s of data) {
 </script>
 
 <script>
-  highlight_row();
-  function highlight_row() {
-      var table = document.getElementById('display-table');
-      var cells = table.getElementsByTagName('td');
-  
-      for (var i = 0; i < cells.length; i++) {
-          // Take each cell
-          var cell = cells[i];
-          // do something on onclick event for cell
-          cell.onclick = function () {
-              // Get the row id where the cell exists
-              var rowId = this.parentNode.rowIndex;
-  
-              var rowsNotSelected = table.getElementsByTagName('tr');
-              for (var row = 0; row < rowsNotSelected.length; row++) {
-                  rowsNotSelected[row].style.backgroundColor = "";
-                  // rowsNotSelected[row].classList.remove('selected');
-              }
-              var rowSelected = table.getElementsByTagName('tr')[rowId];
-              rowSelected.style.backgroundColor = "lightblue";
-              rowSelected.className += " selected";
-  
-              msg = 'The ID of the company is: ' + rowSelected.cells[0].innerHTML;
-              msg += '\nThe cell value is: ' + this.innerHTML;
-              
-          }
-      }
-  
-  }
-  </script>
+      
+
+
+
+
+    </script>
 
 {% endfor %} 
 {% endif %}  

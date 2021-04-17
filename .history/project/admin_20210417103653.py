@@ -5,6 +5,6 @@ from .models import *
 from django.contrib.sites.models import Site
 
 class TraitTableAdmin(admin.ModelAdmin):
-    list_display = ('traittable',)
+    list_display = ('trait_table',)
 
-admin.site.register(TraitTable)
+admin.site.register(Trait_Table)

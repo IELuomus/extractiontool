@@ -71,7 +71,6 @@ def post_url(request):
 
     return JsonResponse(data)
 
-
 @login_required
 def json_table_list(request, user_id, pdf_id, page_number):
     table_list = []

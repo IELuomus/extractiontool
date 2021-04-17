@@ -15,7 +15,7 @@ class Pdf(models.Model):
         super().delete(*args, **kwargs)
 
 class Trait_Table(models.Model):
-    pdf_id = models.ForeignKey(, on_delete=models.CASCADE)
+    pdf_id = models.ForeignKey(Pdf, on_delete=models.CASCADE)
     verbatimScientificName = models.CharField(max_length=100, null=True)
     verbatimTraitName = models.CharField(max_length=100)
     verbatimTraitValue = models.CharField(max_length=100)

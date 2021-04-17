@@ -14,7 +14,7 @@ class Pdf(models.Model):
         self.pdf.delete()
         super().delete(*args, **kwargs)
 
-class TraitTable(models.Model):
+class Trait_Table(models.Model):
     pdf_id = models.ForeignKey(Pdf, on_delete=models.CASCADE)
     verbatimScientificName = models.CharField(max_length=100, null=True)
     verbatimTraitName = models.CharField(max_length=100)
@@ -23,7 +23,7 @@ class TraitTable(models.Model):
     sex = models.CharField(max_length=100, null=True)
 
     def delete(self, *args, **kwargs):
-        super(TraitTable, self).delete(*args, **kwargs)
+        super(Trait_Table, self).delete(*args, **kwargs)
 
 # class Trait_TableQuerySet(models.QuerySet):
 #     def delete(self, *args, **kwargs):

@@ -21,7 +21,6 @@ django-sslserver==0.22
 django-tables2==2.3.4
 django-userforeignkey==0.3.0
 fontawesome-free==5.15.3
-fitz==0.0.1.dev2
 ftfy==5.9
 future==0.18.2
 ghostscript==0.6

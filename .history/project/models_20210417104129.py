@@ -23,7 +23,7 @@ class TraitTable(models.Model):
     sex = models.CharField(max_length=100, null=True)
 
     def delete(self, *args, **kwargs):
-        super(TraitTable, self).delete(*args, **kwargs)
+        super(Trait_Table, self).delete(*args, **kwargs)
 
 # class Trait_TableQuerySet(models.QuerySet):
 #     def delete(self, *args, **kwargs):

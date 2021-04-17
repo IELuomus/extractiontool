@@ -24,7 +24,7 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from .models import Json_Table #, Trait_Table
+from .models import Json_Table, Trait_Table
 from django.views.generic.list import ListView
 from django.http import JsonResponse
 
@@ -70,7 +70,6 @@ def post_url(request):
         entry.save()
 
     return JsonResponse(data)
-
 
 @login_required
 def json_table_list(request, user_id, pdf_id, page_number):

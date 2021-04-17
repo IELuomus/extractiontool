@@ -5,7 +5,7 @@ from django.contrib.sessions.models import Session
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from project.models import Pdf, TraitTable
+from project.models import Pdf
 from django.core.files import File
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
@@ -24,7 +24,7 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from .models import Json_Table  # , Trait_Table
+from .models import Json_Table, Trait_Table
 from django.views.generic.list import ListView
 from django.http import JsonResponse
 
@@ -58,15 +58,14 @@ def post_url(request):
         if pdf_ids:
             print(pdf_ids[0])
 
-        entry = TraitTable()
+        entry = Trait_Table()
         if pdf_ids:
-            p = Pdf.objects.get(id=pdf_ids[0])
-            entry.pdf_id = p
-        entry.verbatimScientificName = species
+            entry.pdf_id = pdf_ids[0]
+        entry.scientific_name = species
         entry.sex = sex
-        entry.verbatimTraitName = trait_name
-        entry.verbatimTraitValue = trait_value
-        entry.verbatimTraitUnit = trait_unit
+        entry.trait_name = trait_name
+        entry.trait_value = trait_value
+        entry.trait_unit = trait_unit
 
         entry.save()
 

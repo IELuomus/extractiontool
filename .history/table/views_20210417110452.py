@@ -64,9 +64,9 @@ def post_url(request):
             entry.pdf_id = p
         entry.verbatimScientificName = species
         entry.sex = sex
-        entry.verbatimTraitName = trait_name
-        entry.verbatimTraitValue = trait_value
-        entry.verbatimTraitUnit = trait_unit
+        entry.VerbatimTraitName = trait_name
+        entry.VerbatimTraitValue = trait_value
+        entry.VerbatimTraitUnit = trait_unit
 
         entry.save()
 

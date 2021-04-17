@@ -62,11 +62,11 @@ def post_url(request):
         if pdf_ids:
             p = Pdf.objects.get(id=pdf_ids[0])
             entry.pdf_id = p
-        entry.verbatimScientificName = species
+        entry.VerbatimScientificName = species
         entry.sex = sex
-        entry.verbatimTraitName = trait_name
-        entry.verbatimTraitValue = trait_value
-        entry.verbatimTraitUnit = trait_unit
+        entry.VerbatimTraitName = trait_name
+        entry.VerbatimTraitValue = trait_value
+        entry.trait_unit = trait_unit
 
         entry.save()
 

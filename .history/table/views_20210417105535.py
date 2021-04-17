@@ -60,13 +60,13 @@ def post_url(request):
 
         entry = TraitTable()
         if pdf_ids:
-            p = Pdf.objects.get(id=pdf_ids[0])
-            entry.pdf_id = p
-        entry.verbatimScientificName = species
+            b = Blog.objects.get(id=1)
+            entry.pdf_id = pdf_ids[0]
+        entry.scientific_name = species
         entry.sex = sex
-        entry.verbatimTraitName = trait_name
-        entry.verbatimTraitValue = trait_value
-        entry.verbatimTraitUnit = trait_unit
+        entry.trait_name = trait_name
+        entry.trait_value = trait_value
+        entry.trait_unit = trait_unit
 
         entry.save()
 

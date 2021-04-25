@@ -1,20 +1,8 @@
 from django.db import models
 
+from document.models import Pdf
+
 # Create your models here.
-
-
-class Pdf(models.Model):
-    title = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
-    pdf = models.FileField(upload_to="pdfs/")
-
-    def _str_(self):
-        return self.title
-
-    def delete(self, *args, **kwargs):
-        self.pdf.delete()
-        super().delete(*args, **kwargs)
-
 
 class TraitTable(models.Model):
     pdf_id = models.ForeignKey(Pdf, on_delete=models.CASCADE)
@@ -26,7 +14,6 @@ class TraitTable(models.Model):
 
     def delete(self, *args, **kwargs):
         super(TraitTable, self).delete(*args, **kwargs)
-
 
 # class Trait_TableQuerySet(models.QuerySet):
 #     def delete(self, *args, **kwargs):

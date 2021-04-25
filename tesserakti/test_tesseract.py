@@ -1,5 +1,5 @@
 from django.test import TestCase
-from pdf.models import Document
+from document.models import Pdf
 from tesserakti.models import Page, Block, Paragraph, Line, Word
 import os
 import requests
@@ -18,7 +18,7 @@ class TesseractTestCase(BaseTestCase, TestCase):
     def test_task_tesseract(self):
         """Tesseract task executes correctly"""
 
-        dokkari = Document.objects.first()
+        dokkari = Pdf.objects.first()
         task = TaskTesseract(dokkari.id, self.temp_root_dir)
         task.run()
         sivuja=Page.objects.all().count()

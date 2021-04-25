@@ -18,4 +18,4 @@ echo "collect static"
 python manage.py collectstatic --no-input --clear
 
 echo "start"
-python manage.py runsslserver 0.0.0.0:8000
+gunicorn --bind 0.0.0.0:443 --workers ${WORKER_COUNT} project.wsgi:application --certfile /certs/fullchain.pem --keyfile /certs/privkey.pem

@@ -27,7 +27,7 @@ services:
       - .:/code
       - type: bind
         source: $HOST/home/cloud-user/certs
-        targhet: /certs
+        target: /certs
     ports:
       - "8000:8000"
       - "80:80"

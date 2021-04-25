@@ -122,7 +122,7 @@ def redirect_form(request, pk):
     context = {}
     pdf = Pdf.objects.get(pk=pk)
     pdf_id = pdf.id
-    file = pdf.pdf.path
+    file = pdf.file.path
     name = pdf.title
     pdf_ids.clear()
     pdf_ids.append(pdf_id)
@@ -132,7 +132,7 @@ def redirect_form(request, pk):
     wanted_pdf_name.clear()
     wanted_pdf.append(file)
     wanted_pdf_name.append(pdf.title)
-    file_url = pdf.pdf.url
+    file_url = pdf.file.url
     context["url"] = file_url
     return render(request, "redirect_form.html", context)
 
@@ -151,6 +151,7 @@ def table_to_dataframe(request):
     page_number = request.GET.get("page_number")
     page = str(page_number)
     camelot_tables = camelot.read_pdf(file_path, flavor="stream", pages=page)
+    os.mkdir('media/json')
     camelot_tables.export("media/json/" + file_name + ".json", f="json")
     # tables = tabula.read_pdf(
     #     file_path,

@@ -35,7 +35,7 @@ def get_pagecount(file_path):
 
 class Pdf(models.Model):
 
-    file = models.FileField(upload_to="pdf", max_length=1000)
+    filex = models.FileField(upload_to="pdf", max_length=1000)
     filename = models.CharField(max_length=1000)
     size = models.IntegerField()
     sha1sum = models.CharField(max_length=40, unique=True)
@@ -69,41 +69,41 @@ class Pdf(models.Model):
             self.size = 99
             self.pagecount = 99
             self.filename = 'temp'
-            self.file.name = os.path.basename(str(self.file))
+            self.filex.name = os.path.basename(str(self.filex))
             super(Pdf, self).save(*args, **kwargs)
             
-            sha1sum = get_sha1sum(f'media/{self.file}')
+            sha1sum = get_sha1sum(f'media/{self.filex}')
 
             # check if the same document is already uploaded
             if Pdf.objects.filter(sha1sum=sha1sum).first() is None:
                 # file does not already exist.
 
                 # get correct values
-                filename = os.path.basename(str(self.file))
-                filesize = get_filesize(f'media/{self.file}')
-                pagecount = get_pagecount(f'media/{self.file}')
+                filename = os.path.basename(str(self.filex))
+                filesize = get_filesize(f'media/{self.filex}')
+                pagecount = get_pagecount(f'media/{self.filex}')
 
                 # set correct values to this instance
                 self.filename = filename              
                 self.sha1sum = sha1sum
                 self.size = filesize
                 self.pagecount = pagecount
-                final_path = f'pdf/{self.sha1sum}/{os.path.basename(str(self.file))}'
+                final_path = f'pdf/{self.sha1sum}/{os.path.basename(str(self.filex))}'
                 
                 # move to correct path
                 os.mkdir(os.path.dirname(f'media/{final_path}'))
-                os.rename(f'media/{self.file.name}', f'media/{final_path}')
+                os.rename(f'media/{self.filex.name}', f'media/{final_path}')
 
                 # update database with correct values
-                self.file.name = final_path
-                super(Pdf, self).save(update_fields=['filename', 'sha1sum', 'size', 'pagecount', 'file'])
+                self.filex.name = final_path
+                super(Pdf, self).save(update_fields=['filename', 'sha1sum', 'size', 'pagecount', 'filex'])
 
                 DocumentOwner.objects.create(document=self, owner=User.objects.get(id=current_user_id))
             else:
                 # oh no. file already existed.
                 # delete dummy file and database row.
-                if self.file:
-                    self.file.delete()
+                if self.filex:
+                    self.filex.delete()
                 super(Pdf, self).delete(*args, **kwargs)
                 existing_document = Pdf.objects.filter(sha1sum=sha1sum).first()
                 existing_owner = DocumentOwner.objects.raw(f'SELECT * FROM doc_owner WHERE document_id = {existing_document.id} AND owner_id = {current_user_id}')
@@ -128,10 +128,10 @@ class Pdf(models.Model):
         downers = DocumentOwner.objects.raw(f'SELECT * FROM doc_owner WHERE owner_id = {current_user_id}')
         if 0 == len(list(downers)):
             # file and path must be deleted manually.        
-            if self.file:
-                path = f'media/{os.path.dirname(str(self.file))}'
-                possible_txt_file_path = f'media/{str(self.file)}.txt'
-                self.file.delete()
+            if self.filex:
+                path = f'media/{os.path.dirname(str(self.filex))}'
+                possible_txt_file_path = f'media/{str(self.filex)}.txt'
+                self.filex.delete()
                 # delete also possible .txt file
                 if os.path.exists(possible_txt_file_path):
                     os.remove(possible_txt_file_path)

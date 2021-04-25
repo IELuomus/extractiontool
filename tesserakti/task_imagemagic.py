@@ -16,7 +16,7 @@ class TaskImageMagick:
         self.taskname = type(self).__qualname__
         self.document = Pdf.objects.get(id=document_id)
         # self.full_filepath = f'{test_path_prefix}{self.document.get_full_filepath()}'
-        self.full_filepath = f'{test_path_prefix}{self.document.file.path}'
+        self.full_filepath = f'{test_path_prefix}{self.document.filex.path}'
         self.basename = os.path.basename(self.full_filepath)
         self.dirname = os.path.dirname(self.full_filepath)
         print(f'\nINIT {self.taskname}, document.id {self.document.id}, filename: {self.basename}, pagecount: {self.document.pagecount}')

@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name='Pdf',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.FileField(upload_to='pdf')),
+                ('file', models.FileField(upload_to='pdf', max_length=1000)),
                 ('filename', models.CharField(max_length=1000)),
                 ('size', models.IntegerField()),
                 ('pagecount', models.IntegerField()),

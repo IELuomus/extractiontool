@@ -10,15 +10,11 @@ from django.utils import timezone
 import pytz
 from django.db.models import CASCADE
 from users.models import User
-
-# from document.uploadhandler import DocumentFileUploadHandler
 import subprocess
 import fitz
 import os
 from django.core.files import File
-
-# def dynamic_path(instance, filename):
-#     return f'pdf/{instance.sha1sum}/{filename}'
+import random, string
 
 def get_sha1sum(file_path):
     # find out sha1sum
@@ -39,8 +35,7 @@ def get_pagecount(file_path):
 
 class Pdf(models.Model):
 
-
-    file = models.FileField(upload_to="pdf")
+    file = models.FileField(upload_to="pdf", max_length=1000)
     filename = models.CharField(max_length=1000)
     size = models.IntegerField()
     sha1sum = models.CharField(max_length=40, unique=True)
@@ -60,34 +55,58 @@ class Pdf(models.Model):
             super(Pdf, self).save(*args, **kwargs)
         else:
             # new file upload.
-            sha1sum = get_sha1sum(self.file)
-            print(f'sha1sum: {sha1sum}')      
+            
+            try:
+                # .user is set in view
+                current_user_id=self.user.id
+            except:
+                current_user_id=1 # can be used in test which have no view
+
+            # generate temp dummy values and save so we get access to file..
+            dummy_sha1sum = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 35))    
+            dummy_sha1sum = 'temp_' + dummy_sha1sum
+            self.sha1sum = dummy_sha1sum
+            self.size = 99
+            self.pagecount = 99
+            self.filename = 'temp'
+            self.file.name = os.path.basename(str(self.file))
+            super(Pdf, self).save(*args, **kwargs)
+            
+            sha1sum = get_sha1sum(f'media/{self.file}')
 
             # check if the same document is already uploaded
             if Pdf.objects.filter(sha1sum=sha1sum).first() is None:
                 # file does not already exist.
-                filename = os.path.basename(str(self.file))
 
-                filesize = get_filesize(self.file)
-                print(f'filesize: {filesize}')                        
-                pagecount = get_pagecount(self.file)
-                print(f'pagecount: {pagecount}')          
+                # get correct values
+                filename = os.path.basename(str(self.file))
+                filesize = get_filesize(f'media/{self.file}')
+                pagecount = get_pagecount(f'media/{self.file}')
+
+                # set correct values to this instance
                 self.filename = filename              
                 self.sha1sum = sha1sum
                 self.size = filesize
                 self.pagecount = pagecount
-                final_path = f'{self.sha1sum}/{os.path.basename(str(self.file))}'
+                final_path = f'pdf/{self.sha1sum}/{os.path.basename(str(self.file))}'
+                
+                # move to correct path
+                os.mkdir(os.path.dirname(f'media/{final_path}'))
+                os.rename(f'media/{self.file.name}', f'media/{final_path}')
 
+                # update database with correct values
                 self.file.name = final_path
+                super(Pdf, self).save(update_fields=['filename', 'sha1sum', 'size', 'pagecount', 'file'])
 
-                super(Pdf, self).save(*args, **kwargs)
-                current_user_id=1 # TODO: hae jostain
                 DocumentOwner.objects.create(document=self, owner=User.objects.get(id=current_user_id))
             else:
-                # file exists.
+                # oh no. file already existed.
+                # delete dummy file and database row.
+                if self.file:
+                    self.file.delete()
+                super(Pdf, self).delete(*args, **kwargs)
                 existing_document = Pdf.objects.filter(sha1sum=sha1sum).first()
-                # check if doc_owner row already exists.
-                current_user_id=1 # TODO: hae jostain
+                # check if current user doc_owner row already exists and create one if not.
                 existing_owner = DocumentOwner.objects.filter(document=existing_document, owner=User.objects.get(id=current_user_id))
                 if existing_owner is None:
                     DocumentOwner.objects.create(document=existing_document, owner=User.objects.get(id=current_user_id))
@@ -96,9 +115,24 @@ class Pdf(models.Model):
         return self.title
 
     def delete(self, *args, **kwargs):
-        # TODO: delete documentOwner here and pdf only if no owners left.
-        self.pdf.delete()
-        super().delete(*args, **kwargs)
+        try:
+            # .user is set in view
+            current_user_id=self.user.id
+        except:
+            current_user_id=1 # can be used in test which have no view
+
+        downer = DocumentOwner.objects.raw(f'SELECT * FROM doc_owner WHERE document_id = {self.pk} AND owner_id = {current_user_id}')
+        if 1 == len(list(downer)):
+            downer[0].delete()
+
+        downers = DocumentOwner.objects.raw(f'SELECT * FROM doc_owner WHERE owner_id = {current_user_id}')
+        if 0 == len(list(downers)):
+            # file and path must be deleted manually.        
+            if self.file:
+                path = f'media/{os.path.dirname(str(self.file))}'
+                self.file.delete()
+                os.rmdir(path)
+            super(Pdf, self).delete(*args, **kwargs)
 
 class DocumentOwner(models.Model):
     document = models.ForeignKey(Pdf, on_delete=CASCADE)

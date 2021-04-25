@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import *
 from django.core.files.storage import default_storage
 from .forms import PageNumberForm, PdfForm
-from pdf_utility.pdf_reader import pdf_to_txt
+from document.pdf_reader import pdf_to_txt
 import pandas as pd
 import json
 import spacy

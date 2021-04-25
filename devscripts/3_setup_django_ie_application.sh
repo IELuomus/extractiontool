@@ -19,8 +19,7 @@ python manage.py makemigrations project
 python manage.py migrate project
 python manage.py makemigrations users
 python manage.py migrate users
-python manage.py migrate quality_control
-python manage.py migrate masterdata
+python manage.py migrate ner_trainer
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createcachetable
@@ -31,8 +30,7 @@ python3 manage.py makemigrations project
 python3 manage.py migrate project
 python3 manage.py makemigrations users
 python3 manage.py migrate users
-#python3 manage.py migrate quality_control # ei onnistu
-python3 manage.py migrate masterdata
+python3 manage.py migrate ner_trainer
 python3 manage.py makemigrations
 python3 manage.py migrate
 python manage.py createcachetable

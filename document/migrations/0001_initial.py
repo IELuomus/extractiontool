@@ -16,17 +16,20 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Document',
+            name='Pdf',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('file', models.FileField(upload_to='pdf')),
                 ('filename', models.CharField(max_length=1000)),
                 ('size', models.IntegerField()),
                 ('pagecount', models.IntegerField()),
                 ('sha1sum', models.CharField(max_length=40, unique=True)),
                 ('created', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated', models.DateTimeField(default=django.utils.timezone.now)),
+                ('title', models.CharField(max_length=100)),
+                ('author', models.CharField(max_length=100)),
             ],
             options={
+                'db_table': 'doc_pdf',
                 'managed': True,
             },
         ),
@@ -35,10 +38,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('upload_date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('document', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pdf.document')),
+                ('document', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='document.pdf')),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
+                'db_table': 'doc_owner',
                 'managed': True,
                 'unique_together': {('document', 'owner')},
             },

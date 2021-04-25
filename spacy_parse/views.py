@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from project.models import Pdf
-from pdf_utility.pdf_reader import pdf_to_txt
+# from project.models import Pdf
+from document.models import Pdf
+from document.pdf_reader import pdf_to_txt
 import spacy
 from spacy.symbols import nsubj, VERB
 import en_core_web_lg
@@ -26,9 +27,9 @@ def parse(request, pk):
     nlp = spacy.load("en_core_web_lg")
 
     pdf = Pdf.objects.get(pk=pk)
-    file_path = pdf.pdf.path
+    file_path = pdf.file.path
 
-    pdf_to_txt(pdf.pdf.name, file_path)
+    pdf_to_txt(pdf.file.name, file_path)
 
     with open(file_path+".txt", 'r', encoding="utf-8") as file:
         text = file.read().replace('\n', ' ')

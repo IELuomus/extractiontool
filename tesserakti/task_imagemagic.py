@@ -1,7 +1,7 @@
 import os
 import time
 from wand.image import Image
-from pdf.models import Document
+from document.models import Pdf
 
 class TaskImageMagick:
     taskname = ''
@@ -14,8 +14,9 @@ class TaskImageMagick:
     def __init__(self, document_id, test_path_prefix=''):
         # test_path_prefix used only in test
         self.taskname = type(self).__qualname__
-        self.document = Document.objects.get(id=document_id)
-        self.full_filepath = f'{test_path_prefix}{self.document.get_full_filepath()}'
+        self.document = Pdf.objects.get(id=document_id)
+        # self.full_filepath = f'{test_path_prefix}{self.document.get_full_filepath()}'
+        self.full_filepath = f'{test_path_prefix}{self.document.file.path}'
         self.basename = os.path.basename(self.full_filepath)
         self.dirname = os.path.dirname(self.full_filepath)
         print(f'\nINIT {self.taskname}, document.id {self.document.id}, filename: {self.basename}, pagecount: {self.document.pagecount}')

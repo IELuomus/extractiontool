@@ -1,5 +1,5 @@
 from django.test import TestCase
-from pdf.models import Document
+from document.models import Pdf
 from tesserakti.models import Page, Block, Paragraph, Line, Word
 import os
 import requests
@@ -42,9 +42,9 @@ class BaseTestCase(object):
         pagecount=fitz.open(f'{self.temp_root_dir}/{self.filename}').pageCount
 
         # save information about saved document to database
-        Document.objects.create(filename=f'{self.filename}', size=koko, sha1sum=summaluku, pagecount=pagecount)
+        Pdf.objects.create(filename=f'{self.filename}', size=koko, sha1sum=summaluku, pagecount=pagecount)
         # move file to final location
-        self.download_path=f'{self.temp_root_dir}/media_files/pdf/{summaluku}'
+        self.download_path=f'{self.temp_root_dir}/media/pdf/{summaluku}'
         os.makedirs(self.download_path, exist_ok=True)
         os.rename(f'{self.temp_root_dir}/{self.filename}', f'{self.download_path}/{self.filename}')
 
@@ -57,11 +57,11 @@ class BaseTestCase(object):
             png_file.unlink()
         os.rmdir(f'{self.download_path}/page_png')
         os.rmdir(self.download_path)
-        os.rmdir(f'{self.temp_root_dir}/media_files/pdf')
-        os.rmdir(f'{self.temp_root_dir}/media_files')
+        os.rmdir(f'{self.temp_root_dir}/media/pdf')
+        os.rmdir(f'{self.temp_root_dir}/media')
         os.rmdir(f'{self.temp_root_dir}')
 
     def base_task_imagemajick(self):
-        dokkari = Document.objects.first()
+        dokkari = Pdf.objects.first()
         task_imagemagick = TaskImageMagick(dokkari.id, self.temp_root_dir)
         task_imagemagick.run()

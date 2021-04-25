@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from project.models import Pdf
-from pdf_utility.pdf_reader import pdf_to_txt
+# from project.models import Pdf
+from document.models import Pdf
+from document.pdf_reader import pdf_to_txt
 import spacy
 from spacy.symbols import nsubj, VERB
 import en_core_web_lg

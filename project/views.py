@@ -2,7 +2,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from .models import Pdf
+# from .models import Pdf
+from document.models import Pdf
 from django.core.files import File
 from django.core.mail import send_mail
 from django.conf import settings
@@ -15,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import *
 from django.core.files.storage import default_storage
 from .forms import PageNumberForm, PdfForm
-from pdf_utility.pdf_reader import pdf_to_txt
+from document.pdf_reader import pdf_to_txt
 import pandas as pd
 import json
 import spacy
@@ -58,7 +59,9 @@ def upload_pdf(request):
     if request.method == 'POST':
         form = PdfForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            pdf = form.save(commit = False)
+            pdf.user = request.user
+            pdf.save()
             return redirect('pdf_list')
     else: 
         form = PdfForm()
@@ -70,6 +73,7 @@ def upload_pdf(request):
 def delete_pdf(request, pk):
     if request.method == 'POST':
         pdf = Pdf.objects.get(pk=pk)
+        pdf.user = request.user
         pdf.delete()
     return redirect('pdf_list')
 

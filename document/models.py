@@ -130,7 +130,12 @@ class Pdf(models.Model):
             # file and path must be deleted manually.        
             if self.file:
                 path = f'media/{os.path.dirname(str(self.file))}'
+                possible_txt_file_path = f'media/{str(self.file)}.txt'
                 self.file.delete()
+                # delete also possible .txt file
+                if os.path.exists(possible_txt_file_path):
+                    os.remove(possible_txt_file_path)
+                # delete empty directory
                 os.rmdir(path)
             super(Pdf, self).delete(*args, **kwargs)
 

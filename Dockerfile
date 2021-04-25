@@ -8,4 +8,4 @@ RUN export JAVA_HOME
 COPY . /code/
 RUN chmod -R 777 /code
 EXPOSE 80/tcp
-ENTRYPOINT ["/bin/bash", ".docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "./docker-entrypoint.sh"]

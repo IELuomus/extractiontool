@@ -122,7 +122,7 @@ def redirect_form(request, pk):
     context = {}
     pdf = Pdf.objects.get(pk=pk)
     pdf_id = pdf.id
-    file = pdf.file.path
+    file = pdf.filex.path
     name = pdf.title
     pdf_ids.clear()
     pdf_ids.append(pdf_id)
@@ -132,7 +132,7 @@ def redirect_form(request, pk):
     wanted_pdf_name.clear()
     wanted_pdf.append(file)
     wanted_pdf_name.append(pdf.title)
-    file_url = pdf.file.url
+    file_url = pdf.filex.url
     context["url"] = file_url
     return render(request, "redirect_form.html", context)
 

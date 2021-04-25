@@ -106,9 +106,9 @@ class Pdf(models.Model):
                     self.file.delete()
                 super(Pdf, self).delete(*args, **kwargs)
                 existing_document = Pdf.objects.filter(sha1sum=sha1sum).first()
-                # check if current user doc_owner row already exists and create one if not.
-                existing_owner = DocumentOwner.objects.filter(document=existing_document, owner=User.objects.get(id=current_user_id))
-                if existing_owner is None:
+                existing_owner = DocumentOwner.objects.raw(f'SELECT * FROM doc_owner WHERE document_id = {existing_document.id} AND owner_id = {current_user_id}')
+                if len(existing_owner) == 0:
+                    # create doc_owner for already existing file.
                     DocumentOwner.objects.create(document=existing_document, owner=User.objects.get(id=current_user_id))
 
     def _str_(self):

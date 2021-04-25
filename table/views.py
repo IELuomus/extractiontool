@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from project.models import Pdf
+# from project.models import Pdf
+from document.models import Pdf
 from django.contrib.sessions.models import Session
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from project.models import Pdf, TraitTable
+from project.models import TraitTable
 from django.core.files import File
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage

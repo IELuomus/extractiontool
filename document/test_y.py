@@ -1,5 +1,5 @@
 from django.test import TestCase
-from pdf.models import Document
+from document.models import Pdf
 import os
 
 # python3 manage.py test pdf.test_x

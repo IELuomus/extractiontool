@@ -48,8 +48,11 @@ def health(request):
 #     return render(request, 'upload.html', context)
 
 @login_required
-def pdf_list(request):
-    pdfs = Pdf.objects.all()
+def pdf_list(request):    
+    # get only own pdfs
+    sql=f'SELECT * from doc_pdf WHERE id IN (SELECT document_id FROM doc_owner WHERE owner_id = {request.user.id})'
+    pdfs = Pdf.objects.raw(sql)
+
     return render(request, 'pdf_list.html', {
         'pdfs': pdfs
     })

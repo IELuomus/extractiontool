@@ -5,25 +5,37 @@ set -e # fail and exit on error
 
 source devscripts/common_functions.sh
 
-echo
-case "$(get_systeemi)" in
-    Linux|WSL)     
-        echo "@Linux*|@WSL"
-        source devscripts/ubuntu/0_install_packages.sh
-        ;;
-    Darwin)    
-        # note: macOS
-        echo "@Darwin"
-        source devscripts/darwin/0_install_packages.sh
-        ;;
-    *)
-        echo "@Something"        
-        ;;
-esac
+# ignore installing packages if given argument 'fast' (bash devscripts/setup_development.sh fast)
+if [[ "$1" == "fast" ]] ;
+then
+    echo "FAST: skip installing system packages."
+else
+    echo
+    case "$(get_systeemi)" in
+        Linux|WSL)     
+            echo "@Linux*|@WSL"
+            source devscripts/ubuntu/0_install_packages.sh
+            ;;
+        Darwin)    
+            # note: macOS
+            echo "@Darwin"
+            source devscripts/darwin/0_install_packages.sh
+            ;;
+        *)
+            echo "@Something"        
+            ;;
+    esac
+fi
 
 source devscripts/1_setup_database.sh
 
-source devscripts/2_setup_django.sh
+# ignore installing packages if given argument 'fast' (bash devscripts/setup_development.sh fast)
+if [[ "$1" == "fast" ]] ;
+then
+    echo "FAST: skip installing django packages."
+else
+    source devscripts/2_setup_django.sh
+fi
 
 source devscripts/3_setup_django_ie_application.sh
 

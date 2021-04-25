@@ -20,6 +20,8 @@ python manage.py migrate project
 python manage.py makemigrations users
 python manage.py migrate users
 python manage.py migrate ner_trainer
+python manage.py makemigrations table
+python manage.py migrate table
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createcachetable
@@ -31,6 +33,8 @@ python3 manage.py migrate project
 python3 manage.py makemigrations users
 python3 manage.py migrate users
 python3 manage.py migrate ner_trainer
+python manage.py makemigrations table
+python3 manage.py migrate table
 python3 manage.py makemigrations
 python3 manage.py migrate
 python manage.py createcachetable

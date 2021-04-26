@@ -1,5 +1,5 @@
 from django.test import TestCase
-from pdf.models import Document
+from document.models import Pdf
 from tesserakti.models import Page, Block, Paragraph, Line, Word
 import os
 import requests

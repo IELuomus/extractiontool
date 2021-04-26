@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class PdfConfig(AppConfig):
+class DocumentConfig(AppConfig):
     name = 'pdf'

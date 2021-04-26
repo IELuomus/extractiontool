@@ -5,7 +5,6 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 RUN apt-get update && apt install -y openjdk-11-jre-headless imagemagick python3-opencv
 RUN export JAVA_HOME
-COPY . /code/
-RUN chmod -R 777 /code
-EXPOSE 80/tcp
+COPY --chown=root . /code/
+#RUN chmod -R 777 /code
 ENTRYPOINT ["/bin/bash", "./docker-entrypoint.sh"]

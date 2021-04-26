@@ -2,7 +2,7 @@ import os
 import time
 from wand.image import Image
 import pytesseract as tesse
-from pytesseract import*
+from pytesseract import *
 from document.models import Pdf
 from tesserakti.models import Page, Block, Paragraph, Line, Word
 

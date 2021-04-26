@@ -151,7 +151,7 @@ def table_to_dataframe(request):
     page_number = request.GET.get("page_number")
     page = str(page_number)
     camelot_tables = camelot.read_pdf(file_path, flavor="stream", pages=page)
-    os.mkdir('media/json')
+    os.makedirs('media/json/', exist_ok=True)
     camelot_tables.export("media/json/" + file_name + ".json", f="json")
     # tables = tabula.read_pdf(
     #     file_path,

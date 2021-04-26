@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         # https://docs.djangoproject.com/en/3.1/ref/migration-operations/
         migrations.RunSQL(
             sql="""            
-ALTER TABLE tes_page ADD CONSTRAINT tes_page_fk FOREIGN KEY tes_page (document_id) REFERENCES pdf_document (id) ;
+ALTER TABLE tes_page ADD CONSTRAINT tes_page_fk FOREIGN KEY tes_page (document_id) REFERENCES doc_pdf (id) ;
 ALTER TABLE tes_block ADD CONSTRAINT tes_block_fk FOREIGN KEY tes_block (page_id, document_id) REFERENCES tes_page(page_id, document_id);
 ALTER TABLE tes_paragraph ADD CONSTRAINT tes_paragraph_fk FOREIGN KEY (block_id, page_id, document_id) REFERENCES tes_block(block_id, page_id, document_id);
 ALTER TABLE tes_line ADD CONSTRAINT tes_line_fk FOREIGN KEY (paragraph_id, block_id, page_id, document_id) REFERENCES tes_paragraph(paragraph_id, block_id, page_id, document_id);

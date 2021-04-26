@@ -27,9 +27,9 @@ def parse(request, pk):
     nlp = spacy.load("en_core_web_lg")
 
     pdf = Pdf.objects.get(pk=pk)
-    file_path = pdf.file.path
+    file_path = pdf.filex.path
 
-    pdf_to_txt(pdf.file.name, file_path)
+    pdf_to_txt(pdf.filex.name, file_path)
 
     with open(file_path+".txt", 'r', encoding="utf-8") as file:
         text = file.read().replace('\n', ' ')

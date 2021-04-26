@@ -91,7 +91,8 @@ class Pdf(models.Model):
                 final_path = f'pdf/{self.sha1sum}/{os.path.basename(str(self.filex))}'
                 
                 # move to correct path
-                os.mkdir(os.path.dirname(f'media/{final_path}'))
+                # this exist_ok because path already exists in media/ ( which it shouldn't )
+                os.makedirs(os.path.dirname(f'media/{final_path}'), exist_ok=True)
                 os.rename(f'media/{self.filex.name}', f'media/{final_path}')
 
                 # update database with correct values

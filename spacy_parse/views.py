@@ -7,7 +7,6 @@ import spacy
 from spacy.symbols import nsubj, VERB
 import en_core_web_lg
 import json
-from .forms import TraitValuesForm
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST, require_GET
 from django.contrib.sessions.models import Session

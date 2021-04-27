@@ -86,6 +86,7 @@ class Pdf(models.Model):
                 # set correct values to this instance
                 self.filename = filename              
                 self.sha1sum = sha1sum
+
                 self.size = filesize
                 self.pagecount = pagecount
                 final_path = f'pdf/{self.sha1sum}/{os.path.basename(str(self.filex))}'

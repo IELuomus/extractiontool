@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 import json
-from spacy_parse.forms import TraitValuesForm
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST, require_GET
 from .models import TraitnameLearnData

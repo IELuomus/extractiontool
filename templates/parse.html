@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %} {% load static %}
+{% extends "base.html" %} 
+{% block content %} 
+{% load static %}
 
 <head>
     <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
@@ -6,7 +8,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <!-- #2196f3 -->
-<h2  style="background-color: #2d9af3 ; color:white;">spaCy TraitName-NER Annotator</h2>
+<h2  style="background-color: #2d9af3 ; color:white;">Annotate data for a TraitName NER model</h2>
 
 <style>
     input[type=submit] {
@@ -42,10 +44,20 @@ button {
 <br>
 <center>
 
-    <br> {% if json_sentences %}
+    <br> 
+    {% if sentences %}  
     <h3>Sentences with potential trait data:</h3>
-    <!-- <h4>Select a traitname </h4> -->
     <br>
+    <script>sentencesArray = []</script>
+    {% for sent in sentences %}
+    <script type="text/javascript">    
+        sentence = "{{ sent}}";
+        sentencesArray.push(sentence)
+    </script>
+    <p></p>
+    {% endfor %}
+
+    <!--
     <script>
         var json_sents = '{{json_sentences}}'
         const sentencesArray = json_sents.split('&quot;, &quot;');
@@ -53,7 +65,7 @@ button {
         var n = sentencesArray.length - 1;
         sentencesArray[n] = sentencesArray[n].replace('&quot;', '')
         console.log(sentencesArray)
-    </script>
+    </script> -->
 
 
     <script>
@@ -75,24 +87,15 @@ button {
     </script>
 
     <H4 id="trait"></H4>
-   
-    <!-- {% for sent in sentences %}
-    <script type="text/javascript">
-        sentence = "{{ sent}}";
-        sentence_array.push(sentence)
-    </script>
-    <p></p>
-    {% endfor %} -->
     <script>
         const sentences = sentencesArray
-
         let index = 1
-        // JSON.stringify(sentences[0])
         function getFirstSent(){
         var first = sentences[0]
-        first = first.replace('[','')
+        //first = first.replace('[','')
         document.getElementById("element").innerHTML = first
         }
+        
         function loop() {
             document.getElementById("element").innerHTML = sentences[index]
             index++
@@ -107,7 +110,6 @@ button {
         function fetchTraitValues() {
             URL = "{% url 'fetch_url' %}"
             var trainingVal = JSON.stringify(document.getElementById("trait_name").value)
-
 
             var data = {
                 sentence: sentencesArray[index - 1],
@@ -142,27 +144,24 @@ button {
    
     <br> <p></p>
     <input type="button" value="Select a traitname " onmousedown="getSelectedText();">
-
     <form name="testform">
         <textarea name="selectedtext" id="trait_name" rows="1" cols="5"></textarea>
     </form>
-    <!-- <input class="post" onmousedown=" fetchTraitValues() " value="Confirm Selection "> -->
     <button class="post" onClick="fetchTraitValues()">Confirm Selection</button>
-    <br> <p></p>
     <br> <p></p>
     <br> <p></p>
     <button onclick="loop()">Show Next Sentence</button>
     <br> <p></p>
 </center>
 
+    {% endif %}
+    {% csrf_token %}
+    <br><br>
+    <br>
+    <a href="{% url 'pdf_list' %} " class="w3-btn w3-black ">Back to pdf list</a>
+    
+    <br> {% else %}
+    <p>Please login first</p> 
+{% endif %} 
+{% endblock content %}
 
-{% endif %} {% csrf_token %}
-<br><br>
-<br>
-<a href="{% url 'pdf_list' %} " class="w3-btn w3-black ">Back to pdf list</a>
-<br> {% else %}
-<p>Please login first</p>
-{% endif %} {% endblock content %}
-
-
-</script> -->

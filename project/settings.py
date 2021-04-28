@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "tesserakti",
-    "pdf",
+    "document",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     "simple_history",
     "sslserver",
     "project",
-    "pdf_utility",
     "django_userforeignkey",
     "spacy_parse",
     "table",

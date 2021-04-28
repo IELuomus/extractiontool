@@ -24,7 +24,7 @@
             <td>{{ pdf.title }}</td>
             <td>{{ pdf.author }}</td>
             <td>
-                <a href="{{ pdf.pdf.url }}" class="w3-btn w3-black" target="_blank">Download PDF</a>
+                <a href="{{ pdf.filex.url }}" class="w3-btn w3-black" target="_blank">Download PDF</a>
             </td>
             <td>
                 <a href="{% url 'parse' pdf.pk %}" class="w3-btn w3-black">Annotate text</a>

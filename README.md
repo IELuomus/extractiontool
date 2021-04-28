@@ -10,7 +10,8 @@ A tool to extract ecological trait information from PDFs into a structured datab
 
 <!-- ..... -->
 ## ETIE Website
-<a href=https://etie.it.helsinki.fi/ >ETIE</a>
+
+<a href=https://etie.it.helsinki.fi>ETIE</a>
 
 
 

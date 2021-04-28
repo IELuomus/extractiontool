@@ -7,8 +7,10 @@ python manage.py makemigrations project
 python manage.py migrate project
 python manage.py makemigrations users
 python manage.py migrate users
-python manage.py migrate quality_control
-python manage.py migrate masterdata
+python manage.py makemigrations ner_trainer
+python manage.py migrate ner_trainer
+python manage.py makemigrations document
+python manage.py migrate document
 python manage.py migrate table
 python manage.py makemigrations table
 python manage.py makemigrations
@@ -18,4 +20,4 @@ echo "collect static"
 python manage.py collectstatic --no-input --clear
 
 echo "start"
-python manage.py runsslserver 0.0.0.0:8000
+gunicorn --bind 0.0.0.0:443 --workers ${WORKER_COUNT} project.wsgi:application --certfile /certs/fullchain.pem --keyfile /certs/privkey.pem

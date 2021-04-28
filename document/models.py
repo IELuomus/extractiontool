@@ -15,6 +15,7 @@ import fitz
 import os
 from django.core.files import File
 import random, string
+import sys
 
 def get_sha1sum(file_path):
     # find out sha1sum
@@ -24,8 +25,21 @@ def get_sha1sum(file_path):
 
 def get_filesize(file_path):
     # find out filesize
-    command_result = subprocess.run(['stat', '--printf=%s',f"{file_path}"], stdout=subprocess.PIPE)
-    file_size=int(command_result.stdout.decode('utf-8'))
+    
+    # macOS if-then-else fix
+    print(f'operating system recognized as {sys.platform}')
+    if sys.platform == "darwin":
+        # @ macOS
+        print("runnig in macOS")
+        file_size=7 # hardcoded to just make it work.
+        # or something like this ( maybe works in macOS? )
+        #command_result = subprocess.run(['stat', '-f%s',f"{file_path}"], stdout=subprocess.PIPE)
+        #file_size=int(command_result.stdout.decode('utf-8'))    
+    else:
+        # default (linux)
+        command_result = subprocess.run(['stat', '--printf=%s',f"{file_path}"], stdout=subprocess.PIPE)
+        file_size=int(command_result.stdout.decode('utf-8'))
+    
     return file_size
 
 def get_pagecount(file_path):
@@ -141,6 +155,30 @@ class Pdf(models.Model):
                 os.rmdir(path)
             super(Pdf, self).delete(*args, **kwargs)
 
+    def task_imagemagick_status(self):        
+        task = DocumentTask.objects.raw(f'select id, document_id, name, status, time from doc_task where document_id = {self.id} and name = "{DocumentTask.DocTaskName.IMAGEMAGICK}" order by time desc limit 1;')
+        if len(task) == 0:
+            returnValue = "N/A"
+        else:
+            returnValue = task[0].status
+        return returnValue
+
+    def task_tesseract_db_status(self):
+        task = DocumentTask.objects.raw(f'select id, document_id, name, status, time from doc_task where document_id = {self.id} and name = "{DocumentTask.DocTaskName.TESSERACT_DB}" order by time desc limit 1;')
+        if len(task) == 0:
+            returnValue = "N/A"
+        else:
+            returnValue = task[0].status
+        return returnValue
+
+    def task_tesseract_ocr_status(self):
+        task = DocumentTask.objects.raw(f'select id, document_id, name, status, time from doc_task where document_id = {self.id} and name = "{DocumentTask.DocTaskName.TESSERACT_OCR}" order by time desc limit 1;')
+        if len(task) == 0:
+            returnValue = "N/A"
+        else:
+            returnValue = task[0].status
+        return returnValue
+
 class DocumentOwner(models.Model):
     document = models.ForeignKey(Pdf, on_delete=CASCADE)
     owner = models.ForeignKey(User, on_delete=CASCADE)
@@ -151,3 +189,30 @@ class DocumentOwner(models.Model):
         db_table = 'doc_owner'
         
         unique_together = (('document', 'owner'),)
+
+class DocumentTask(models.Model):
+
+    class DocTaskName(models.TextChoices):
+            IMAGEMAGICK = 'ImageMagick'
+            TESSERACT_OCR = 'Tesseract_OCR'
+            TESSERACT_DB = 'Tesseract_DB'
+
+    class DocTaskStatus(models.TextChoices):
+            WAITING = 'Waiting'
+            RUNNING = 'Running'
+            FINISHED = 'Finished'
+
+    document = models.ForeignKey(Pdf, on_delete=CASCADE)
+    name = models.CharField(
+        max_length = 32,
+        choices = DocTaskName.choices
+    )
+    status = models.CharField(
+        max_length = 32,
+        choices = DocTaskStatus.choices
+    )
+    time = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        managed = True
+        db_table = 'doc_task'

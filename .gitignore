@@ -95,3 +95,6 @@ media/
 
 #static files
 static/
+.env_docker
+.env_dev
+

@@ -77,5 +77,9 @@ INSERT INTO account_emailaddress(id, email, verified, \`primary\`, user_id) valu
 LAUSE
 mysql --batch -u $DATABASE_USER -p"$DATABASE_PASSWORD" -h "$DATABASE_HOST" $DATABASE_NAME -e "select * from account_emailaddress" | sed 's/\t/,/g' 2>&1
 
-echo "start"
+echo "stard django-q background service"
+python manage.py qcluster &
+sleep 5 # let it start 
+
+echo "start django server"
 python manage.py runserver 0.0.0.0:8000

@@ -7,4 +7,4 @@ RUN apt-get update && apt install -y openjdk-11-jre-headless imagemagick python3
 RUN export JAVA_HOME
 COPY --chown=root . /code/
 #RUN chmod -R 777 /code
-ENTRYPOINT ["/bin/bash", "./docker-entrypoint-prod.sh"]
+ENTRYPOINT ["/bin/bash", "./docker-entrypoint-dev.sh"]

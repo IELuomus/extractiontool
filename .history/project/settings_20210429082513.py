@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "ner_trainer",
     "corsheaders",
     "rest_framework",
+    "fontawesome-free",
     "django_q",
 ]
 

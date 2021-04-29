@@ -413,9 +413,9 @@ for (var s of data) {
       else if (document.selection) {
           selectedText = document.selection.createRange().text;
       } else return; // To write the selected text into the textarea 
-      // document.speciesForm.value = selectedText;
+      document.selectedScientificName.value = selectedText;
 
-      document.getElementById('species').value = selectedText;
+    //  document.getElementById('trait_name').value = selectedText;
 
   }
 </script>

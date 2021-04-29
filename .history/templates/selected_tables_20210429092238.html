@@ -257,14 +257,14 @@ for (var s of data) {
         <div class="grid-item">
 
         <!-- <div class="sideBySideForm"> -->
-        <!-- <form name="speciesForm">
+        <form name="speciesForm">
           <label for="species"><b>Enter verbatim scientific name</b> </label>
           <p></p>
           <input id="species" type="text" name="verbatimScientificName">
-          <p></p> -->
+          <p></p>
           <input type="button"  float="right" value="Get Scientific Name Value" onmousedown="getSelectedScientificName();">
-          <form name="speciesForm" float="right">
-              <textarea name="selectedScientificName" float="right" id="species" rows="2" cols="10"></textarea>
+          <form name="traitValueForm" float="right">
+              <textarea name="selectedSci" float="right" id="trait_value" rows="2" cols="10"></textarea>
           </form>
         </div>
         <div class="grid-item">
@@ -280,12 +280,62 @@ for (var s of data) {
         <p></p>
 {% if d %}   
 {% for i in d %}            
-
+<!-- <div id="element"></div>
+<div class="sideBySideForm">
+<input  type="button" float="left" value="Get Trait Name" onmousedown="getSelectedTraitName();">
+<form  name="traitNameForm" float="left">
+    <textarea name="selectedTraitName" float="left" id="trait_name" rows="2" cols="10"></textarea>
+</form>
+<div float="right">
+<input type="button"  float="right" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
+<form name="traitValueForm" float="right">
+    <textarea name="selectedTraitValue" float="right" id="trait_value" rows="2" cols="10"></textarea>
+</form>
+</div>
+<div class="sideBySideForm">
+<p><b>Select trait unit  </b></p>
+<select name="trait unit"   style="float:left;"id="trait_unit" value="Select Trait Unit">
+  <option value="g">g</option>
+  <option value="kg">kg</option>
+  <option value="lb">lb</option>
+  <option value="oz">oz</option>
+  <option value="mm">mm</option>
+  <option value="cm">cm</option>
+  <option value="m">m</option>
+  <option value="in">in</option>
+  <option value="ft">ft</option>
+  <option value="not specicied">not specified</option>
+</select>
+<p></p>
+<p></p>
+<p ><b>Select sex for the species  </b></p>
+<p></p>
+<p></p>
+<select name="sex"  style="float:left;" id="sex" value="Select Sex">
+  <option value="female">female</option>
+  <option value="male">male</option>
+  <option value="not specicied">not specified</option>
+</select>
+</div>
+<p></p>
+<p></p>
+<div class="sideBySideForm">
+<form name="speciesForm">
+  <label for="species"><b>Enter verbatim scientific name</b> </label>
+  <p></p>
+  <input id="species" type="text" name="verbatimScientificName">
+  <p></p>
+  <input class="post"  type="button" value="Post" onmousedown="fetchValues()">
+</form>
+</div>
+<p></p>
+<p></p> -->
 <H4 style="background-color: #2d9af3 ; color:white;" > Select values from the table below:</H4>
 
 <div class="container" style="overflow-x:auto;" > 
 <div class="table-wrapper-scroll-y my-custom-scrollbar">
-
+<!-- <table class="table table-dark table-striped" id='dataframeTable'>  -->
+ 
   <table  class="table table-bordered table-striped mb-0"  id="display-table"> 
     <!-- <table  border="1" class="w3-table  border-collapse  w3-striped w3-bordered">  -->
     <thead> 
@@ -413,10 +463,7 @@ for (var s of data) {
       else if (document.selection) {
           selectedText = document.selection.createRange().text;
       } else return; // To write the selected text into the textarea 
-      // document.speciesForm.value = selectedText;
-
-      document.getElementById('species').value = selectedText;
-
+      document.traitUnitForm.selectedScientificName.value = selectedText;
   }
 </script>
 

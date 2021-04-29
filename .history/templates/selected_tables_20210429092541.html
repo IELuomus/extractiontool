@@ -280,12 +280,18 @@ for (var s of data) {
         <p></p>
 {% if d %}   
 {% for i in d %}            
-
+<!-- <div id="element"></div>
+<div class="sideBySideForm">
+<input  type="button" float="left" value="Get Trait Name" onmousedown="getSelectedTraitName();">
+<form  name="traitNameForm" float="left">
+    <textarea name="selectedTraitName" float="left" id="trait_name" rows="2" cols="10"></textarea>
+</form>
 <H4 style="background-color: #2d9af3 ; color:white;" > Select values from the table below:</H4>
 
 <div class="container" style="overflow-x:auto;" > 
 <div class="table-wrapper-scroll-y my-custom-scrollbar">
-
+<!-- <table class="table table-dark table-striped" id='dataframeTable'>  -->
+ 
   <table  class="table table-bordered table-striped mb-0"  id="display-table"> 
     <!-- <table  border="1" class="w3-table  border-collapse  w3-striped w3-bordered">  -->
     <thead> 
@@ -413,10 +419,7 @@ for (var s of data) {
       else if (document.selection) {
           selectedText = document.selection.createRange().text;
       } else return; // To write the selected text into the textarea 
-      // document.speciesForm.value = selectedText;
-
-      document.getElementById('species').value = selectedText;
-
+      document.traitUnitForm.selectedScientificName.value = selectedText;
   }
 </script>
 

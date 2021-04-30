@@ -2,6 +2,7 @@
 db.sqlite3
 staticfiles/
 .idea
+.history/
 .DS_Store
 .env
 local.py

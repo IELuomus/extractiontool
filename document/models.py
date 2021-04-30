@@ -26,19 +26,21 @@ def get_sha1sum(file_path):
 def get_filesize(file_path):
     # find out filesize
     
-    # macOS if-then-else fix
-    print(f'operating system recognized as {sys.platform}')
-    if sys.platform == "darwin":
-        # @ macOS
-        print("runnig in macOS")
-        file_size=7 # hardcoded to just make it work.
-        # or something like this ( maybe works in macOS? )
-        #command_result = subprocess.run(['stat', '-f%s',f"{file_path}"], stdout=subprocess.PIPE)
-        #file_size=int(command_result.stdout.decode('utf-8'))    
-    else:
-        # default (linux)
-        command_result = subprocess.run(['stat', '--printf=%s',f"{file_path}"], stdout=subprocess.PIPE)
-        file_size=int(command_result.stdout.decode('utf-8'))
+    file_size = os.path.getsize(file_path)
+
+    # # macOS if-then-else fix
+    # print(f'operating system recognized as {sys.platform}')
+    # if sys.platform == "darwin":
+    #     # @ macOS
+    #     print("runnig in macOS")
+    #     file_size=7 # hardcoded to just make it work.
+    #     # or something like this ( maybe works in macOS? )
+    #     #command_result = subprocess.run(['stat', '-f%s',f"{file_path}"], stdout=subprocess.PIPE)
+    #     #file_size=int(command_result.stdout.decode('utf-8'))    
+    # else:
+    #     # default (linux)
+    #     command_result = subprocess.run(['stat', '--printf=%s',f"{file_path}"], stdout=subprocess.PIPE)
+    #     file_size=int(command_result.stdout.decode('utf-8'))
     
     return file_size
 

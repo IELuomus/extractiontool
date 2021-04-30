@@ -100,4 +100,23 @@ INSERT INTO account_emailaddress(id, email, verified, \`primary\`, user_id) valu
 LAUSE
 mysql --batch -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME -e "select * from account_emailaddress" | sed 's/\t/,/g' 2>&1
 
-
+echo
+magenta "create ANOTHER DJANGO_SUPERUSER"
+export DJANGO_SUPERUSER_USERNAME="${DJANGO_SUPERUSER_USERNAME}2"
+export DJANGO_SUPERUSER_PASSWORD="${DJANGO_SUPERUSER_PASSWORD}2"
+export DJANGO_SUPERUSER_EMAIL="${DJANGO_SUPERUSER_EMAIL}2"
+magenta "   username:${DJANGO_SUPERUSER_USERNAME} password:${DJANGO_SUPERUSER_PASSWORD} email:${DJANGO_SUPERUSER_EMAIL}"
+python3 manage.py createsuperuser --noinput # gets values from DJANGO_SUPERUSER-variables
+echo
+magenta "add ANOTHER DJANGO_SUPERUSER to table account_emailaddress"
+# CHANGES
+mysql -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME<<LAUSE
+INSERT INTO account_emailaddress(id, email, verified, \`primary\`, user_id) values(
+    2,
+    "$DJANGO_SUPERUSER_EMAIL",
+    1,
+    1,
+    2
+);
+LAUSE
+mysql --batch -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME -e "select * from account_emailaddress" | sed 's/\t/,/g' 2>&1

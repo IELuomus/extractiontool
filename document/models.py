@@ -141,7 +141,7 @@ class Pdf(models.Model):
         if 1 == len(list(downer)):
             downer[0].delete()
 
-        downers = DocumentOwner.objects.raw(f'SELECT * FROM doc_owner WHERE owner_id = {current_user_id}')
+        downers = DocumentOwner.objects.raw(f'SELECT * FROM doc_owner WHERE document_id = {self.pk}')
         if 0 == len(list(downers)):
             # file and path must be deleted manually.        
             if self.filex:

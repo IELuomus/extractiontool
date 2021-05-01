@@ -43,6 +43,8 @@ fi
 
 echo "running: makemigrations, migrate, etc. commands."
 set -o xtrace
+# for django-q
+python manage.py createcachetable
 python manage.py makemigrations project
 python manage.py migrate project
 python manage.py makemigrations users
@@ -55,9 +57,6 @@ python manage.py migrate table
 python manage.py makemigrations table
 python manage.py makemigrations
 python manage.py migrate
-python manage.py 
-# for django-q
-python manage.py createcachetable
 set +o xtrace
 
 echo "collect static"

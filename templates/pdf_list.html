@@ -8,6 +8,33 @@
     <a href="{% url 'upload_pdf' %}" class="w3-btn w3-black">Upload pdf</a>
 </p>
 
+<table class="w3-table w3-striped w3-bordered" name="others">
+    <thead>
+        <tr>
+            <th>Filename</th>
+            <th>File size</th>
+            <th>Pages</th>
+            <th>Uploaded</th>
+            <th>Imagemagick create page images</th>
+            <th>Tesseract OCR</th>
+            <th>Tesseract database</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pdf in pdfs %}
+        <tr>
+            <td>{{ pdf.filename }}</td>
+            <td>{{ pdf.size }}</td>
+            <td>{{ pdf.pagecount }}</td>
+            <td>{{ pdf.created }}</td>
+            <td>{{ pdf.task_imagemagick_status }}</td>
+            <td>{{ pdf.task_tesseract_ocr_status }}</td>
+            <td>{{ pdf.task_tesseract_db_status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 <table class="w3-table w3-striped w3-bordered">
     <thead>
         <tr>

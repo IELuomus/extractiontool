@@ -22,8 +22,7 @@ echo "collect static"
 python manage.py collectstatic --no-input --clear
 
 echo "stard django-q background service"
-python manage.py qcluster &
-sleep 5 # let it start 
+python manage.py qcluster > log_docker_djangoq_prod.txt 2>&1 &
 
 echo "start"
 gunicorn --bind 0.0.0.0:443 --workers ${WORKER_COUNT} project.wsgi:application --certfile /certs/fullchain.pem --keyfile /certs/privkey.pem

@@ -40,15 +40,7 @@ fi
 source devscripts/3_setup_django_ie_application.sh
 
 echo
-green "\nAll DONE.\n"
-
-echo
-echo "to run django:"
-echo "  python3 manage.py runsslserver" # runs the webserver
-
-echo
-echo "to run django-q:"
-echo "  python manage.py qcluster" # runs django-q cluster
+green "\nSETUP All DONE.\n"
 
 echo
 echo "ADMIN SITE:"
@@ -58,3 +50,8 @@ echo
 echo "NORMAL SITE:"
 blue "  https://127.0.0.1:8000/"
 echo
+
+# TODO: add some parameter and if-then-else here
+bash devscripts/run_server.sh
+
+green "SCRIPT END."

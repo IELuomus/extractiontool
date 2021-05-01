@@ -33,6 +33,9 @@ function yellow {
 function magenta {
     printf "${magenta}$@${default}\n"
 }
+function cyan {
+    printf "${lightblue}$@${default}\n"
+}
 
 function get_systeemi {
     unameSystem="$(uname -s)"

@@ -5,6 +5,7 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 RUN apt-get update && apt install -y openjdk-11-jre-headless imagemagick python3-opencv mariadb-client
 RUN export JAVA_HOME
+RUN export DATABASE_HOST='db'
 COPY --chown=root . /code/
 #RUN chmod -R 777 /code
 ENTRYPOINT ["/bin/bash", "./docker-entrypoint-dev.sh"]

@@ -40,15 +40,19 @@ then
 fi
 
 echo
-magenta "running: python manage.py makemigrations" # creates models in python(?)
+magenta "running: python manage.py createcachetable"
+python manage.py createcachetable
+
+echo
+magenta "running: python manage.py makemigrations"
 python manage.py makemigrations
 
 echo
-magenta "running: python manage.py migrate" # creates database tables from models(?)
+magenta "running: python manage.py migrate"
 python manage.py migrate
 
 echo
-# komentoja jotka fiksaa jotain.
+# commands which may fix things.
 magenta "running: makemigrations, migrate, etc. commands."
 set -o xtrace
 python manage.py makemigrations project
@@ -60,7 +64,6 @@ python manage.py makemigrations table
 python manage.py migrate table
 python manage.py makemigrations
 python manage.py migrate
-python manage.py createcachetable
 python manage.py collectstatic --no-input --clear
 set +o xtrace
 
@@ -82,7 +85,6 @@ then
     echo
     magenta "inserting into socialaccount_socialapp new line with id=1, "
     magenta "provider:${SOCIAL_PROVIDER} name:${SITE_NAME} client_id:${SOCIAL_CLIENT_ID} secret:${SOCIAL_SECRET}"
-    # CHANGES
     mysql -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME -e "\
     INSERT INTO socialaccount_socialapp(id, provider, name, client_id, secret, \`key\`) values(
         1,
@@ -96,7 +98,6 @@ then
 
     echo
     magenta "inserting into socialaccount_socialapp_sites new line with id=1, sociallapp_id=1, site_id=1"
-    # CHANGES
     mysql -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME -e "\
     INSERT INTO socialaccount_socialapp_sites(id, socialapp_id, site_id) values(
         1,
@@ -107,7 +108,6 @@ then
 
     echo
     magenta "add DJANGO_SUPERUSER to table account_emailaddress"
-    # CHANGES
     mysql -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME -e "\
     INSERT INTO account_emailaddress(id, email, verified, \`primary\`, user_id) values(
         1,
@@ -128,7 +128,6 @@ then
     python manage.py createsuperuser --noinput # gets values from DJANGO_SUPERUSER-variables
     echo
     magenta "add ANOTHER DJANGO_SUPERUSER to table account_emailaddress"
-    # CHANGES
     mysql -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME -e "\
     INSERT INTO account_emailaddress(id, email, verified, \`primary\`, user_id) values(
         2,

@@ -22,6 +22,7 @@ import spacy
 from spacy.symbols import nsubj, VERB
 import en_core_web_lg
 import camelot
+from tesserakti.tessera_util import set_up_document_background_image_tasks
 
 current_file = []
 
@@ -64,6 +65,9 @@ def upload_pdf(request):
             pdf = form.save(commit=False)
             pdf.user = request.user
             pdf.save()
+            # start django-q tasks
+            # TODO: enable
+            # set_up_document_background_image_tasks(pdf)
             return redirect("pdf_list")
     else:
         form = PdfForm()

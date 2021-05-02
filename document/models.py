@@ -16,6 +16,25 @@ import os
 from django.core.files import File
 import random, string
 import sys
+import types
+import shutil
+
+
+def create_status_object(status_string):
+    orange = '#ffa500'
+    yellow = '#ffff00'
+    if (status_string == DocumentTask.DocTaskStatus.WAITING):
+        status_color = yellow
+    elif(status_string == DocumentTask.DocTaskStatus.RUNNING):
+        status_color = orange
+    elif(status_string == DocumentTask.DocTaskStatus.FINISHED):
+        status_color = '#00ff00'
+    elif('N/A' == status_string):
+        status_color = '#ff0000'
+    statusObject = types.SimpleNamespace()
+    statusObject.string = status_string
+    statusObject.color = status_color
+    return statusObject
 
 def get_sha1sum(file_path):
     # find out sha1sum
@@ -148,13 +167,26 @@ class Pdf(models.Model):
             # file and path must be deleted manually.        
             if self.filex:
                 path = f'media/{os.path.dirname(str(self.filex))}'
-                possible_txt_file_path = f'media/{str(self.filex)}.txt'
-                self.filex.delete()
-                # delete also possible .txt file
-                if os.path.exists(possible_txt_file_path):
-                    os.remove(possible_txt_file_path)
-                # delete empty directory
-                os.rmdir(path)
+                shutil.rmtree(path) # delete directory including all it's contents
+
+                # # delete also possible .txt file
+                # possible_txt_file_path = f'media/{str(self.filex)}.txt'
+                # if os.path.exists(possible_txt_file_path):
+                #     os.remove(possible_txt_file_path)
+                # # delete also possible OCR_ file
+                # possible_OCR_file_path = f'{path}/OCR_{str(self.filex)}'
+                # print(f'possible_OCR_file_path: {possible_OCR_file_path}')
+                # if os.path.exists(possible_OCR_file_path):
+                #     os.remove(possible_OCR_file_path)                
+                # # delete empty directory
+                # os.rmdir(path)
+
+            from tesserakti.models import Word, Page, Block, Paragraph, Line
+            from project.models import TraitTable
+            for malli in (TraitTable, DocumentTask, DocumentOwner, Word, Line, Paragraph, Block, Page, Pdf):
+                queryset = malli.objects.all()
+                queryset._raw_delete(queryset.db)
+
             super(Pdf, self).delete(*args, **kwargs)
 
     def task_imagemagick_status(self):        
@@ -163,15 +195,17 @@ class Pdf(models.Model):
             returnValue = "N/A"
         else:
             returnValue = task[0].status
-        return returnValue
+        returnValueObject = create_status_object(returnValue)
+        return returnValueObject
 
     def task_tesseract_db_status(self):
         task = DocumentTask.objects.raw(f'select id, document_id, name, status, time from doc_task where document_id = {self.id} and name = "{DocumentTask.DocTaskName.TESSERACT_DB}" order by time desc limit 1;')
         if len(task) == 0:
             returnValue = "N/A"
         else:
-            returnValue = task[0].status
-        return returnValue
+            returnValue = task[0].status        
+        returnValueObject = create_status_object(returnValue)
+        return returnValueObject
 
     def task_tesseract_ocr_status(self):
         task = DocumentTask.objects.raw(f'select id, document_id, name, status, time from doc_task where document_id = {self.id} and name = "{DocumentTask.DocTaskName.TESSERACT_OCR}" order by time desc limit 1;')
@@ -179,7 +213,8 @@ class Pdf(models.Model):
             returnValue = "N/A"
         else:
             returnValue = task[0].status
-        return returnValue
+        returnValueObject = create_status_object(returnValue)
+        return returnValueObject
 
 class DocumentOwner(models.Model):
     document = models.ForeignKey(Pdf, on_delete=CASCADE)

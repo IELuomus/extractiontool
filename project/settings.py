@@ -214,7 +214,7 @@ CACHES = {
 # TODO: workers as env variable
 Q_CLUSTER = {
     "name": "DjangORM",
-    "workers": 2,
+    "workers": 4,
     "timeout": 9600,
     "retry": 9900,
     "queue_limit": 50,

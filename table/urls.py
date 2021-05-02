@@ -2,9 +2,7 @@ from django.urls import path
 from django.conf.urls import url
 from project.views import health
 from django.urls.conf import include
-from .views import (
-  table_to_dataframe, redirect_form, json_table_list, post_url
-)
+from .views import table_to_dataframe, redirect_form, json_table_list, post_url
 
 
 urlpatterns = [

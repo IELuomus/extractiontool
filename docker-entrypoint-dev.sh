@@ -147,6 +147,6 @@ python -u manage.py qcluster > logs/log_docker_djangoq_cluster.txt 2>&1 &
 echo
 echo "running django server."
 echo "python manage.py runsslserver 2>&1 | tee logs/log_django_server.txt" # runs the webserver
-python -u manage.py runserver 0.0.0.0:8000 2>&1 | tee logs/log_docker_django_server.txt
+python -u manage.py runsslserver 0.0.0.0:8000 2>&1 | tee logs/log_docker_django_server.txt
 
 # NOTE: it seems after pressing ctrl+c docker won't run anything past here but just kills the whole machine.

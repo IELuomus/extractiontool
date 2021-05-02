@@ -26,3 +26,10 @@ sudo apt-get install libmariadb3
 sudo apt-get install libmariadb-dev
 # install python3 and pip3 and stuff
 sudo apt install python3 python3-pip
+
+sudo apt install imagemagick
+sudo apt install tesseract-ocr
+sudo apt install ghostscript-x
+
+# disable this. this is security issue enabled which prevents doing anything..
+sudo sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="none" pattern="OHTU_PROJEKTI_DISABLED_PDF" \/>/'  "/etc/ImageMagick-6/policy.xml"

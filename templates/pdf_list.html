@@ -27,9 +27,9 @@
             <td>{{ pdf.size }}</td>
             <td>{{ pdf.pagecount }}</td>
             <td>{{ pdf.created }}</td>
-            <td>{{ pdf.task_imagemagick_status }}</td>
-            <td>{{ pdf.task_tesseract_ocr_status }}</td>
-            <td>{{ pdf.task_tesseract_db_status }}</td>
+            <td bgcolor='{{ pdf.task_imagemagick_status.color }}'>{{ pdf.task_imagemagick_status.string }}</td>
+            <td bgcolor='{{ pdf.task_tesseract_ocr_status.color }}'>{{ pdf.task_tesseract_ocr_status.string }}</td>
+            <td bgcolor='{{ pdf.task_tesseract_db_status.color }}'>{{ pdf.task_tesseract_db_status.string }}</td>
         </tr>
         {% endfor %}
     </tbody>

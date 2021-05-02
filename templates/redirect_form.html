@@ -16,15 +16,19 @@ p {
 </style>
 <h2>Please enter the page number for a table</h2>
 {% if user.is_authenticated %}
+
 <p> <b>{{user}} logged in</b></p>
-    
+
+
 <p>File Url: <a href="{{ url}}" target="_blank" rel="noopener noreferrer" >{{url}}" </a></p>
-     <form action="/page_number/" method="get">
+<form action="/page_number/" method="get">
         {% csrf_token %}
+       
         <label for="element_id"> <b>Page Number   </b></label><br>
         <input id="element_id" type="number" name="page_number" value="required">
+        <input type="hidden" name="pk" value="{{pk }}">
         <p></p>
-        <input type="submit" value="OK">
+        <input type="submit" value="OK" >
     </form>
  
     <br>

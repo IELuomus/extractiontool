@@ -211,22 +211,20 @@ for (var s of data) {
  <table class="table table-dark table-striped" id='dataframeTable'>  -->
         <!-- jinja2 Technique -->
         <div id="element"></div>
-        <!-- <div class="sideBySideForm"> -->
           <div class="grid-container">
             <div class="grid-item">
         <input  type="button" float="left" value="Get Trait Name" onmousedown="getSelectedTraitName();">
+
         <form  name="traitNameForm" float="left">
             <textarea name="selectedTraitName" float="left" id="trait_name" rows="2" cols="10"></textarea>
         </form>
       </div>
-        <!-- <div float="right"> -->
           <div class="grid-item">
         <input type="button"  float="right" value="Get Trait Value" onmousedown="getSelectedTraitValue();">
         <form name="traitValueForm" float="right">
             <textarea name="selectedTraitValue" float="right" id="trait_value" rows="2" cols="10"></textarea>
         </form>
         </div>
-        <!-- <div class="sideBySideForm"> -->
           <div class="grid-item">
         <p><b>Select trait unit  </b></p>
         <select name="trait unit"   style="float:left;"id="trait_unit" value="Select Trait Unit">    
@@ -255,13 +253,6 @@ for (var s of data) {
         </select>
         </div>
         <div class="grid-item">
-
-        <!-- <div class="sideBySideForm"> -->
-        <!-- <form name="speciesForm">
-          <label for="species"><b>Enter verbatim scientific name</b> </label>
-          <p></p>
-          <input id="species" type="text" name="verbatimScientificName">
-          <p></p> -->
           <input type="button"  float="right" value="Get Scientific Name Value" onmousedown="getSelectedScientificName();">
           <form name="speciesForm" float="right">
               <textarea name="selectedScientificName" float="right" id="species" rows="2" cols="10"></textarea>
@@ -462,9 +453,9 @@ for (var s of data) {
             let cookie = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
             return cookie ? cookie[2] : null;
         }
-
+       
         function fetchValues() {
-            URL = "{% url 'post_url' %}"
+            URL = "{% url 'post_url'%}"
           let trait_unit = ""
           let sex = ""
            var species = document.getElementById("species").value
@@ -472,6 +463,7 @@ for (var s of data) {
            var trait_value = document.getElementById("trait_value").value
            trait_unit= document.getElementById("trait_unit").value
            sex = document.getElementById("sex").value
+           var pk_ = `{{pk}}`
        
 
             var data = {
@@ -479,7 +471,8 @@ for (var s of data) {
                 trait_name: document.getElementById("trait_name").value, 
                 trait_value: document.getElementById("trait_value").value,
                 trait_unit,
-                sex        
+                sex,
+                pk_        
             };
 
             fetch(URL, {

@@ -66,20 +66,20 @@ python manage.py collectstatic --no-input --clear
 if [[ "DROP" == "$DATABASE_STATE" ]]
 then
     echo
-    magenta "creating django SUPER user:"
-    magenta "   username:${DJANGO_SUPERUSER_USERNAME} password:${DJANGO_SUPERUSER_PASSWORD} email:${DJANGO_SUPERUSER_EMAIL}"
+    echo "creating django SUPER user:"
+    echo "   username:${DJANGO_SUPERUSER_USERNAME} password:${DJANGO_SUPERUSER_PASSWORD} email:${DJANGO_SUPERUSER_EMAIL}"
     python manage.py createsuperuser --noinput # gets values from DJANGO_SUPERUSER-variables
 
     echo
-    magenta "updating django_site with id=1: domain:${SITE_DOMAIN} name:${SITE_NAME}"
+    echo "updating django_site with id=1: domain:${SITE_DOMAIN} name:${SITE_NAME}"
     # CHANGE DEFAULT SITE, KEEP ID=1
     mysql -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME  -h "$DATABASE_HOST" -e "\
     UPDATE django_site SET domain='$SITE_DOMAIN', name='$SITE_NAME' WHERE id=1;
     "
 
     echo
-    magenta "inserting into socialaccount_socialapp new line with id=1, "
-    magenta "provider:${SOCIAL_PROVIDER} name:${SITE_NAME} client_id:${SOCIAL_CLIENT_ID} secret:${SOCIAL_SECRET}"
+    echo "inserting into socialaccount_socialapp new line with id=1, "
+    echo "provider:${SOCIAL_PROVIDER} name:${SITE_NAME} client_id:${SOCIAL_CLIENT_ID} secret:${SOCIAL_SECRET}"
     # CHANGES
     mysql -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME  -h "$DATABASE_HOST" -e "\
     INSERT INTO socialaccount_socialapp(id, provider, name, client_id, secret, \`key\`) values(
@@ -93,7 +93,7 @@ then
     "
 
     echo
-    magenta "inserting into socialaccount_socialapp_sites new line with id=1, sociallapp_id=1, site_id=1"
+    echo "inserting into socialaccount_socialapp_sites new line with id=1, sociallapp_id=1, site_id=1"
     # CHANGES
     mysql -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME  -h "$DATABASE_HOST" -e "\
     INSERT INTO socialaccount_socialapp_sites(id, socialapp_id, site_id) values(
@@ -104,7 +104,7 @@ then
     "
 
     echo
-    magenta "add DJANGO_SUPERUSER to table account_emailaddress"
+    echo "add DJANGO_SUPERUSER to table account_emailaddress"
     # CHANGES
     mysql -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME  -h "$DATABASE_HOST" -e "\
     INSERT INTO account_emailaddress(id, email, verified, \`primary\`, user_id) values(
@@ -118,14 +118,14 @@ then
     mysql --batch -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME  -h "$DATABASE_HOST" -e "select * from account_emailaddress" | sed 's/\t/,/g' 2>&1
 
     echo
-    magenta "create ANOTHER DJANGO_SUPERUSER"
+    echo "create ANOTHER DJANGO_SUPERUSER"
     export DJANGO_SUPERUSER_USERNAME="${DJANGO_SUPERUSER_USERNAME}2"
     export DJANGO_SUPERUSER_PASSWORD="${DJANGO_SUPERUSER_PASSWORD}2"
     export DJANGO_SUPERUSER_EMAIL="${DJANGO_SUPERUSER_EMAIL}2"
-    magenta "   username:${DJANGO_SUPERUSER_USERNAME} password:${DJANGO_SUPERUSER_PASSWORD} email:${DJANGO_SUPERUSER_EMAIL}"
+    echo "   username:${DJANGO_SUPERUSER_USERNAME} password:${DJANGO_SUPERUSER_PASSWORD} email:${DJANGO_SUPERUSER_EMAIL}"
     python manage.py createsuperuser --noinput # gets values from DJANGO_SUPERUSER-variables
     echo
-    magenta "add ANOTHER DJANGO_SUPERUSER to table account_emailaddress"
+    echo "add ANOTHER DJANGO_SUPERUSER to table account_emailaddress"
     # CHANGES
     mysql -u $DATABASE_USER -p"$DATABASE_PASSWORD" $DATABASE_NAME  -h "$DATABASE_HOST" -e "\
     INSERT INTO account_emailaddress(id, email, verified, \`primary\`, user_id) values(
@@ -142,11 +142,11 @@ fi
 echo
 echo "running django-q cluster in the background."
 echo "python manage.py qcluster > logs/log_docker_qcluster.txt 2>&1 &" # runs django-q cluster
-python manage.py qcluster > logs/log_docker_djangoq_cluster.txt 2>&1 &
+python -u manage.py qcluster > logs/log_docker_djangoq_cluster.txt 2>&1 &
 
 echo
 echo "running django server."
 echo "python manage.py runsslserver 2>&1 | tee logs/log_django_server.txt" # runs the webserver
-python manage.py runserver 0.0.0.0:8000 2>&1 | tee logs/log_docker_django_server.txt
+python -u manage.py runserver 0.0.0.0:8000 2>&1 | tee logs/log_docker_django_server.txt
 
 # NOTE: it seems after pressing ctrl+c docker won't run anything past here but just kills the whole machine.

@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
 import jsonfield
-
-# from django_mysql.models import JSONField
 from django.views.generic import ListView
 
 

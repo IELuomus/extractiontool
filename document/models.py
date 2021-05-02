@@ -90,7 +90,6 @@ class Pdf(models.Model):
             super(Pdf, self).save(*args, **kwargs)
         else:
             # new file upload.
-            
             try:
                 # .user is set in view
                 current_user_id=self.user.id
@@ -112,6 +111,7 @@ class Pdf(models.Model):
             # check if the same document is already uploaded
             if Pdf.objects.filter(sha1sum=sha1sum).first() is None:
                 # file does not already exist.
+                self.new_file_upload = 'true' # to let view know.
 
                 # get correct values
                 filename = os.path.basename(str(self.filex))

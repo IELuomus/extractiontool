@@ -65,8 +65,13 @@ def upload_pdf(request):
             pdf = form.save(commit=False)
             pdf.user = request.user
             pdf.save()
-            # start django-q tasks
-            set_up_document_background_image_tasks(pdf)
+            try:
+                if (pdf.new_file_upload == 'true'):
+                    # start django-q tasks
+                    set_up_document_background_image_tasks(pdf)
+            except AttributeError:
+                print(f'pdf with id {pdf.id} was NOT new. not calling document tasks.')
+
             return redirect("pdf_list")
     else:
         form = PdfForm()

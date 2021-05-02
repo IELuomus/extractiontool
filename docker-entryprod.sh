@@ -3,6 +3,8 @@
 sleep 1
 
 echo "migrations"
+# for django-q
+python manage.py createcachetable
 python manage.py makemigrations project
 python manage.py migrate project
 python manage.py makemigrations users

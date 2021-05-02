@@ -3,6 +3,8 @@
 sleep 1
 
 echo "migrations"
+# for django-q
+python manage.py createcachetable
 python manage.py makemigrations project
 python manage.py migrate project
 python manage.py makemigrations users
@@ -18,6 +20,9 @@ python manage.py migrate
 
 echo "collect static"
 python manage.py collectstatic --no-input --clear
+
+echo "start django-q background service"
+python -u manage.py qcluster > log_docker_djangoq_prod.txt 2>&1 &
 
 echo "start"
 gunicorn --bind 0.0.0.0:443 --workers ${WORKER_COUNT} project.wsgi:application --certfile /certs/fullchain.pem --keyfile /certs/privkey.pem

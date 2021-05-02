@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e # fail and exit on error
 
+run_server=$1
+
 # tested: Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04, mac OS X 10.15.7, Windows 10 WSL2/Ubuntu 20.04
 
 source devscripts/common_functions.sh
@@ -51,7 +53,11 @@ echo "NORMAL SITE:"
 blue "  https://127.0.0.1:8000/"
 echo
 
-# TODO: add some parameter and if-then-else here
-bash devscripts/run_server.sh
+if [[ "$run_server" == "yes" ]]
+then
+    bash devscripts/run_server.sh
+fi
+
+
 
 green "SCRIPT END."

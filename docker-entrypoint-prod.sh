@@ -3,6 +3,8 @@
 sleep 1
 
 echo "migrations"
+# for django-q
+python manage.py createcachetable
 python manage.py makemigrations project
 python manage.py migrate project
 python manage.py makemigrations users
@@ -15,13 +17,11 @@ python manage.py migrate table
 python manage.py makemigrations table
 python manage.py makemigrations
 python manage.py migrate
-# for django-q
-python manage.py createcachetable
 
 echo "collect static"
 python manage.py collectstatic --no-input --clear
 
-echo "stard django-q background service"
+echo "start django-q background service"
 python manage.py qcluster > log_docker_djangoq_prod.txt 2>&1 &
 
 echo "start"

@@ -66,8 +66,7 @@ def upload_pdf(request):
             pdf.user = request.user
             pdf.save()
             # start django-q tasks
-            # TODO: enable
-            # set_up_document_background_image_tasks(pdf)
+            set_up_document_background_image_tasks(pdf)
             return redirect("pdf_list")
     else:
         form = PdfForm()

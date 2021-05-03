@@ -1,9 +1,17 @@
 #!/bin/sh
 
-sleep 1
-
 source .env
 export DATABASE_HOST='db'
+
+# wait until connection to mariadb is successful
+while : ; do
+    mariadb_version=$(mysql -u $DATABASE_USER -p"$DATABASE_PASSWORD" -h "$DATABASE_HOST" "$DATABASE_NAME" -e "select version()" --connect-timeout=5 -rs)
+    [[ $? -ne 0 ]] || break
+    seconds_to_sleep=4
+    echo "connection test failed this time. waiting for mariadb to wake up. sleeping ${seconds_to_sleep} seconds now." && sleep 4
+done
+echo "got connection to mariadb. mariadb_version: ${mariadb_version}"
+sleep 2 # sleep a bit more to get logs printed in order.
 
 echo "DATABASE_STATE: ${DATABASE_STATE}"
 if [[ -z "${DATABASE_STATE}" ]]

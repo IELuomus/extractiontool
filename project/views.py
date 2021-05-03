@@ -22,7 +22,6 @@ import spacy
 from spacy.symbols import nsubj, VERB
 import en_core_web_lg
 import camelot
-from tesserakti.tessera_util import set_up_document_background_image_tasks
 import sys
 
 current_file = []
@@ -80,6 +79,7 @@ def upload_pdf(request):
                         print("skipping set_up_document_background_image_tasks(pdf)")
                     else:
                         # default (linux)
+                        from tesserakti.tessera_util import set_up_document_background_image_tasks
                         set_up_document_background_image_tasks(pdf)
             except AttributeError:
                 print(f'pdf with id {pdf.id} was NOT new. not calling document tasks.')

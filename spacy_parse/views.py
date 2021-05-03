@@ -7,17 +7,16 @@ import spacy
 from spacy.symbols import nsubj, VERB
 import en_core_web_lg
 import json
-from django.views.generic.edit import CreateView
+#from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST, require_GET
-from django.contrib.sessions.models import Session
-from django.http import JsonResponse
-from django.http import HttpResponse
+#from django.contrib.sessions.models import Session
+#from django.http import JsonResponse
+#from django.http import HttpResponse
 
 
 
 current_pdf_id = []
-train_data = []
-
+@login_required
 def parse(request, pk):
     parse_result = {}
     current_pdf_id.clear()
@@ -33,11 +32,11 @@ def parse(request, pk):
     with open(file_path+".txt", 'r', encoding="utf-8") as file:
         text = file.read().replace('\n', ' ')
 
-    nlp.add_pipe("merge_entities")
-    nlp.add_pipe("merge_noun_chunks")
+    # nlp.add_pipe("merge_entities")
+    # nlp.add_pipe("merge_noun_chunks")
 
-    ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk(
-            "./patterns_scientificNames.jsonl")
+    # ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk(
+    #         "./patterns_scientificNames.jsonl")
 
     doc = nlp(text)
 
@@ -65,7 +64,7 @@ def parse(request, pk):
                        "ear",
                        "forearm"
                        ]
-    string_sentences = []
+    #string_sentences = []
     for sentence in doc.sents:
         for trait in trait_words:
             if trait in sentence.text:
@@ -74,8 +73,14 @@ def parse(request, pk):
 
     trait_text = ""
     for sent in sentences_with_traits:
-        string_sentences.append(sent.text)
+        #string_sentences.append(sent.text)
         trait_text += sent.text
+
+    nlp.add_pipe("merge_entities")
+    nlp.add_pipe("merge_noun_chunks")
+
+    ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk(
+            "./patterns_scientificNames.jsonl")
 
 
     trait_doc = nlp(trait_text)
@@ -89,11 +94,12 @@ def parse(request, pk):
     entities = []
     for entity in trait_doc.ents:
         entities.append(entity)
-    number_of_sentences = len(sentences_with_traits)
-    data = trait_doc.to_json()
-    json_sentences = json.dumps(string_sentences)
-    parse_result = {'sentences': sentences_with_traits,  'entities': entities,
-                        'scientificnames': scientificnames, 'quantities': quantities,
-                        'number': number_of_sentences, 'json_sentences': json_sentences, 'data': data}
+    #number_of_sentences = len(sentences_with_traits)
+    #data = trait_doc.to_json()
+    #json_sentences = json.dumps(string_sentences)
+    parse_result = {'sentences': sentences_with_traits, 
+                    'scientificnames': scientificnames, 
+                    'quantities': quantities,
+                    'entities' : entities}
         
     return render(request, 'parse.html', parse_result)

@@ -45,12 +45,27 @@ button {
 <center>
 
     <br> 
+    {% if entities %}
+    {% for ent in entities %}
+    {{ ent.label_ }}
+    {% endfor %}
+    {% endif %}
     {% if sentences %}  
     <h3>Sentences with potential trait data:</h3>
     <br>
-    <script>sentencesArray = []</script>
     {% for sent in sentences %}
-    <script type="text/javascript">    
+        {% for token in sent %}
+            {{ token.ent.label_ }} <!-- token.ent_iob token.ent_type_  --> 
+        {% endfor %}
+    {% endfor %}
+
+    <script>
+    sentencesArray = []
+    tokensArray = []
+    
+    </script>
+    {% for sent in sentences %}
+    <script type="text/javascript">  
         sentence = "{{ sent}}";
         sentencesArray.push(sentence)
     </script>
@@ -164,4 +179,5 @@ button {
     <p>Please login first</p> 
 {% endif %} 
 {% endblock content %}
+
 

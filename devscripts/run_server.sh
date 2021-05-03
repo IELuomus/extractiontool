@@ -20,7 +20,8 @@ task_id_djangoq_cluster=$!
 echo
 cyan "running django server."
 echo "python manage.py runsslserver | tee logs/log_django_server.txt 2>&1" # runs the webserver
-python -u manage.py runsslserver 2>&1 | tee logs/log_django_server.txt
+# python -u manage.py runsslserver 2>&1 | tee logs/log_django_server.txt
+python -u manage.py runsslserver
 echo "django server stopped."
 
 echo

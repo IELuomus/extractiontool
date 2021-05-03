@@ -98,5 +98,5 @@ media/
 static/
 .env_docker
 .env_dev
-logs/
+logs/*.txt
 

@@ -23,6 +23,7 @@ from spacy.symbols import nsubj, VERB
 import en_core_web_lg
 import camelot
 from tesserakti.tessera_util import set_up_document_background_image_tasks
+import sys
 
 current_file = []
 
@@ -68,7 +69,18 @@ def upload_pdf(request):
             try:
                 if (pdf.new_file_upload == 'true'):
                     # start django-q tasks
-                    set_up_document_background_image_tasks(pdf)
+                    print(f'operating system recognized as {sys.platform}')
+                    if sys.platform == "darwin":
+                        # @ macOS
+                        print("runnig in macOS")
+                        print("skipping set_up_document_background_image_tasks(pdf)")
+                    elif sys.platform == "win32":
+                        # @ Windows
+                        print("runnig in Windows")
+                        print("skipping set_up_document_background_image_tasks(pdf)")
+                    else:
+                        # default (linux)
+                        set_up_document_background_image_tasks(pdf)
             except AttributeError:
                 print(f'pdf with id {pdf.id} was NOT new. not calling document tasks.')
 

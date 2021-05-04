@@ -18,6 +18,7 @@
             <th>Imagemagick create page images</th>
             <th>Tesseract OCR</th>
             <th>Tesseract database</th>
+            <th>Processing status</th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +31,7 @@
             <td bgcolor='{{ pdf.task_imagemagick_status.color }}'>{{ pdf.task_imagemagick_status.string }}</td>
             <td bgcolor='{{ pdf.task_tesseract_ocr_status.color }}'>{{ pdf.task_tesseract_ocr_status.string }}</td>
             <td bgcolor='{{ pdf.task_tesseract_db_status.color }}'>{{ pdf.task_tesseract_db_status.string }}</td>
+            <td bgcolor='{{ pdf.task_overall_status.color }}'>{{ pdf.task_overall_status.string }}</td>
         </tr>
         {% endfor %}
     </tbody>

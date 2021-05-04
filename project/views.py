@@ -23,6 +23,7 @@ from spacy.symbols import nsubj, VERB
 import en_core_web_lg
 import camelot
 import sys
+import platform
 
 current_file = []
 
@@ -69,7 +70,6 @@ def upload_pdf(request):
                 if (pdf.new_file_upload == 'true'):
                     # start django-q tasks
                     print(f'operating system recognized as {sys.platform}')
-                    import platform
                     print(f'processor recognized as {platform.processor()}')
                     if sys.platform == "darwin":
                         # @ macOS

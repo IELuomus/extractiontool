@@ -19,7 +19,6 @@ import sys
 import types
 import shutil
 
-
 def create_status_object(status_string):
     orange = '#ffa500'
     yellow = '#ffff00'
@@ -29,8 +28,10 @@ def create_status_object(status_string):
         status_color = orange
     elif(status_string == DocumentTask.DocTaskStatus.FINISHED):
         status_color = '#00ff00'
-    elif('N/A' == status_string):
+    elif(DocumentTask.DocTaskStatus.NA == status_string):
         status_color = '#ff0000'
+    else:
+        status_color = '#777777'
     statusObject = types.SimpleNamespace()
     statusObject.string = status_string
     statusObject.color = status_color
@@ -216,6 +217,28 @@ class Pdf(models.Model):
         returnValueObject = create_status_object(returnValue)
         return returnValueObject
 
+    def task_overall_status(self):
+        im_status = self.task_imagemagick_status()
+        tdb_status = self.task_tesseract_db_status()
+        tocr_status = self.task_tesseract_ocr_status()
+        all_of_them = [im_status, tdb_status, tocr_status]
+
+        # print([x.string for x in all_of_them])
+        # print([ x.string == DocumentTask.DocTaskStatus.FINISHED for x in all_of_them ])
+
+        if all([ status.string == DocumentTask.DocTaskStatus.FINISHED for status in all_of_them ]):
+            status_string = DocumentTask.DocTaskStatus.FINISHED
+        elif any([ status.string == DocumentTask.DocTaskStatus.RUNNING for status in all_of_them ]):
+            status_string = DocumentTask.DocTaskStatus.RUNNING
+        elif all([ status.string == DocumentTask.DocTaskStatus.WAITING for status in all_of_them ]):
+            status_string = DocumentTask.DocTaskStatus.WAITING
+        elif  all([ status.string == DocumentTask.DocTaskStatus.NA for status in all_of_them ]):
+            return DocumentTask.DocTaskStatus.NA
+        else:
+            status_string = "It's complicated"
+            # what is going on now?
+        return create_status_object(status_string)
+
 class DocumentOwner(models.Model):
     document = models.ForeignKey(Pdf, on_delete=CASCADE)
     owner = models.ForeignKey(User, on_delete=CASCADE)
@@ -235,6 +258,7 @@ class DocumentTask(models.Model):
             TESSERACT_DB = 'Tesseract_DB'
 
     class DocTaskStatus(models.TextChoices):
+            NA = 'N/A'
             WAITING = 'Waiting'
             RUNNING = 'Running'
             FINISHED = 'Finished'

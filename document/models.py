@@ -233,7 +233,7 @@ class Pdf(models.Model):
         elif all([ status.string == DocumentTask.DocTaskStatus.WAITING for status in all_of_them ]):
             status_string = DocumentTask.DocTaskStatus.WAITING
         elif  all([ status.string == DocumentTask.DocTaskStatus.NA for status in all_of_them ]):
-            return DocumentTask.DocTaskStatus.NA
+            status_string = DocumentTask.DocTaskStatus.NA
         else:
             status_string = "It's complicated"
             # what is going on now?

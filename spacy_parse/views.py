@@ -84,6 +84,27 @@ def parse(request, pk):
 
 
     trait_doc = nlp(trait_text)
+    json_sentences = []
+    for sentence in trait_doc.sents:
+        ents_in_sentence = [] 
+        for entity in trait_doc.ents:
+            start = sentence.find(entity)
+            end = start + len(entity.text) 
+            # tarvitaan erikseen luuppi joka kerää
+            # entityt lauseesta
+            
+            ents_in_sentence.append(entity)
+            json_sentence = {
+                "content" : sentence.text, 
+                "annotation" : [
+                    {
+                        "label": [entity.label_],
+                        "points": [{"text": entity.text, "start": start, "end": end}],
+                    }
+                ]
+            }
+            print(json_sentence)
+            json_sentences.append(json_sentence)
 
     quantity_ner_labels = ["QUANTITY", "MONEY", "PERCENT", "CARDINAL"]
     scientificnames = [
@@ -97,9 +118,11 @@ def parse(request, pk):
     #number_of_sentences = len(sentences_with_traits)
     #data = trait_doc.to_json()
     #json_sentences = json.dumps(string_sentences)
-    parse_result = {'sentences': sentences_with_traits, 
+    parse_result = {
+                    'sentences': sentences_with_traits, 
                     'scientificnames': scientificnames, 
                     'quantities': quantities,
-                    'entities' : entities}
+                    'entities' : entities
+                    }
         
     return render(request, 'parse.html', parse_result)

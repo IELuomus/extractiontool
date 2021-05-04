@@ -20,13 +20,13 @@ def fetch_url(request):
         received_json_data = json.loads(request.body)
         sentence = received_json_data["sentence"]
         trait_name = received_json_data["trait_name"]
-        print(sentence)
-        print(trait_name)
+        #print(sentence)
+        #print(trait_name)
 
         start = sentence.find(trait_name)
-        print("start: ", str(start))
+        #print("start: ", str(start))
         end = start + len(trait_name)
-        print("start and end:", start, end)
+        #print("start and end:", start, end)
         train_instance = {
             "content": sentence,
             "annotation": [
@@ -34,7 +34,7 @@ def fetch_url(request):
                     "label": ["TRAITNAME"],
                     "points": [{"text": trait_name, "start": start, "end": end}],
                 }
-            ],
+            ]
         }
 
         TraitnameLearnData.objects.create(data=train_instance)

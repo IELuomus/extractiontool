@@ -11,4 +11,4 @@ class PdfForm(forms.ModelForm):
     class Meta:
         model = Pdf
         # fields = ('title', 'author', 'pdf')
-        fields = ('title', 'author', 'filex')
+        fields = ('title', 'author', 'journal', 'volume', 'issue', 'pages', 'year','publisher','filex')

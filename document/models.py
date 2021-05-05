@@ -80,6 +80,12 @@ class Pdf(models.Model):
 
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
+    journal = models.CharField(max_length=100, null=True, blank=True)
+    volume = models.CharField(max_length=100, null=True, blank=True)
+    issue = models.CharField(max_length=100, null=True, blank=True)
+    pages = models.CharField(max_length=100, null=True, blank=True)
+    year = models.CharField(max_length=100, null=True, blank=True)
+    publisher = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
         managed = True

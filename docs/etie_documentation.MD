@@ -1,6 +1,6 @@
 # ETIE documentation
 
-[ETIE application](https://https://etie.it.helsinki.fi/)
+[ETIE application](https://etie.it.helsinki.fi/)
 
 ## Project in GitHub
 

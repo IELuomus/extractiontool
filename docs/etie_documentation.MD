@@ -79,7 +79,12 @@ Workers: django-q
 Django app pdf_utilities: PyMuPdf
 
 ## Extracting data from tables
-Django app table: Tabula / Camelot
+Camelot, a Python library for extracting tables from PDF files, is used to extract tables from PDF files with page number as a parameter.
+Django app table, frontend selected_tables.html
+
+A user can select the following values from the selected table(s):
+ "verbatimTraitName", "verbatimTraitValue", "verbatimTraitUnit", "sex", and "verbatimScientificName."
+After the selection, a user can store the selected values in the "TraitTable" database table.
 
 ## Annotating text
 Django apps spacy_parse and ner_trainer, frontend parse.html. The components produce sentences in json form conatining annotations for a new ner label 'traitname'. The sentences are stored in database, and the purpose is to use them to train a ner model to recognize ecological trait names (e.g. body weight, tail length, diet) in scientific articles on mammalian data.

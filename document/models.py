@@ -18,7 +18,9 @@ import random, string
 import sys
 import types
 import shutil
+from django.core.exceptions import ObjectDoesNotExist
 
+# TODO: this should be in view-layer
 def create_status_object(status_string):
     orange = '#ffa500'
     yellow = '#ffff00'
@@ -45,23 +47,7 @@ def get_sha1sum(file_path):
 
 def get_filesize(file_path):
     # find out filesize
-    
-    file_size = os.path.getsize(file_path)
-
-    # # macOS if-then-else fix
-    # print(f'operating system recognized as {sys.platform}')
-    # if sys.platform == "darwin":
-    #     # @ macOS
-    #     print("runnig in macOS")
-    #     file_size=7 # hardcoded to just make it work.
-    #     # or something like this ( maybe works in macOS? )
-    #     #command_result = subprocess.run(['stat', '-f%s',f"{file_path}"], stdout=subprocess.PIPE)
-    #     #file_size=int(command_result.stdout.decode('utf-8'))    
-    # else:
-    #     # default (linux)
-    #     command_result = subprocess.run(['stat', '--printf=%s',f"{file_path}"], stdout=subprocess.PIPE)
-    #     file_size=int(command_result.stdout.decode('utf-8'))
-    
+    file_size = os.path.getsize(file_path)    
     return file_size
 
 def get_pagecount(file_path):
@@ -103,6 +89,7 @@ class Pdf(models.Model):
             except:
                 current_user_id=1 # can be used in test which have no view
 
+            # TODO: this could be improved: get access to file before saving to database.
             # generate temp dummy values and save so we get access to file..
             dummy_sha1sum = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 35))    
             dummy_sha1sum = 'temp_' + dummy_sha1sum
@@ -171,28 +158,34 @@ class Pdf(models.Model):
 
         downers = DocumentOwner.objects.raw(f'SELECT * FROM doc_owner WHERE document_id = {self.pk}')
         if 0 == len(list(downers)):
-            # file and path must be deleted manually.        
             if self.filex:
                 path = f'media/{os.path.dirname(str(self.filex))}'
                 shutil.rmtree(path) # delete directory including all it's contents
 
-                # # delete also possible .txt file
-                # possible_txt_file_path = f'media/{str(self.filex)}.txt'
-                # if os.path.exists(possible_txt_file_path):
-                #     os.remove(possible_txt_file_path)
-                # # delete also possible OCR_ file
-                # possible_OCR_file_path = f'{path}/OCR_{str(self.filex)}'
-                # print(f'possible_OCR_file_path: {possible_OCR_file_path}')
-                # if os.path.exists(possible_OCR_file_path):
-                #     os.remove(possible_OCR_file_path)                
-                # # delete empty directory
-                # os.rmdir(path)
-
+            # TODO: this code should be somewhere else so the dependencies would be good.
             from tesserakti.models import Word, Page, Block, Paragraph, Line
             from project.models import TraitTable
-            for malli in (TraitTable, DocumentTask, DocumentOwner, Word, Line, Paragraph, Block, Page, Pdf):
-                queryset = malli.objects.all()
-                queryset._raw_delete(queryset.db)
+            # delete fast using sql without instantiating object for each row. some tables can have millions of rows. (tes_word)
+            try:
+                queryset = TraitTable.objects.filter(pdf_id_id=self.pk) # TODO: pdf_id_id naming on TraitTable should be fixed.
+                queryset._raw_delete(queryset.db)     
+            except ObjectDoesNotExist:
+                pass
+
+            for malli in (DocumentTask, DocumentOwner, Word, Line, Paragraph, Block, Page):
+                try:
+                    queryset = malli.objects.filter(document_id=self.pk)
+                    queryset._raw_delete(queryset.db)
+                except ObjectDoesNotExist:
+                    pass
+
+            # TODO: Json_Table has no fk constraint
+            from table.models import Json_Table
+            try:
+                queryset = Json_Table.objects.filter(pdf_id=self.pk)
+                queryset._raw_delete(queryset.db)          
+            except ObjectDoesNotExist:
+                pass  
 
             super(Pdf, self).delete(*args, **kwargs)
 

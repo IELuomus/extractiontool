@@ -57,4 +57,5 @@ jobs:
           DATABASE_HOST: 127.0.0.1
           DATABASE_PORT: 3306
         run: |
-           python manage.py test --noinput --exclude-tag slow
+# python manage.py test --help        
+           python manage.py test --verbosity=3 --noinput --exclude-tag slow

@@ -7,7 +7,7 @@
 </head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<!-- #2196f3 -->
+
 <h2  style="background-color: #2d9af3 ; color:white;">Annotate data for a TraitName NER model</h2>
 
 <style>
@@ -25,48 +25,31 @@ textarea{
 button {
     width: 18em;  height: 3em;
 }
-    /* .hl {
-        background: #ffffff;
-    }
-    
-    .hl:hover {
-        background: #95db79;
-    } */
+
 </style>
 
 {% if user.is_authenticated %}
 <p style="text-align:right" > {{user}} logged in</p>
 <br><br>
-<!-- <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <button type="submit">Parse!</button>
-</form> -->
+
 <br>
 <center>
-
-    <br> 
-    {% if sentences %}  
+    <br>    
+    {% if json_sentences %}  
     <h3>Sentences with potential trait data:</h3>
     <br>
-    <script>sentencesArray = []</script>
-    {% for sent in sentences %}
-    <script type="text/javascript">    
-        sentence = "{{ sent}}";
+
+    <script>
+    sentencesArray = []   
+    </script>
+
+    {% for sent in json_sentences %}
+    <script type="text/javascript">  
+        var sentence = JSON.parse("{{ sent|escapejs }}")
         sentencesArray.push(sentence)
     </script>
     <p></p>
     {% endfor %}
-
-    <!--
-    <script>
-        var json_sents = '{{json_sentences}}'
-        const sentencesArray = json_sents.split('&quot;, &quot;');
-        sentencesArray[0] = sentencesArray[0].replace('&quot;', '')
-        var n = sentencesArray.length - 1;
-        sentencesArray[n] = sentencesArray[n].replace('&quot;', '')
-        console.log(sentencesArray)
-    </script> -->
-
 
     <script>
         // Function to get the Selected Text 
@@ -91,13 +74,12 @@ button {
         const sentences = sentencesArray
         let index = 1
         function getFirstSent(){
-        var first = sentences[0]
-        //first = first.replace('[','')
-        document.getElementById("element").innerHTML = first
+        var first = sentences[0]   
+        document.getElementById("element").innerHTML = first.content
         }
         
         function loop() {
-            document.getElementById("element").innerHTML = sentences[index]
+            document.getElementById("element").innerHTML = sentences[index].content
             index++
         }
     </script>
@@ -109,12 +91,26 @@ button {
 
         function fetchTraitValues() {
             URL = "{% url 'fetch_url' %}"
-            var trainingVal = JSON.stringify(document.getElementById("trait_name").value)
-
-            var data = {
-                sentence: sentencesArray[index - 1],
-                trait_name: document.getElementById("trait_name").value
-            };
+            
+            var trainingVal = document.getElementById("trait_name").value
+            var sentenceContent = sentencesArray[index - 1].content           
+            var startIndex = sentenceContent.search(trainingVal);          
+            var endIndex = startIndex + trainingVal.length 
+            var data = sentencesArray[index - 1]
+            data.annotation.push (
+                {
+                    "label": ["TRAITNAME"],
+                    "points": [
+                        {
+                            "text": trainingVal, 
+                            "start": startIndex, 
+                            "end": endIndex 
+                        }
+                    ]
+                }
+            )
+                
+            //console.log(data)
 
             fetch(URL, {
                     method: 'post',
@@ -122,7 +118,7 @@ button {
                         "X-CSRFToken": getCookie("csrftoken"),
                         'Accept': 'application/json',
                     },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(data),                   
                 })
                 .then((res) => {
                     return res.json()
@@ -164,4 +160,5 @@ button {
     <p>Please login first</p> 
 {% endif %} 
 {% endblock content %}
+
 

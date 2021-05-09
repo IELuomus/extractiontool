@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 import json
-from django.views.generic.edit import CreateView
+#from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST, require_GET
 from .models import TraitnameLearnData
 from django.http import JsonResponse
-from django.http import HttpResponse
+#from django.http import HttpResponse
 
 
 current_pdf_id = []
@@ -17,34 +17,11 @@ def fetch_url(request):
     if request.method == "POST":
 
         data = request.POST
-        received_json_data = json.loads(request.body)
-        sentence = received_json_data["sentence"]
-        trait_name = received_json_data["trait_name"]
-        #print(sentence)
-        #print(trait_name)
 
-        start = sentence.find(trait_name)
-        #print("start: ", str(start))
-        end = start + len(trait_name)
-        #print("start and end:", start, end)
-        train_instance = {
-            "content": sentence,
-            "annotation": [
-                {
-                    "label": ["TRAITNAME"],
-                    "points": [{"text": trait_name, "start": start, "end": end}],
-                }
-            ]
-        }
+        train_instance = json.loads(request.body)
+        #print("received:", train_instance)
 
         TraitnameLearnData.objects.create(data=train_instance)
-        # tld = TraitnameLearnData()
-        # tld.data = train_instance
-        # tld.save()
-        # if train_instance not in train_data:
-        #     train_data.append(json.dumps(train_instance))
-    print("train_data list below: ")
-    # print(*train_data, sep="\n")
 
     print("user.id: ", request.user.id)
     if current_pdf_id:

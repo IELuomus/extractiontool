@@ -21,7 +21,9 @@ mysql> CREATE USER 'django'@'localhost' IDENTIFIED BY 'salasana';
 
 When MariaDB / MySql has been installed, in the mysql workbench:
 
-* mysql> CREATE DATABASE ieluomus;
+* mysql> CREATE DATABASE ieluomus; (check that the name matches the database name in the .env)
+* In case of an error "Access denied for user 'django'@'localhost'.... "
+
 * mysql> GRANT ALL PRIVILEGES ON *.* TO 'django'@'localhost';
 
 1. Run, again in the project root folder where manage.py is, `python3 manage.py createsuperuser` 

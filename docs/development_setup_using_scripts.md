@@ -18,9 +18,6 @@
     * Ubuntu 20.04, Windows 10 WSL1/Ubuntu 20.04., Windows 10 WSL2/Ubuntu20.04
     * Apple mac OS X 10.15.7
 
-### Problems
-* Selain valitti jotain sertifikaatista: NET::ERR_CERT_AUTHORITY_INVALID
-
 ### Install Details
 
 * Ubuntu/Brew packages
@@ -58,6 +55,13 @@
 ```
 python3 manage.py runsslserver
 ```
+
+Open browser at https://127.0.0.1:8000.
+
+Disregard the warning about a missing certificate and find the proper way to bypass this,
+depending on your browser
+
+Login at https://127.0.0.1:8000/admin with your superuser credentials to see the django admin panel.
 
 ## Other Scripts
 ```

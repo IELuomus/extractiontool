@@ -1,3 +1,7 @@
+näyttää olevan bugi dockerissa kun käynnistää docker-compose -f <tiedosto> -tyyliin. 
+toimii kuitenkin kun käyttää vain komentoriviä.
+https://github.com/docker/for-win/issues/9539
+
 # Docker how to
 
 Running this software on your local machine on Docker

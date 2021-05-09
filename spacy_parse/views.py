@@ -1,28 +1,23 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-# from project.models import Pdf
+
 from document.models import Pdf
 from document.pdf_reader import pdf_to_txt
 import spacy
-from spacy.symbols import nsubj, VERB
+#from spacy.symbols import nsubj, VERB
 import en_core_web_lg
 import json
-from django.views.generic.edit import CreateView
+
 from django.views.decorators.http import require_POST, require_GET
-from django.contrib.sessions.models import Session
-from django.http import JsonResponse
-from django.http import HttpResponse
-
-
+import re
 
 current_pdf_id = []
-train_data = []
-
+@login_required
 def parse(request, pk):
     parse_result = {}
     current_pdf_id.clear()
     current_pdf_id.append(pk)
-    # if request.method == 'POST':
+    
     nlp = spacy.load("en_core_web_lg")
 
     pdf = Pdf.objects.get(pk=pk)
@@ -32,12 +27,6 @@ def parse(request, pk):
 
     with open(file_path+".txt", 'r', encoding="utf-8") as file:
         text = file.read().replace('\n', ' ')
-
-    nlp.add_pipe("merge_entities")
-    nlp.add_pipe("merge_noun_chunks")
-
-    ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk(
-            "./patterns_scientificNames.jsonl")
 
     doc = nlp(text)
 
@@ -65,7 +54,7 @@ def parse(request, pk):
                        "ear",
                        "forearm"
                        ]
-    string_sentences = []
+    
     for sentence in doc.sents:
         for trait in trait_words:
             if trait in sentence.text:
@@ -74,11 +63,38 @@ def parse(request, pk):
 
     trait_text = ""
     for sent in sentences_with_traits:
-        string_sentences.append(sent.text)
         trait_text += sent.text
+
+    nlp.add_pipe("merge_entities")
+    nlp.add_pipe("merge_noun_chunks")
+
+    ruler = nlp.add_pipe("entity_ruler", before="ner").from_disk(
+            "./patterns_scientificNames.jsonl")
 
 
     trait_doc = nlp(trait_text)
+    sentences_with_ner_labels = []
+    
+    for sent in trait_doc.sents:
+        sentence_with_labels = { 
+                "content" : sent.text, 
+                "annotation" : [                   
+                ]
+            }
+        for ent in trait_doc.ents:           
+            if (ent.sent.text == sent.text):           
+                sentence_with_labels.get("annotation").append(
+                    {
+                        "label": [ent.label_],
+                        "points": [
+                            {
+                                "text": ent.text, 
+                                "start": ent.start_char-ent.sent.start_char, 
+                                "end": ent.end_char-ent.sent.start_char}],
+                    }
+                )
+
+        sentences_with_ner_labels.append(json.dumps(sentence_with_labels))
 
     quantity_ner_labels = ["QUANTITY", "MONEY", "PERCENT", "CARDINAL"]
     scientificnames = [
@@ -89,11 +105,12 @@ def parse(request, pk):
     entities = []
     for entity in trait_doc.ents:
         entities.append(entity)
-    number_of_sentences = len(sentences_with_traits)
-    data = trait_doc.to_json()
-    json_sentences = json.dumps(string_sentences)
-    parse_result = {'sentences': sentences_with_traits,  'entities': entities,
-                        'scientificnames': scientificnames, 'quantities': quantities,
-                        'number': number_of_sentences, 'json_sentences': json_sentences, 'data': data}
+    
+    parse_result = {
+                    'json_sentences': sentences_with_ner_labels,
+                    #'scientificnames': scientificnames, 
+                    #'quantities': quantities
+                    #'entities' : entities
+                    }
         
     return render(request, 'parse.html', parse_result)

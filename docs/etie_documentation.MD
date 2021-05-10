@@ -83,9 +83,11 @@ Django app pdf_utilities: PyMuPdf
 Camelot, a Python library for extracting tables from PDF files, is used to extract tables from PDF files with page number as a parameter.
 Django app table, frontend selected_tables.html
 
+When a user feeds the page number, the program both displays the extracted tables for the user as well as stores them in a database table called "Table_Json_Table". Json_Table contains the following fields: "user_id", "pdf_id", "page_number", "table_num" (the number of a specific table on a given page), "json_table" (the table in json format), "table" (the file path for the json file of a given table). 
+
 A user can select the following values from the selected table(s):
  "verbatimTraitName", "verbatimTraitValue", "verbatimTraitUnit", "sex", and "verbatimScientificName."
-After the selection, a user can store the selected values in the "TraitTable" database table.
+After the selection, a user can store the selected values in the "Project_TraitTable" database table.
 
 ## Annotating text
 Django apps spacy_parse and ner_trainer, together with frontend parse.html. These three components produce sentences in json form containing annotations for a new ner label 'traitname'. The sentences are stored in database, and the purpose is to use them to train a ner model to recognize ecological trait names (e.g. body weight, tail length, diet) in scientific articles on mammalian data.

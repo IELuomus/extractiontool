@@ -50,18 +50,6 @@
     * Database is updated to skip verification email for superuser.
         * INSERT INTO account_emailaddress(id, email, verified, \`primary\`, user_id) values(1,"$DJANGO_SUPERUSER_EMAIL",1,1,1);
 
-## Running the App
-
-```
-python3 manage.py runsslserver
-```
-
-Open browser at https://127.0.0.1:8000.
-
-Disregard the warning about a missing certificate and find the proper way to bypass this,
-depending on your browser
-
-Login at https://127.0.0.1:8000/admin with your superuser credentials to see the django admin panel.
 
 ## Other Scripts
 ```

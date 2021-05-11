@@ -37,7 +37,7 @@ to OCR the text from the pdf
 
 ## Run the app locally
 
-1. Run `python manage.py runsslserver`
+1. Run `python manage.py runsslserver`. The sslserver is required by the Orcid login (see below).
 1. Open browser at https://127.0.0.1:8000. Disregard the warning about a missing certificate and find the proper way to bypass this,
 depending on your browser
 

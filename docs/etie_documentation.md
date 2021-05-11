@@ -38,10 +38,15 @@ to OCR the text from the pdf
 1. Open https://127.0.0.1:8000/ in your browser. The browser will most likely complain about the missing certificate, but this can just be ignored.
 
 
+
 ## CI/CD pipeline
 
 ### CI: GitHub Actions
 Continuous integration is implemented by GitHub Actions. There are two sets of tests: [Development testing](https://github.com/IELuomus/extractiontool/actions/runs/830148389/workflow) and [Django CI](https://github.com/IELuomus/extractiontool/actions/runs/828076067/workflow). Development testing doesn't have (m)any tests. 
+
+### Docker
+
+[Dockerin guidelines](https://github.com/IELuomus/extractiontool/blob/main/docs/Docker.md)
 
 ### Production environment: CSC cPouta server
 

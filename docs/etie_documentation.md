@@ -32,12 +32,17 @@ to OCR the text from the pdf
 ## Development installation
 
 1. Clone the project repo from https://github.com/IELuomus/extractiontool.
-1. Follow the instructions for [development setup](https://github.com/IELuomus/extractiontool/blob/main/docs/development_setup.md) using a bash script and an .env file.
+1. Follow the instructions for [development setup](https://github.com/IELuomus/extractiontool/blob/main/docs/development_setup_using_scripts.md) using a bash script and an .env file.
 1. Or follow [these](https://github.com/IELuomus/extractiontool/blob/main/docs/development_setup_manual.md) instructions to set everything up manually. 
+
+## Run the app locally
+
 1. Run `python manage.py runsslserver`
-1. Open https://127.0.0.1:8000/ in your browser. The browser will most likely complain about the missing certificate, but this can just be ignored.
+1. Open browser at https://127.0.0.1:8000. Disregard the warning about a missing certificate and find the proper way to bypass this,
+depending on your browser
 
-
+1. Login at https://127.0.0.1:8000/admin with your superuser credentials to inspect Django admin panel, with e.g. the possibility to see and edit
+database tables. In order to see the tables there, they tables must be registered in the admin.py file of the respective app. 
 
 ## CI/CD pipeline
 
@@ -60,11 +65,6 @@ Other django apps are document, table, spacy_parse, ner_trainer, and tesserakti.
 
 Other files:
 The (large) file patterns_scientificNames.jsonl contains in json format all names of mammals (both present and fossile) and the associated NER label SCIENTIFICNAME. This file is used in spacy_parse/views.py as a source whereform they the names and labels are read into the entity ruler in the spaCy pipeline (see below Annotating text).
-
-### Django admin
-
-Go to https://127.0.0.1:8000/admin and log in with the superuser credentials to inspect Django admin panel with e.g. the possibility to see and edit
-database tables. In order to see the tables there, the tables must be registered in the admin.py file of the respective app. 
 
 ## Django Allauth and Orcid
 User identification in the ETIE application happens with the [Django Allauth library](https://django-allauth.readthedocs.io/) and social account provider [Orcid](https://orcid.org). Orcid id's are unique identifiers used by researchers and other people in the academia. When the user clicks on the orcid-button in ETIE log in screen, they are directed to the log in page at orcid.org. After entering their Orcid credentials, if they are already registered users of ETIE application, they will be redirected to the ETIE front page with "logged in" status; otherwise, they will be redirected to a page in ETIE where they are prompted to enter their email for registration and verification (note that you can't use the email used in Django admin (superuser) to login with Orcid).
@@ -128,12 +128,10 @@ Next, scientific names of mammals are added to the pipeline as an entity ruler (
 
 Before="ner" in the above means that the entity ruler is applied in the pipeline before the statistical ner recognition enabled by the trained model takes place.
 
-Next the sentences are 
+Next the sentences are converted into python dicts (see [these guidelines](https://towardsdatascience.com/custom-named-entity-recognition-using-spacy-7140ebbb3718)) containing all existing NER labels. The dicts are converted into json and sent to the frontend (parse.html) for annotation.
 
-The procedure and format follows [these guidelines](https://towardsdatascience.com/custom-named-entity-recognition-using-spacy-7140ebbb3718).
+### parse.html and ner_trainer
 
-These sentences are sent to the frontend (parse.html) for annotation.
+The sentences are parsed into native json-objects and their content is shown to the user one by one. The selected text is added to the json-object's annotation list with label "TRAITNAME", and the sentence is sent further to the backend ner_trainer where the json is saved into the database table TraitnameLearnData.
 
-### parse.html
 
-### ner_trainer

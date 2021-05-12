@@ -84,6 +84,13 @@ User can only see their own pdfs
 Django app tesserakti: Tesseract OCR
 Workers: django-q
 
+When a user uploads a document, tasks are started in the background:  
+1. Generate `.png` -images of each page to `png_page/` folder in the document upload folder using ImageMagick-library.
+2. Generate `OCR_<original_filename>` by combining `.png` images and text recognized from them. Resulting in a new pdf file which has searchable text even if the original format was picture-based.
+3. From the `.png`-page-images, Tesseract-recognized words, lines, paragraphs and blocks are saved to database, each linked to specific document and page.  
+
+Note: All these tasks are currently done for all uploaded documents.  
+
 ## Extracting text from a text pdf 
 Django app "document": PyMuPdf
 

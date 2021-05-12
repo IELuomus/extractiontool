@@ -4,44 +4,71 @@ ETIE database
 This document contains diagrams and some documentation about ETIE database schema. 
 
 Diagrams are generated with script from an existing database.  
+( `devscripts/database_diagram/create_diagrams.sh` )
 
 Documentation is kept to a minimum, not detailing every bit.  
 
-pdf
+document
 =====
 
-Table ***pdf_document*** contains info about the uploaded pdf-document.  
+Tables containing generic information about uploaded document.
 
-Table ***pdf_documentowner*** maps document and it's owner/uploader.  
+Table `doc_pdf` contains basic info about the uploaded pdf-document.  
 
-Table ***users_user*** is native to django, linked from above.  
+Table `doc_task` contains status information about background tasks related to the document.
 
-![pdf tables](/docs/database/pdf_tables.png)
+Table `doc_owner` maps document and it's owner/uploader.  
+
+( Here for clarity - table `users_user` is native to django, linked from above. )
+
+![pdf tables](/docs/database/document_tables.png)
 <!-- relative style -->
 <!-- <img src="database/pdf_tables.png"> -->
 
-masterdata
+information extraction
 =====
 
-The application main tables which contain pre-existing information needed for document analysis and information analyzed from the documents.  
+Tables containing information extracted from the document.
 
-![masterdata tables](/docs/database/masterdata_tables.png)
+Table `project_traittable` contains trait information extracted from the document.  
+
+Table `table_json_table` contains information extracted from the document tables.  
+
+Tabe `ner_trainer_traitnamelearndata` contains NER trainer learned trait data.  
+
+
+( Here only for clarity `doc_pdf`. )  
+
+![masterdata tables](/docs/database/ieluomus_tables.png)
 
 tesserakti
 =====
 
-Tables here map almost one-to-one from Tesseract tab-separated-values (data) output.  
+Words, Lines, Paragraphs and Blocks recognized by Tesseract OCR library.
+
+Each of these is also linked to a single Page and Document.
 
 Recognized regions are part of each other in the logical groups as well as coordinates.  
 
-Order from wider to narrower is ***page>block>paragraph>line>word***.  
+Order from wider to narrower is  
+`tes_page` > `tes_block` > `tes_paragraph` > `tes_line` > `tes_word`.  
 
-![tesserakti tables](/docs/database/tesserakti_tables.png)
+( Here only for clarity `doc_pdf`. )  
 
-pdf_native
+![tesserakti tables](/docs/database/tesseract_tables.png)
+
+django-q task library
 =====
 
-TODO: 
-<!-- 
-![x tables](/docs/database/x_tables.png)
- -->
+Tables for django-q library. Django-q saves all the information about background tasks in these tables.  
+
+Table `ieluomus_djangoq_cache_table` is created with `python manage.py createcachetables` command.
+
+![tesserakti tables](/docs/database/djangoq_tables.png)
+
+django native tables
+=====
+
+Here are all the tables native to django and it's basic libraries.
+
+![tesserakti tables](/docs/database/django_tables.png)

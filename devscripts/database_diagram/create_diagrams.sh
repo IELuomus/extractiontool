@@ -31,9 +31,11 @@ function create_diagram {
     cd "$alku"
 }
 
-create_diagram "tesserakti_tables" "${DATABASE_NAME}.pdf_document|${DATABASE_NAME}.tes_.*" "Tesserakti taulut"
-create_diagram "pdf_tables" "${DATABASE_NAME}.pdf_.*|${DATABASE_NAME}.users_user" "Pdf taulut"
-create_diagram "masterdata_tables" "${DATABASE_NAME}.masterdata_.*" "Mestaridata taulut"
+create_diagram "document_tables" "${DATABASE_NAME}.doc_.*|${DATABASE_NAME}.users_user" "Document tables"
+create_diagram "ieluomus_tables" "${DATABASE_NAME}.doc_pdf|${DATABASE_NAME}.project_traittable|${DATABASE_NAME}.ner_trainer_traitnamelearndata|${DATABASE_NAME}.table_json_table" "IELuomus tables"
+create_diagram "tesseract_tables" "${DATABASE_NAME}.doc_pdf|${DATABASE_NAME}.tes_.*" "Tesseract tables"
+create_diagram "djangoq_tables" "${DATABASE_NAME}.ieluomus_djangoq_cache_table|${DATABASE_NAME}.django_q_.*" "Django-q tables"
+create_diagram "django_tables" "${DATABASE_NAME}.django_[^q].*|${DATABASE_NAME}.socialaccount_.*|${DATABASE_NAME}.auth_.*|${DATABASE_NAME}.account_.*|${DATABASE_NAME}.users_.*" "Django native tables"
 
 echo "ls docs/database/*.png -last" 
 ls docs/database/*.png -last

@@ -14,7 +14,9 @@ Running this software on your local machine on Docker
 
 ## Running on your local machine
 - have `.env` in `extractiontool/` root  
-( check `devscripts/.env-file-example` )
+( check `devscripts/.env-file-example` )  
+
+Note: If you have MariaDB/MySQL running on your local machine, you have to stop it, because docker compose tries to initialize one container with MariaDB and that container uses same port as MySQL/MariaDB service. Linux and macOS run-scripts try to stop possible MariaDB/MySQL service.  
 
 ### Linux
 - `bash devscripts/run_docker.sh`

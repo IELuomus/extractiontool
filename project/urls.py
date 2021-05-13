@@ -23,6 +23,7 @@ urlpatterns = [
     path('parse/', include('spacy_parse.urls')),
     path('ner_trainer/', include('ner_trainer.urls')),
     path('', index, name='index'),
+    path('search', search_data, name='search')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

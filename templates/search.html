@@ -37,6 +37,11 @@
   function submitForm(event) {
     event.preventDefault();
     console.log(event)
+    const val = document.getElementById("search_input").value
+    if (val.length < 3) {
+      document.getElementById("notfound").innerHTML = "Please enter at least 3 characters"
+      return false
+    }
     const URL = "{% url 'search' %}"
     fetch(URL, {
       method: 'post',
@@ -45,7 +50,7 @@
           'Accept': 'application/json',
       },
       body: JSON.stringify({
-        scientific_name: document.getElementById("search_input").value
+        scientific_name: val
       }),                   
     })
     .then((res) => {

@@ -64,7 +64,7 @@ Continuous integration is implemented by GitHub Actions. There are two sets of t
 [Architecture overview](https://github.com/IELuomus/extractiontool/blob/main/docs/architecture_overview.md)
 [Directory structure overview](https://github.com/IELuomus/extractiontool/blob/main/docs/directory_structure_overview.md)
 
-Django applications are structured using several 'django apps', each of which is responsible for (ideally) one functionality. The apps are in separate folders with their own models.py (models for database tables), urls.py (ursl for direction of requests) and views.py (functionality) files. The 'main app' contains django's settings in the settings.py file. In the ETIE application the main app is called simply 'project'. The urls.py file in the 'project' folder contains references to all the other apps' urls.py files so that requests can be directed to the correct url-addresses.  
+Django applications are structured using several 'django apps', each of which is responsible for (ideally) one functionality. The apps are in separate folders with their own models.py (models for database tables), urls.py (urls for direction of requests) and views.py (functionality) files. The 'main app' contains django's settings in the settings.py file. In the ETIE application the main app is called simply 'project'. The urls.py file in the 'project' folder contains references to all the other apps' urls.py files so that requests can be directed to the correct url-addresses.  
 
 See also [Django documentation](https://docs.djangoproject.com/en/3.2/)
 
@@ -76,8 +76,7 @@ The (large) file patterns_scientificNames.jsonl contains in json format all name
 ## Django Allauth and Orcid
 User identification in the ETIE application happens with the [Django Allauth library](https://django-allauth.readthedocs.io/) and social account provider [Orcid](https://orcid.org). Orcid id's are unique identifiers used by researchers and other people in the academia. When the user clicks on the orcid-button in ETIE log in screen, they are directed to the log in page at orcid.org. After entering their Orcid credentials, if they are already registered users of ETIE application, they will be redirected to the ETIE front page with "logged in" status; otherwise, they will be redirected to a page in ETIE where they are prompted to enter their email for registration and verification (note that you can't use the email used in Django admin (superuser) to login with Orcid).
 
-### Orcid configuration
-[
+[See Orcid configuration](https://github.com/IELuomus/extractiontool/edit/main/docs/orcid_setup.md)
 
 ### Email backend
 Email backend is needed to send the verification email to new users of ETIE application. The username and password for the email backend are defined in the .env file. Email host is now set as gmail.com (`EMAIL_HOST = "smtp.gmail.com"` in project/settings.py where also other email backend settings can be found and adjusted). Note that for the gmail backend to work you will need to set the security settings of the email account to allow access to potentially harmful sites.

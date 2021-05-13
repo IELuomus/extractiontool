@@ -2,31 +2,42 @@
 
 * Install MySQL or MariaDB  and create a local database for the project. Both databases come with the MySql workbench/CLI.
   
-  Create a new database n the MySql workbench/CLI :
-  mysql> CREATE DATABASE databasenamegoeshere CHARACTER SET utf8;
+  * Create a new database n the MySql workbench/CLI :
   
-  In MySql, create a new MySQL user with a password:      
-  mysql> CREATE USER ‘username’@‘localhost’ IDENTIFIED BY ‘password’;
+  `mysql> CREATE DATABASE databasenamegoeshere CHARACTER SET utf8;`
   
-  In MariaDB, a user named 'root' is created as default and with the password given at installation.
+  * In MySql, create a new MySQL user with a password:      
   
-  Grant the new MySQL user permissions to manipulate the database:      
-  * mysql> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost';       
+  `mysql> CREATE USER ‘username’@‘localhost’ IDENTIFIED BY ‘password’;`
+  
+  * In MariaDB, a user named 'root' is created as default and with the password given at installation.
+  
+  * Grant the new MySQL user permissions to manipulate the database:      
+  
+  `mysql> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost';`
 
 * Clone the project from the [github repository](https://github.com/IELuomus/extractiontool) with 
-```git clone git@github.com:IELuomus/extractiontool.git```
+
+`git clone git@github.com:IELuomus/extractiontool.git`
 
 * Create and activate the virtual environment `pip install virtualenv` and `source venv/bin/activate`.
 
 * Create an .env file (in the folder "project") which contains the following
 
    `DATABASE_NAME = xxxx` as defined above
+   
    `DATABASE_USER = username` as defined above
+   
    `DATABASE_PASSWORD = password` as defined above
+   
    `DATABASE_HOST=127.0.0.1`
+   
    `DATABASE_PORT=3306`
+   
    `EMAIL_USER xxxx` according to your email backend
+   
    `EMAIL_PASS= xxxx` according to your email backend
+   
    `DEBUG = True` to show the Django debug toolbar in your browser
 
 

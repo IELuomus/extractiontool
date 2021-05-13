@@ -60,9 +60,13 @@ Continuous integration is implemented by GitHub Actions. There are two sets of t
 
 
 ## Django and project structure
-[Django documentation](https://docs.djangoproject.com/en/3.2/)
 
-Django applications are structured using several 'django apps', each of which is responsible for (ideally) one functionality. The apps are in separate folders with their own models.py, urls.py and views.py files. The 'main app' contains django's settings in the settings.py file. In the ETIE application the main app is called simply 'project'. The urls.py file in the 'project' folder contains references to all the other apps' urls.py files so that requests can be directed to the correct url-addresses.  
+[Architecture overview](https://github.com/IELuomus/extractiontool/blob/main/docs/architecture_overview.md)
+[Directory structure overview](https://github.com/IELuomus/extractiontool/blob/main/docs/directory_structure_overview.md)
+
+Django applications are structured using several 'django apps', each of which is responsible for (ideally) one functionality. The apps are in separate folders with their own models.py (models for database tables), urls.py (ursl for direction of requests) and views.py (functionality) files. The 'main app' contains django's settings in the settings.py file. In the ETIE application the main app is called simply 'project'. The urls.py file in the 'project' folder contains references to all the other apps' urls.py files so that requests can be directed to the correct url-addresses.  
+
+See also [Django documentation](https://docs.djangoproject.com/en/3.2/)
 
 Other django apps are document, table, spacy_parse, ner_trainer, and tesserakti. All of these apps must be listed in settings.py INSTALLED_APPS list to be functional. In addition, the folder "users" contains the models and urls for user authentication. This implementation overrides Django's default user handling and is required by the Orcid social authentication. Other folders are "features" (templates for feature tests), "devscripts" (scripts for development setup), "docker" (docker files), "docs" (documentation), "static" (javascript files), "static_templates" (also javascript files?), "templates" (html templates), LOGS(?), CONF(?). 
 

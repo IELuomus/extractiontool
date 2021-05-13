@@ -2,7 +2,7 @@
 
 First create an Orcid id, then login, and from the upper right hand corner under your account info go to "developer tools".
 
-Fill in the form following to this:
+Fill in the form as follows:
 
 
 ![Orcid1](/docs/orcid_devtools1.png)

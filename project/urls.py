@@ -12,6 +12,7 @@ urlpatterns = [
     path('pdfs/', pdf_list, name='pdf_list'),
     path('pdfs/<int:pk>/', delete_pdf, name='delete_pdf'),
     path('pdfs/upload/', upload_pdf, name='upload_pdf'),
+    path('search/', search_data, name='search'),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('accounts/', include('allauth.urls')),
@@ -23,7 +24,6 @@ urlpatterns = [
     path('parse/', include('spacy_parse.urls')),
     path('ner_trainer/', include('ner_trainer.urls')),
     path('', index, name='index'),
-    path('search', search_data, name='search')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

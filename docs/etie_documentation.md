@@ -79,7 +79,7 @@ Django applications are structured using several 'django apps', each of which is
 
 See also [Django documentation](https://docs.djangoproject.com/en/3.2/)
 
-Other django apps are document, table, spacy_parse, ner_trainer, and tesserakti. All of these apps must be listed in settings.py INSTALLED_APPS list to be functional. In addition, the folder "users" contains the models and urls for user authentication. This implementation overrides Django's default user handling and is required by the Orcid social authentication. Other folders are "features" (templates for feature tests), "devscripts" (scripts for development setup), "docker" (docker files), "docs" (documentation), "static" (javascript files), "static_templates" (also javascript files?), "templates" (html templates). 
+Other django apps are document, table, spacy_parse, ner_trainer, and tesserakti. All of these apps must be listed in settings.py INSTALLED_APPS list to be functional. In addition, the folder "users" contains the models and urls for user authentication. This implementation overrides Django's default user handling and is required by the Orcid social authentication. Other folders are "features" (templates for feature tests), "devscripts" (scripts for development setup), "docker" (docker files), "docs" (documentation), "templates_static" (javascript files?), "templates" (html templates). The folder "static" contains javascript files created by django collectstatic command from files in "templates_static".
 
 Other files:
 The (large) file patterns_scientificNames.jsonl contains in json format all names of mammals (both present and fossile) and the associated NER label SCIENTIFICNAME. This file is used in spacy_parse/views.py as a source whereform they the names and labels are read into the entity ruler in the spaCy pipeline (see below Annotating text).
@@ -105,7 +105,7 @@ When a user uploads a document, tasks are started in the background:
 Note: All these tasks are currently done for all uploaded documents.  
 
 ## Extracting text from a text pdf 
-Django app "document": PyMuPdf
+Django app "document". This app takes care of converting text pdf's to .txt files.
 
 ## Extracting data from tables
 Django app "table", together with frontend template selected_tables.html.

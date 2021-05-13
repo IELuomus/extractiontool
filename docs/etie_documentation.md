@@ -29,9 +29,13 @@ to OCR the text from the pdf
 
 ## Use guidelines in wiki 
 
+## Orcid idenfication
+
+1. Configure the Orcid social application provider accoording to [these guidelines](https://github.com/IELuomus/extractiontool/edit/main/docs/orcid_setup.md). The Client id and Client secret (key) are needed in both production and 
+local setup. 
+
 ## Development installation
 
-1. Before installation, configure the Orcid social application provider accoording to [these guidelines(https://github.com/IELuomus/extractiontool/edit/main/docs/orcid_setup.md).
 1. Clone the project repo from https://github.com/IELuomus/extractiontool.
 1. Follow the instructions for [docker setup](https://github.com/IELuomus/extractiontool/blob/main/docs/development_setup_docker.md) using a script and an .env file. This is the recommended way to develop as all developers get the exact same target environment and there will be no problems with cross-platform compatibility.  
 ( NOTE: M1/Arm CPUs don't seem to work with Docker and this app, at least for now. )

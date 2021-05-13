@@ -38,7 +38,9 @@
             </div>
             {% endif %} {% if user.is_authenticated %}
             <a href="{% url 'account_logout' %}" class="w3-bar-item w3-button w3-right w3-hover-white w3-hide-small">Logout</a> 
-            <a href="{% url 'pdf_list' %}" class="w3-bar-item w3-button w3-left w3-hover-white w3-hide-small">My pdfs</a> {% else %}
+            <a href="{% url 'pdf_list' %}" class="w3-bar-item w3-button w3-left w3-hover-white w3-hide-small">My pdfs</a> 
+            <a href="{% url 'search' %}" class="w3-bar-item w3-button w3-left w3-hover-white w3-hide-small">Search</a>
+            {% else %}
             <a href="{% url 'account_login' %}" class="w3-bar-item w3-button w3-right w3-hover-white w3-hide-small">Login | Sign Up</a> {% endif %}
         </div>
     </div>

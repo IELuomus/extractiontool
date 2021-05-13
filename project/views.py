@@ -4,6 +4,7 @@ from django.http import HttpResponse
 
 # from .models import Pdf
 from document.models import Pdf
+from .models import TraitTable
 from django.core.files import File
 from django.core.mail import send_mail
 from django.conf import settings
@@ -24,6 +25,8 @@ import en_core_web_lg
 import camelot
 import sys
 import platform
+from django.http import JsonResponse
+from django.core import serializers
 
 current_file = []
 
@@ -99,3 +102,15 @@ def delete_pdf(request, pk):
         pdf.user = request.user
         pdf.delete()
     return redirect("pdf_list")
+
+@login_required
+def search_data(request):
+    if request.method == "GET":
+        print("MOI")
+        return render(request, "search.html")
+    else:
+        json_data = json.loads(request.body)
+        sn = json_data["scientific_name"]
+        results = TraitTable.objects.filter(verbatimScientificName__icontains=sn)
+        res_json = serializers.serialize('json', results)
+        return HttpResponse(res_json, content_type='application/json')  

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% if user.is_authenticated %}
+<style>
+  .search_form{
+    width: 50%;
+    margin-left: 25%;
+    display: inline-block;
+  }
+  .text_input{
+    width: 80%;
+    display: inline-block;
+  }
+  #submit_input{
+    display: inline-block;
+    width: 19%;
+    margin-left: 0.6%;
+  }
+  table {
+    width: 50%;
+    margin-left: 25%;
+    border-collapse: collapse;
+  }
+  th, td {
+    width: 20%;
+  }
+  td {
+    border-top: 1px solid grey;
+  }
+</style>
+<script>
+  function getCookie(name) {
+      let cookie = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      return cookie ? cookie[2] : null;
+  }
+  function submitForm(event) {
+    event.preventDefault();
+    console.log(event)
+    const URL = "{% url 'search' %}"
+    fetch(URL, {
+      method: 'post',
+      headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+          'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        scientific_name: document.getElementById("search_input").value
+      }),                   
+    })
+    .then((res) => {
+        console.log(res)
+        return res.json()
+    })
+    .then(json => {
+      document.getElementById("search_result").innerHTML = ""
+      document.getElementById("notfound").innerHTML = ""
+      if (json && json.length > 0) {
+        document.getElementById("search_result").innerHTML += `<thead>
+          <tr>
+            <th>Scientific Name</th>
+            <th>Sex</th>
+            <th>Trait name</th>
+            <th>trait value</th>
+            <th>trait unit</th>
+          </tr>
+        </thead><tbody>`
+        for(var el of json) {
+          console.log(el)
+          let newEl = `<tr>
+            <td>${el?.fields?.verbatimScientificName}</td>
+            <td>${el?.fields?.sex}</td>
+            <td>${el?.fields?.verbatimTraitName}</td>
+            <td>${el?.fields?.verbatimTraitValue}</td>
+            <td>${el?.fields?.verbatimTraitUnit}</td>
+          <tr>`
+          document.getElementById("search_result").innerHTML += newEl
+        }
+        document.getElementById("search_result").innerHTML += "</tbody>"
+      } else {
+        document.getElementById("notfound").innerHTML = "Not found"
+      }
+    })
+    .catch(err => {
+        alert(`Error: ${err}`, 'danger');
+        console.log(err)
+    });
+    return false;
+  }
+</script>
+<form name="search_form" class="search_form" onsubmit="return submitForm(event)" >
+  <input type="text" id="search_input" class="text_input" placeholder="Verbatim scientific name..." />
+  <input type="submit" value="search" id="submit_input" />
+</form>
+<table id="search_result" class="table table-bordered table-striped mb-0" >
+
+</table>
+<div id="notfound" class="table"> </div>
+{% endif %}
+{% endblock content %}

@@ -31,7 +31,7 @@ to OCR the text from the pdf
 
 ## Orcid identification
 
-1. Configure the Orcid social application provider accoording to [these guidelines](https://github.com/IELuomus/extractiontool/edit/main/docs/orcid_setup.md). The Client id and Client secret (key) are needed in both production and 
+* Configure the Orcid social application provider accoording to [these guidelines](https://github.com/IELuomus/extractiontool/edit/main/docs/orcid_setup.md). The Client id and Client secret (key) are needed in both production and 
 local setup. 
 
 ## Development installation
@@ -56,6 +56,8 @@ database tables. In order to see the tables there, they tables must be registere
 
 ### CI: GitHub Actions
 Continuous integration is implemented by GitHub Actions. There are two sets of tests: [Development testing](https://github.com/IELuomus/extractiontool/actions/runs/830148389/workflow) and [Django CI](https://github.com/IELuomus/extractiontool/actions/runs/828076067/workflow). Development testing doesn't have (m)any tests. 
+
+New contributions are pushed to main branch. If all tests are passed, the changes will be automatically pushed to deployment branch.
 
 ### Docker
 

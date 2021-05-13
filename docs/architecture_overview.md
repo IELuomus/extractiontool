@@ -18,7 +18,7 @@ Submodules are
 
 Sub-modules should, in principle, contain functionality which can be thought of as independent and separate from the main application (like third party libraries, extendable and overridable). The main application should depend on the submodules, but never the other way. The main application should have all the functionality which can be thought of as specific to that application.  
 
-Note: In this project these principles don't always hold true for historical reasons (all were Django-newbies).  
+Note: In this project these principles don't always hold true for historical reasons (all the devs were Django-newbies).  
 
 
 **Runtimes**  
@@ -36,6 +36,10 @@ Development & Production:
 > `python manage.py qcluster`
 
 Background tasks communicate with the main app only through the database. ( Although django-q does have hooks which could call same code, but this is not used. )
+
+***MariaDB Database***  
+
+MariaDB ( or compatible MySQL ) database must be running somewhere with TCP connections and user authentication enabled. In development, this is typically running in local machine. With Docker, the database is running in separate container with TCP port mapped to localhost.
 
 
 

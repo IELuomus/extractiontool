@@ -29,7 +29,7 @@ to OCR the text from the pdf
 
 ## Use guidelines in wiki 
 
-## Orcid idenfication
+## Orcid identification
 
 1. Configure the Orcid social application provider accoording to [these guidelines](https://github.com/IELuomus/extractiontool/edit/main/docs/orcid_setup.md). The Client id and Client secret (key) are needed in both production and 
 local setup. 
@@ -63,6 +63,9 @@ Continuous integration is implemented by GitHub Actions. There are two sets of t
 
 ### Production environment: CSC cPouta server
 
+## Database
+
+[Database documentation](https://github.com/IELuomus/extractiontool/blob/main/docs/database.md)
 
 ## Django and project structure
 

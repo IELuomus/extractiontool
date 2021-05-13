@@ -77,8 +77,7 @@ The (large) file patterns_scientificNames.jsonl contains in json format all name
 User identification in the ETIE application happens with the [Django Allauth library](https://django-allauth.readthedocs.io/) and social account provider [Orcid](https://orcid.org). Orcid id's are unique identifiers used by researchers and other people in the academia. When the user clicks on the orcid-button in ETIE log in screen, they are directed to the log in page at orcid.org. After entering their Orcid credentials, if they are already registered users of ETIE application, they will be redirected to the ETIE front page with "logged in" status; otherwise, they will be redirected to a page in ETIE where they are prompted to enter their email for registration and verification (note that you can't use the email used in Django admin (superuser) to login with Orcid).
 
 ### Orcid configuration
-The Orcid configuration contains the site address of the application together with callback urls for both production environment and local development. These need to be in https form. First create an Orcid id, login, and from the upper right corner under your account info go to 
-"developer tools". Here set the callback urls. 
+[
 
 ### Email backend
 Email backend is needed to send the verification email to new users of ETIE application. The username and password for the email backend are defined in the .env file. Email host is now set as gmail.com (`EMAIL_HOST = "smtp.gmail.com"` in project/settings.py where also other email backend settings can be found and adjusted). Note that for the gmail backend to work you will need to set the security settings of the email account to allow access to potentially harmful sites.

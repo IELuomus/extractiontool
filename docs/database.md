@@ -34,8 +34,8 @@ Table `project_traittable` contains trait information extracted from the documen
 
 Table `table_json_table` contains information extracted from the document tables.  
 
-Tabe `ner_trainer_traitnamelearndata` contains NER trainer learned trait data.  
-
+Table `ner_trainer_traitnamelearndata` contains data in json format. One json object contains a field "content" with a (string) of 
+the sentence content and field "annotation" with information on "text" (string of the named entity), "points" (start and end index in the sentence) and "label" (the entity label) for all NER labels, both those recognized by the spaCy nlp pipeline in spacy_parse, and those added in the annotation tool with the label 'TRAITNAME'. This data can be converted into a dataset to teach a spaCy custom named entity recognizer. 
 
 ( Here only for clarity `doc_pdf`. )  
 

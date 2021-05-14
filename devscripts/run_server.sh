@@ -1,6 +1,7 @@
 #!/bin/bash
 
-mkdir -p logs/
+# load .env here too so this script can be run easily by itself.
+source .env
 
 source devscripts/common_functions.sh
 
@@ -29,6 +30,3 @@ cyan "stopping django-q cluster."
 echo "kill $task_id_djangoq_cluster"
 kill $task_id_djangoq_cluster
 echo "django-q cluster stopped."
-
-# just to make sure
-kill -9 $task_id_djangoq_cluster

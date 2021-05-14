@@ -1,7 +1,6 @@
 │  
 │ *Quick overview of the directory structure.*  
 │  
-├── conf `?`  
 ├── devscripts `scripts for development.`  
 ├── docker `Docker configurations.`  
 ├── docs `Documentation, like this file.`  

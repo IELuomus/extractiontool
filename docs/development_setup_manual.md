@@ -47,14 +47,15 @@ With these superuser credentials you will be able to login to django admin panel
 
 * Go to https://127.0.0.1:8000/admin in your browser, and login with your superuser credentials to set the 
 configuration for the Orcid login. Disregard the warning about a missing certificate and find the proper way to bypass this,
-depending on your browser (in Chrome click Advanced and then proceed to the destination). The database table "users" is 
-required for the Orcid login, so after configuring Orcid, run again `python3 manage.py makemigrations` and `python3 manage.py migrate`.
+depending on your browser (in Chrome click Advanced and then proceed to the destination).
 
-Navigate to Social applications --> Add social application and choose Orcid from the dropdown menu. 
-Click on the default example.com to modify it. Set https://etie.helsinki.fi as url and ETIE domain name.
-Set Client id and Secret key according to those provided by [Orcid devtools setup](https://github.com/IELuomus/extractiontool/blob/main/docs/orcid_setup.md).
+* Navigate to Sites and click on the default `example.com` to modify it. Set https://etie.helsinki.fi as the url and ETIE as the domain name.
+
+* Navigate to Social applications --> Add social application and choose Orcid from the dropdown menu. Set Client id and Secret key according to those provided by [Orcid devtools setup](https://github.com/IELuomus/extractiontool/blob/main/docs/orcid_setup.md).
 Move the site url from 'Available sites' to 'Chosen sites'. 
 
 * Run `python3 manage.py makemigrations` and `python3 manage.py migrate` to create the database tables.
+
+* Run `python manage.py createcachetable` (required for django-q).
 
 

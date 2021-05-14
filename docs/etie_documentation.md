@@ -59,10 +59,6 @@ Continuous integration is implemented by GitHub Actions. There are two sets of t
 
 New contributions are pushed to main branch. If all tests are passed, the changes will be automatically pushed to deployment branch.
 
-### Docker
-
-[Docker documentation](https://github.com/IELuomus/extractiontool/blob/main/docs/Docker.md)
-
 ### Production environment: CSC cPouta server
 
 ## Database

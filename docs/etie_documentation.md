@@ -40,7 +40,7 @@ local setup.
 1. Follow the instructions for [docker setup](https://github.com/IELuomus/extractiontool/blob/main/docs/development_setup_docker.md) using a script and an .env file. This is the recommended way to develop as all developers get the exact same target environment and there will be no problems with cross-platform compatibility.  
 ( NOTE: M1/Arm CPUs don't seem to work with Docker and this app, at least for now. )
 
-1. Or follow the instructions for [development setup](https://github.com/IELuomus/extractiontool/blob/main/docs/development_setup_using_scripts.md) using a bash script and an .env file.
+1. Or follow the instructions for [development setup](https://github.com/IELuomus/extractiontool/blob/main/docs/development_setup_using_scripts.md) using a bash script and an .env file. (disclaimer: the installation script does not work on Apple's M! chip)
 1. Or follow [these](https://github.com/IELuomus/extractiontool/blob/main/docs/development_setup_manual.md) instructions to set everything up manually. 
 
 ## Run the app locally

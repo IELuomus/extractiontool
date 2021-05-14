@@ -36,21 +36,6 @@ def health(request):
     return HttpResponse(status=202)
 
 
-# @login_required
-# def upload(request):
-
-#     context = {}
-#     if request.method == 'POST':
-#         uploaded_file = request.FILES['document']
-#         fs = FileSystemStorage()
-#         name = fs.save(uploaded_file.name, uploaded_file)
-#         file_path = "media/{}".format(name)
-#         current_file.clear()
-#         current_file.append(name)
-#         pdf_to_txt(name, file_path)
-#         context['url'] = fs.url(name)
-#     return render(request, 'upload.html', context)
-
 
 @login_required
 def pdf_list(request):
@@ -106,7 +91,6 @@ def delete_pdf(request, pk):
 @login_required
 def search_data(request):
     if request.method == "GET":
-        print("MOI")
         return render(request, "search.html")
     else:
         json_data = json.loads(request.body)

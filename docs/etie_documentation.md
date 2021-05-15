@@ -60,6 +60,7 @@ Continuous integration is implemented by GitHub Actions. There are two sets of t
 New contributions are pushed to main branch. If all tests are passed, the changes will be automatically pushed to deployment branch.
 
 ### Production environment: CSC cPouta server
+Please read [this file.](https://github.com/IELuomus/extractiontool/blob/main/docs/pouta.md)
 
 ## Database
 

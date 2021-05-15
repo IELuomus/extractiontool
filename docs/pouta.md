@@ -12,7 +12,7 @@ These containers are configured with docker-compose and you can find used file o
 
 Pouta is configured to utilize webhook. By calling this hook Pouta downlaods the newest version of application sourcecode from `deployment` branch. After that Pouta builds the new application container and replaces the old one. Hooks URL is `http://etie.it.helsinki.fi:9000/hooks/redeploy`. This hook has a secret, and the hook will not be ran if the secret is not provided.
 
-Pouta runs on CentOS 8, so if you want to install something, you'll need to use `yum` and `dnf`
+Pouta runs on CentOS 8, so if you want to install something, you'll need to use `yum` and `dnf`. The application sourcecode can be found in Pouta on `~/web/tool`
 
 ## How to connect to Pouta
 

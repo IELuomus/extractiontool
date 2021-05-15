@@ -28,7 +28,7 @@ to OCR the text from the pdf
   to serve as learning data in the future
 
 ## User instructions
-[Documentation](https://github.com/IELuomus/extractiontool/blob/main/docs/user_instructions.md)
+[User Guide](https://github.com/IELuomus/extractiontool/blob/main/docs/user_instructions.md)
 
 ## Orcid identification
 

@@ -15,16 +15,16 @@ After logging in, you are taken to the Pdfs -view where you can upload a pdf -fi
 Upload pdf asks you several key bits of info of the pdf that you're going to upload, as follows:
 
 **Required fields:**
-  Title - This is the title of the article or the book that you're going to be downloading.
-  Author - This is the author or authors of the article or book. It is recommended to use the same convention as in the article or book itself.
+- Title - This is the title of the article or the book that you're going to be downloading.
+- Author - This is the author or authors of the article or book. It is recommended to use the same convention as in the article or book itself.
 
 **Optional fields:**
-  Journal - The publication where the article was published
-  Volume - The number or name of the volume where the article was published, or the number of the volume in series of books
-  Issue - The specific issue of the journal where the article was published
-  Pages - The page numbers of the article in the issue where it was published
-  Year - The year when the article or book was published
-  Publisher - The publisher of the article or book.
+- Journal - The publication where the article was published
+- Volume - The number or name of the volume where the article was published, or the number of the volume in series of books
+- Issue - The specific issue of the journal where the article was published
+- Pages - The page numbers of the article in the issue where it was published
+- Year - The year when the article or book was published
+- Publisher - The publisher of the article or book.
   
 After filling in the fields above, click Choose file, and a file browser will open up, choose the correct file and click Open.
 
@@ -54,18 +54,18 @@ The purpose of this functionality is to produce learning data to train a custom 
 In this view first enter a page number from the pdf that contains a table and then click OK. You will then be forwarded to a new view where you can manually extract data from the table in question. Here you have several options, for each option first highlight the text in question from the table, and then click one of the buttons above the table.
 
 **Get Buttons:**
-  Get Trait Name - The highlighted text is specified as the trait name
-  Get Trait Value - The highlighted text is specified as the trait value for the chosen trait name
-  Get Scientific Name Value - The highlighted text is specified as the scientific name for the species of animal that the trait regards
+- Get Trait Name - The highlighted text is specified as the trait name
+- Get Trait Value - The highlighted text is specified as the trait value for the chosen trait name
+- Get Scientific Name Value - The highlighted text is specified as the scientific name for the species of animal that the trait regards
   
-  **Note** For each of these buttons, you can either highlight the text from the table below, or type in the word if it doesn't appear in the table (for instance, if the scinetific name of the animal is not included in the table.)
+**Note** For each of these buttons, you can either highlight the text from the table below, or type in the word if it doesn't appear in the table (for instance, if the scinetific name of the animal is not included in the table.)
   
 **Select dropdown boxes:**
-  Select trait unit - You can choose the correct unit for the trait from this dropdown box, the default is "not speficied"
-  Select sex for the species - You can choose the sex of the animal whom the trait is measured for, the default is "not specified"
+- Select trait unit - You can choose the correct unit for the trait from this dropdown box, the default is "not speficied"
+- Select sex for the species - You can choose the sex of the animal whom the trait is measured for, the default is "not specified"
 
 **Post-button**
-  After you have filled all the other fields, click the Post-button to add a new entry to the trait-data database.
+- After you have filled all the other fields, click the Post-button to add a new entry to the trait-data database.
 
 ## My pdfs -view
 

@@ -42,7 +42,7 @@ After some time, you will be shown a page with the first potential sentence cont
 
 The purpose of this functionality is to produce learning data to train a custom named entity model, eventually to be included in the spaCy pipeline. 
 
-**The annotated text is not saved into the database at the moment.
+**The annotated text is not saved into the database at the moment.**
 
 ### Extract data from tables
 

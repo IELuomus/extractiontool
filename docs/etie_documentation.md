@@ -27,7 +27,8 @@ to OCR the text from the pdf
 * Annotating text will result in sentences with a new NER-label 'traitname' being saved into the database, 
   to serve as learning data in the future
 
-## Use guidelines in wiki 
+## User instructions
+[User Guide](https://github.com/IELuomus/extractiontool/blob/main/docs/user_instructions.md)
 
 ## Orcid identification
 

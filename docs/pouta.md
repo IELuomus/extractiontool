@@ -44,3 +44,7 @@ The webhook configuration file is in `~/web/hooks.json`. This file has the basic
 Pouta is configured to use firewalld. For further reading, follow [this link.](https://firewalld.org/documentation/man-pages/firewall-cmd.html)
 
 The firewall is configured to allow trafic from specific ports, eg. 443 (https) and 22 (SSH). Used zone of firewalld is `public`
+
+## Editing Pouta resources
+
+To edit Pouta's resources, please read [this.](https://docs.csc.fi/cloud/pouta/) For the edits you'll need to be added to the project on CSC admin panel.

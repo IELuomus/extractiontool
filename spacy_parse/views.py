@@ -4,8 +4,6 @@ from django.contrib.auth.decorators import login_required
 from document.models import Pdf
 from document.pdf_reader import pdf_to_txt
 import spacy
-#from spacy.symbols import nsubj, VERB
-import en_core_web_lg
 import json
 
 from django.views.decorators.http import require_POST, require_GET
@@ -96,21 +94,12 @@ def parse(request, pk):
 
         sentences_with_ner_labels.append(json.dumps(sentence_with_labels))
 
-    quantity_ner_labels = ["QUANTITY", "MONEY", "PERCENT", "CARDINAL"]
-    scientificnames = [
-        ent.text for ent in trait_doc.ents if ent.label_ == "SCIENTIFICNAME"]
-    quantities = [
-        ent.text for ent in trait_doc.ents if ent.label_ in quantity_ner_labels]
-
     entities = []
     for entity in trait_doc.ents:
         entities.append(entity)
     
     parse_result = {
                     'json_sentences': sentences_with_ner_labels,
-                    #'scientificnames': scientificnames, 
-                    #'quantities': quantities
-                    #'entities' : entities
                     }
         
     return render(request, 'parse.html', parse_result)

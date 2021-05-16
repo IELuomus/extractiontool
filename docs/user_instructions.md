@@ -42,7 +42,7 @@ After some time, you will be shown a page with the first potential sentence cont
 
 The purpose of this functionality is to produce learning data to train a custom named entity model, eventually to be included in the spaCy pipeline. 
 
-**The annotated text is not saved into the database at the moment.**
+NB Currently this works so that on each click of "Confirm selection" the sentence is saved to the database. In other words, if the user wants to annotate several traitnames in one sentence, the sentence will be saved multiple times, each time with only one new traitname label.
 
 ### Extract data from tables
 

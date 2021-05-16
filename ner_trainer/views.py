@@ -9,7 +9,6 @@ current_pdf_id = []
 
 def fetch_url(request):
 
-    LABEL = "TRAITNAME"
     if request.method == "POST":
         data = request.POST
         train_instance = json.loads(request.body)

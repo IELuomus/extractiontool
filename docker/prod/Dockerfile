@@ -8,4 +8,4 @@ RUN export JAVA_HOME
 RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="none" pattern="OHTU_PROJEKTI_DISABLED_PDF" \/>/'  "/etc/ImageMagick-6/policy.xml"
 COPY --chown=root . /code/
 #RUN chmod -R 777 /code
-ENTRYPOINT ["/bin/bash", "./docker-entrypoint-prod.sh"]
+ENTRYPOINT ["/bin/bash", "./docker/prod/docker-entrypoint-prod.sh"]

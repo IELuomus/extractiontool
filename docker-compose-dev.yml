@@ -1,5 +1,5 @@
 version: "3.9"
-   
+
 services:
   db:
     image: mariadb:latest
@@ -7,7 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
       MYSQL_DATABASE: ${DATABASE_NAME}
-      MYSQL_USER: ${DATABASE_USER}  
+      MYSQL_USER: ${DATABASE_USER}
       MYSQL_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - "3306:3306"
@@ -17,17 +17,17 @@ services:
       dockerfile: docker/dev/Dockerfile
       args:
         DATABASE_NAME: ${DATABASE_NAME}
-        DATABASE_PASSWORD: ${DATABASE_PASSWORD}  
+        DATABASE_PASSWORD: ${DATABASE_PASSWORD}
         DATABASE_HOST: 'db'
-        DATABASE_PORT: ${DATABASE_PORT}  
-        DATABASE_USER: ${DATABASE_USER}  
-        EMAIL_USER: ${EMAIL_USER}  
-        EMAIL_PASS: ${EMAIL_PASS}  
-        DEBUG: ${DEBUG}  
+        DATABASE_PORT: ${DATABASE_PORT}
+        DATABASE_USER: ${DATABASE_USER}
+        EMAIL_USER: ${EMAIL_USER}
+        EMAIL_PASS: ${EMAIL_PASS}
+        DEBUG: ${DEBUG}
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "8080:8000"
       - "80:80"
       - "443:443"
     links:

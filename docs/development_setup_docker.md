@@ -22,7 +22,7 @@ Note: If you have MariaDB/MySQL running on your local machine, you have to stop 
 - `bash devscripts/run_docker.sh`
 
 ### Windows
-- `devscripts/windows/run_windows_docker.bat`
+- `devscripts\windows\run_windows_docker.bat`
 
 ### macOS
 - `bash devscripts/darwin/run_macOS_docker.sh`
